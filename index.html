@@ -2,10 +2,9 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Creatify AI Studio</title>
+  <title>Creatify AI — TON Studio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
@@ -13,12 +12,12 @@
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: radial-gradient(1200px 600px at 50% -10%, #5b5bff 0%, #0b0b16 60%);
+      background: radial-gradient(1200px 600px at 50% -10%, #5b7cff 0%, #090a18 60%);
       color: #fff;
     }
 
     .container {
-      max-width: 480px;
+      max-width: 500px;
       margin: 0 auto;
       padding: 24px;
     }
@@ -26,16 +25,16 @@
     /* LOGO */
     .logo {
       text-align: center;
-      margin: 20px 0 32px;
+      margin: 24px 0 36px;
     }
     .logo h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 32px;
+      font-size: 34px;
       letter-spacing: 1px;
       margin: 0;
     }
     .logo span {
-      font-size: 13px;
+      font-size: 12px;
       opacity: 0.7;
       letter-spacing: 2px;
     }
@@ -43,7 +42,7 @@
     /* HERO */
     .hero {
       text-align: center;
-      margin-bottom: 32px;
+      margin-bottom: 36px;
     }
     .hero h2 {
       font-family: 'Space Grotesk', sans-serif;
@@ -51,12 +50,11 @@
       margin-bottom: 12px;
     }
     .hero p {
-      opacity: 0.8;
+      opacity: 0.85;
       font-size: 15px;
       line-height: 1.5;
     }
 
-    /* SERVICES */
     .section-title {
       font-family: 'Space Grotesk', sans-serif;
       margin: 32px 0 16px;
@@ -69,17 +67,17 @@
     }
 
     .card {
-      background: linear-gradient(135deg, #1a1a3a, #0f0f22);
+      background: linear-gradient(135deg, #141633, #0b0c1d);
       border-radius: 16px;
       padding: 18px;
-      border: 1px solid rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.07);
       cursor: pointer;
       transition: transform 0.15s ease, border 0.15s ease;
     }
 
     .card:hover {
       transform: translateY(-2px);
-      border-color: rgba(120,120,255,0.6);
+      border-color: rgba(120,140,255,0.7);
     }
 
     .card h3 {
@@ -92,28 +90,29 @@
       font-family: 'Space Grotesk', sans-serif;
       font-size: 20px;
       margin-top: 8px;
-      color: #9fa8ff;
+      color: #9fb0ff;
     }
 
     /* FORM */
     .form {
       display: none;
-      margin-top: 32px;
-      background: linear-gradient(135deg, #11112a, #0b0b1a);
+      margin-top: 36px;
+      background: linear-gradient(135deg, #10122a, #090a16);
       border-radius: 18px;
-      padding: 20px;
+      padding: 22px;
       border: 1px solid rgba(255,255,255,0.08);
     }
 
     .form h3 {
       font-family: 'Space Grotesk', sans-serif;
       margin-bottom: 16px;
+      font-size: 18px;
     }
 
     textarea, input {
       width: 100%;
-      background: #0e0e20;
-      border: 1px solid rgba(255,255,255,0.1);
+      background: #0e1024;
+      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 12px;
       padding: 12px;
       color: #fff;
@@ -127,7 +126,7 @@
 
     button {
       width: 100%;
-      background: linear-gradient(135deg, #6a6aff, #8a7bff);
+      background: linear-gradient(135deg, #6a7bff, #8b6bff);
       border: none;
       border-radius: 14px;
       padding: 14px;
@@ -135,10 +134,6 @@
       font-weight: 600;
       cursor: pointer;
       color: #fff;
-    }
-
-    button:hover {
-      opacity: 0.95;
     }
 
     .note {
@@ -151,77 +146,74 @@
 </head>
 
 <body>
-  <div class="container">
+<div class="container">
 
-    <!-- LOGO -->
-    <div class="logo">
-      <h1>CREATIFY</h1>
-      <span>AI STUDIO</span>
-    </div>
-
-    <!-- HERO -->
-    <div class="hero">
-      <h2>AI-креативы под заказ</h2>
-      <p>
-        Фото и видео для бизнеса, рекламы и соцсетей.  
-        Вы выбираете услугу — мы создаём результат до 24 часов.
-      </p>
-    </div>
-
-    <!-- SERVICES -->
-    <div class="section-title">Выберите услугу</div>
-    <div class="cards">
-      <div class="card" onclick="selectService('Фото — базовый уровень (5)')">
-        <h3>Фото · базовый</h3>
-        <div class="price">5</div>
-      </div>
-
-      <div class="card" onclick="selectService('Фото — стандарт (10)')">
-        <h3>Фото · стандарт</h3>
-        <div class="price">10</div>
-      </div>
-
-      <div class="card" onclick="selectService('Фото — сложный (15)')">
-        <h3>Фото · сложный</h3>
-        <div class="price">15</div>
-      </div>
-
-      <div class="card" onclick="selectService('Видео — стандарт (20)')">
-        <h3>Видео · стандарт</h3>
-        <div class="price">20</div>
-      </div>
-
-      <div class="card" onclick="selectService('Видео — сложный (25)')">
-        <h3>Видео · сложный</h3>
-        <div class="price">25</div>
-      </div>
-    </div>
-
-    <!-- FORM -->
-    <div class="form" id="orderForm">
-      <h3 id="serviceTitle"></h3>
-
-      <textarea placeholder="Опишите задачу: стиль, цель, что должно быть в кадре"></textarea>
-
-      <input type="file" multiple accept="image/*,video/*">
-
-      <input type="email" placeholder="Ваш e-mail для получения результата">
-
-      <button>Отправить заказ</button>
-
-      <div class="note">
-        После отправки мы свяжемся с вами и подтвердим детали
-      </div>
-    </div>
-
+  <div class="logo">
+    <h1>CREATIFY</h1>
+    <span>AI · TON STUDIO</span>
   </div>
 
-  <script>
-    function selectService(name) {
-      document.getElementById('orderForm').style.display = 'block';
-      document.getElementById('serviceTitle').innerText = name;
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    }
-  </script>
+  <div class="hero">
+    <h2>AI-креативы под заказ</h2>
+    <p>
+      Фото и видео для бизнеса, рекламы и соцсетей.  
+      Оплата в <b>TON</b>. Срок исполнения — до 24 часов.
+    </p>
+  </div>
+
+  <div class="section-title">Фото</div>
+  <div class="cards">
+    <div class="card" onclick="selectService('Фото · лёгкое — 10 TON')">
+      <h3>Лёгкое фото</h3>
+      <div class="price">10 TON</div>
+    </div>
+    <div class="card" onclick="selectService('Фото · среднее — 20 TON')">
+      <h3>Среднее фото</h3>
+      <div class="price">20 TON</div>
+    </div>
+    <div class="card" onclick="selectService('Фото · сложное — 60 TON')">
+      <h3>Сложное фото</h3>
+      <div class="price">60 TON</div>
+    </div>
+  </div>
+
+  <div class="section-title">Видео</div>
+  <div class="cards">
+    <div class="card" onclick="selectService('Видео · лёгкое — 20 TON')">
+      <h3>Лёгкое видео</h3>
+      <div class="price">20 TON</div>
+    </div>
+    <div class="card" onclick="selectService('Видео · среднее — 50 TON')">
+      <h3>Среднее видео</h3>
+      <div class="price">50 TON</div>
+    </div>
+    <div class="card" onclick="selectService('Видео · сложное — 100 TON')">
+      <h3>Сложное видео</h3>
+      <div class="price">100 TON</div>
+    </div>
+  </div>
+
+  <div class="form" id="orderForm">
+    <h3 id="serviceTitle"></h3>
+
+    <textarea placeholder="Опишите задачу, стиль, цель, примеры"></textarea>
+    <input type="file" multiple accept="image/*,video/*">
+    <input type="email" placeholder="Ваш e-mail">
+    <button>Отправить заказ</button>
+
+    <div class="note">
+      Оплата производится в TON. После отправки мы свяжемся с вами.
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function selectService(name) {
+    document.getElementById('orderForm').style.display = 'block';
+    document.getElementById('serviceTitle').innerText = name;
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }
+</script>
 </body>
 </html>
