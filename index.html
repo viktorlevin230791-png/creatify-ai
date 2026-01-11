@@ -1,213 +1,227 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Creatify AI Studio</title>
+  <meta charset="UTF-8" />
+  <title>Creatify AI Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
-<style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:'Inter',sans-serif;
-  background:radial-gradient(circle at top,#3b1cff,#0b0b0b 65%);
-  color:#fff;
-  padding:20px
-}
-.logo{font-size:28px;font-weight:900}
-.logo span{color:#ff4ecd}
-h1{font-size:36px;margin:14px 0}
-h2{font-size:24px;margin-bottom:14px}
-p{opacity:.85;line-height:1.6}
-.screen{display:none}
-.screen.active{display:block}
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(1200px 600px at 50% -10%, #5b5bff 0%, #0b0b16 60%);
+      color: #fff;
+    }
 
-.card{
-  background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.04));
-  border-radius:22px;
-  padding:24px;
-  margin-top:20px
-}
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 24px;
+    }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:16px
-}
+    /* LOGO */
+    .logo {
+      text-align: center;
+      margin: 20px 0 32px;
+    }
+    .logo h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+      letter-spacing: 1px;
+      margin: 0;
+    }
+    .logo span {
+      font-size: 13px;
+      opacity: 0.7;
+      letter-spacing: 2px;
+    }
 
-.option{
-  padding:18px;
-  border-radius:18px;
-  background:rgba(255,255,255,.12);
-  text-align:center;
-  cursor:pointer
-}
+    /* HERO */
+    .hero {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .hero h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+    .hero p {
+      opacity: 0.8;
+      font-size: 15px;
+      line-height: 1.5;
+    }
 
-button{
-  width:100%;
-  padding:18px;
-  border-radius:16px;
-  border:none;
-  font-weight:700;
-  font-size:16px;
-  margin-top:16px;
-  background:linear-gradient(135deg,#ff4ecd,#6c3eff);
-  color:#fff
-}
+    /* SERVICES */
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      margin: 32px 0 16px;
+      font-size: 18px;
+    }
 
-input,textarea{
-  width:100%;
-  padding:16px;
-  border-radius:14px;
-  border:none;
-  margin-top:10px;
-  font-size:15px
-}
+    .cards {
+      display: grid;
+      gap: 14px;
+    }
 
-.progress{
-  display:flex;
-  gap:8px;
-  margin-top:20px
-}
-.progress div{
-  flex:1;
-  height:6px;
-  border-radius:6px;
-  background:rgba(255,255,255,.2)
-}
-.progress .active{background:#ff4ecd}
+    .card {
+      background: linear-gradient(135deg, #1a1a3a, #0f0f22);
+      border-radius: 16px;
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,0.06);
+      cursor: pointer;
+      transition: transform 0.15s ease, border 0.15s ease;
+    }
 
-.step{display:none}
-.step.active{display:block}
-.small{font-size:13px;opacity:.7}
-</style>
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(120,120,255,0.6);
+    }
+
+    .card h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .price {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      margin-top: 8px;
+      color: #9fa8ff;
+    }
+
+    /* FORM */
+    .form {
+      display: none;
+      margin-top: 32px;
+      background: linear-gradient(135deg, #11112a, #0b0b1a);
+      border-radius: 18px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .form h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      margin-bottom: 16px;
+    }
+
+    textarea, input {
+      width: 100%;
+      background: #0e0e20;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 12px;
+      color: #fff;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    input[type="file"] {
+      padding: 10px;
+    }
+
+    button {
+      width: 100%;
+      background: linear-gradient(135deg, #6a6aff, #8a7bff);
+      border: none;
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    button:hover {
+      opacity: 0.95;
+    }
+
+    .note {
+      margin-top: 12px;
+      font-size: 12px;
+      opacity: 0.6;
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body>
+  <div class="container">
 
-<!-- HOME -->
-<div class="screen active" id="home">
-  <div class="logo">Creatify<span>AI</span> Studio</div>
-  <h1>AI фото и видео под заказ</h1>
-  <p>
-    Мы создаём AI-креативы для бизнеса, рекламы и соцсетей.  
-    Вы описываете задачу — мы присылаем готовый результат.  
-    ⏱ Срок исполнения — до 24 часов.
-  </p>
+    <!-- LOGO -->
+    <div class="logo">
+      <h1>CREATIFY</h1>
+      <span>AI STUDIO</span>
+    </div>
 
-  <div class="grid">
-    <div class="card">🖼 Фото для рекламы, соцсетей, брендов</div>
-    <div class="card">🎥 Видео для Reels, Shorts, презентаций</div>
-    <div class="card">🎨 Любые стили: реализм, кино, арт</div>
-    <div class="card">⚡ Без съёмок и студий</div>
+    <!-- HERO -->
+    <div class="hero">
+      <h2>AI-креативы под заказ</h2>
+      <p>
+        Фото и видео для бизнеса, рекламы и соцсетей.  
+        Вы выбираете услугу — мы создаём результат до 24 часов.
+      </p>
+    </div>
+
+    <!-- SERVICES -->
+    <div class="section-title">Выберите услугу</div>
+    <div class="cards">
+      <div class="card" onclick="selectService('Фото — базовый уровень (5)')">
+        <h3>Фото · базовый</h3>
+        <div class="price">5</div>
+      </div>
+
+      <div class="card" onclick="selectService('Фото — стандарт (10)')">
+        <h3>Фото · стандарт</h3>
+        <div class="price">10</div>
+      </div>
+
+      <div class="card" onclick="selectService('Фото — сложный (15)')">
+        <h3>Фото · сложный</h3>
+        <div class="price">15</div>
+      </div>
+
+      <div class="card" onclick="selectService('Видео — стандарт (20)')">
+        <h3>Видео · стандарт</h3>
+        <div class="price">20</div>
+      </div>
+
+      <div class="card" onclick="selectService('Видео — сложный (25)')">
+        <h3>Видео · сложный</h3>
+        <div class="price">25</div>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="form" id="orderForm">
+      <h3 id="serviceTitle"></h3>
+
+      <textarea placeholder="Опишите задачу: стиль, цель, что должно быть в кадре"></textarea>
+
+      <input type="file" multiple accept="image/*,video/*">
+
+      <input type="email" placeholder="Ваш e-mail для получения результата">
+
+      <button>Отправить заказ</button>
+
+      <div class="note">
+        После отправки мы свяжемся с вами и подтвердим детали
+      </div>
+    </div>
+
   </div>
 
-  <button onclick="go('service')">Выбрать услугу</button>
-</div>
-
-<!-- SERVICE -->
-<div class="screen" id="service">
-  <h2>Выберите услугу</h2>
-
-  <div class="grid">
-    <div class="option" onclick="selectService('AI Фото','Лёгкое — 500 ₽')">
-      🖼 Лёгкое фото<br><b>500 ₽</b>
-    </div>
-    <div class="option" onclick="selectService('AI Фото','Среднее — 2 000 ₽')">
-      🖼 Среднее фото<br><b>2 000 ₽</b>
-    </div>
-    <div class="option" onclick="selectService('AI Фото','Сложное — 5 000 ₽')">
-      🖼 Сложное фото<br><b>5 000 ₽</b>
-    </div>
-    <div class="option" onclick="selectService('AI Видео','Простое — 1 500 ₽')">
-      🎥 Простое видео<br><b>1 500 ₽</b>
-    </div>
-    <div class="option" onclick="selectService('AI Видео','Среднее — 5 000 ₽')">
-      🎥 Среднее видео<br><b>5 000 ₽</b>
-    </div>
-    <div class="option" onclick="selectService('AI Видео','Сложное — 10 000 ₽')">
-      🎥 Сложное видео<br><b>10 000 ₽</b>
-    </div>
-  </div>
-</div>
-
-<!-- ORDER -->
-<div class="screen" id="order">
-  <h2 id="orderTitle"></h2>
-  <p id="orderPrice"></p>
-
-  <div class="progress">
-    <div class="active"></div><div></div><div></div>
-  </div>
-
-  <form
-    action="https://formsubmit.co/ТВОЯПОЧТА@gmail.com"
-    method="POST"
-    enctype="multipart/form-data">
-
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_subject" value="Новый заказ Creatify AI">
-    <input type="hidden" name="service" id="serviceInput">
-    <input type="hidden" name="price" id="priceInput">
-
-    <div class="card step active" id="step1">
-      <h2>1️⃣ Описание</h2>
-      <textarea name="description" rows="5" placeholder="Опишите задачу" required></textarea>
-      <button type="button" onclick="nextStep(1)">Далее</button>
-    </div>
-
-    <div class="card step" id="step2">
-      <h2>2️⃣ Загрузка материалов</h2>
-      <input type="file" name="files" multiple>
-      <button type="button" onclick="nextStep(2)">Далее</button>
-    </div>
-
-    <div class="card step" id="step3">
-      <h2>3️⃣ Контакты</h2>
-      <input type="email" name="email" placeholder="Email" required>
-      <input type="text" name="telegram" placeholder="Telegram">
-      <p class="small">⏱ Срок исполнения — до 24 часов</p>
-      <button type="submit">Отправить заказ</button>
-    </div>
-  </form>
-</div>
-
-<!-- CLIENT -->
-<div class="screen" id="client">
-  <h2>Ваш заказ</h2>
-  <div class="card">
-    <p><b>Статус:</b> В работе</p>
-    <p><b>Срок:</b> до 24 часов</p>
-    <p class="small">Мы свяжемся с вами для уточнений</p>
-  </div>
-  <button onclick="go('home')">На главную</button>
-</div>
-
-<script>
-function go(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-function selectService(service, price){
-  document.getElementById('orderTitle').innerText = service;
-  document.getElementById('orderPrice').innerText = price;
-  document.getElementById('serviceInput').value = service;
-  document.getElementById('priceInput').value = price;
-  go('order');
-}
-
-function nextStep(step){
-  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
-  document.getElementById('step'+(step+1)).classList.add('active');
-
-  document.querySelectorAll('.progress div').forEach((p,i)=>{
-    p.classList.toggle('active', i<=step);
-  });
-}
-</script>
-
+  <script>
+    function selectService(name) {
+      document.getElementById('orderForm').style.display = 'block';
+      document.getElementById('serviceTitle').innerText = name;
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+  </script>
 </body>
 </html>
