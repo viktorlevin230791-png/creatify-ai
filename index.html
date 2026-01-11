@@ -1,176 +1,146 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>Creatify AI — Telegram Service</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Creatify AI</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:'Inter',sans-serif;
-  background:radial-gradient(1000px 500px at 50% -10%,#5b7cff,#090a18 65%);
-  color:#fff;
-}
-.container{
-  max-width:480px;
-  margin:0 auto;
-  padding:24px;
-}
-.logo{text-align:center;margin:24px 0}
-.logo h1{
-  font-family:'Space Grotesk',sans-serif;
-  font-size:34px;
-  margin:0;
-}
-.logo span{
-  font-size:12px;
-  letter-spacing:2px;
-  opacity:.7;
-}
-.hero{text-align:center;margin-bottom:32px}
-.hero h2{
-  font-family:'Space Grotesk',sans-serif;
-  font-size:22px;
-}
-.hero p{opacity:.85}
-
-.section-title{
-  font-family:'Space Grotesk',sans-serif;
-  margin:32px 0 16px;
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: radial-gradient(circle at top, #5b4bff, #0b0b14);
+  color: #fff;
 }
 
-.card{
-  background:linear-gradient(135deg,#141633,#0b0c1d);
-  border-radius:16px;
-  padding:18px;
-  border:1px solid rgba(255,255,255,.08);
-  margin-bottom:14px;
-  cursor:pointer;
+.container {
+  max-width: 420px;
+  margin: auto;
+  padding: 24px 16px 40px;
 }
 
-.price{
-  font-family:'Space Grotesk',sans-serif;
-  color:#9fb0ff;
-  font-size:18px;
+.logo {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
 }
 
-button{
-  width:100%;
-  padding:14px;
-  border-radius:14px;
-  border:none;
-  font-weight:600;
-  background:linear-gradient(135deg,#6a7bff,#8b6bff);
-  color:#fff;
-  font-size:15px;
+.subtitle {
+  text-align: center;
+  opacity: 0.85;
+  margin-bottom: 32px;
+  line-height: 1.5;
 }
 
-.form{
-  display:none;
-  margin-top:24px;
-  background:#0d0f22;
-  border-radius:18px;
-  padding:20px;
-  border:1px solid rgba(255,255,255,.1);
+.card {
+  background: rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 16px;
+  backdrop-filter: blur(10px);
 }
 
-input,textarea{
-  width:100%;
-  background:#0e1024;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:12px;
-  padding:12px;
-  color:#fff;
-  margin-bottom:14px;
+.card h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
 }
-.note{font-size:12px;opacity:.7;text-align:center;margin-top:12px}
+
+.card p {
+  margin: 0;
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+.button {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(135deg, #7b6cff, #ff4fd8);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.hidden { display: none; }
+
+.option {
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.1);
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.option.active {
+  background: linear-gradient(135deg, #6f5cff, #ff55c8);
+}
+.price {
+  float: right;
+  opacity: 0.9;
+}
 </style>
 </head>
 
 <body>
 <div class="container">
 
-<div class="logo">
-  <h1>CREATIFY</h1>
-  <span>AI · TELEGRAM STUDIO</span>
-</div>
-
-<div class="hero">
-  <h2>AI фото и видео под заказ</h2>
-  <p>
-    Выберите услугу → опишите задачу → <b>оплатите в Telegram</b>.<br>
-    Срок исполнения — до 24 часов.
-  </p>
-</div>
-
-<div class="section-title">Выберите услугу</div>
-
-<div class="card" onclick="selectService('Фото · лёгкое','10 TON')">
-  Фото · лёгкое
-  <div class="price">10 TON</div>
-</div>
-
-<div class="card" onclick="selectService('Фото · среднее','20 TON')">
-  Фото · среднее
-  <div class="price">20 TON</div>
-</div>
-
-<div class="card" onclick="selectService('Фото · сложное','60 TON')">
-  Фото · сложное
-  <div class="price">60 TON</div>
-</div>
-
-<div class="card" onclick="selectService('Видео · среднее','50 TON')">
-  Видео · среднее
-  <div class="price">50 TON</div>
-</div>
-
-<div class="card" onclick="selectService('Видео · сложное','100 TON')">
-  Видео · сложное
-  <div class="price">100 TON</div>
-</div>
-
-<div class="form" id="orderForm">
-  <h3 id="serviceTitle"></h3>
-  <p id="servicePrice"></p>
-
-  <textarea placeholder="Опишите задачу, стиль, цель"></textarea>
-  <input type="file" multiple>
-  <input type="email" placeholder="Email для получения результата">
-
-  <button onclick="goToTelegram()">Перейти к оплате в Telegram</button>
-
-  <div class="note">
-    Оплата производится <b>внутри Telegram</b><br>
-    через Wallet / Stars
+  <div class="logo">Creatify AI</div>
+  <div class="subtitle">
+    AI-фото и видео под заказ для бизнеса, рекламы и соцсетей.<br>
+    Срок выполнения — до 24 часов.
   </div>
-</div>
+
+  <!-- ШАГ 1 -->
+  <div class="card" id="step1">
+    <h3>1. Выберите услугу</h3>
+    <div class="option" onclick="selectService('photo')">Фото</div>
+    <div class="option" onclick="selectService('video')">Видео</div>
+  </div>
+
+  <!-- ШАГ 2 -->
+  <div class="card hidden" id="step2">
+    <h3>2. Сложность</h3>
+
+    <div class="option" onclick="selectPlan('easy',5)">Лёгкая <span class="price">5 TON</span></div>
+    <div class="option" onclick="selectPlan('medium',20)">Средняя <span class="price">20 TON</span></div>
+    <div class="option" onclick="selectPlan('hard',50)">Сложная <span class="price">50 TON</span></div>
+  </div>
+
+  <!-- ШАГ 3 -->
+  <div class="card hidden" id="step3">
+    <h3>3. Оплата</h3>
+    <p>Оплата происходит в Telegram через внутренний баланс (TON).</p>
+    <button class="button" onclick="goTelegram()">Перейти к оплате</button>
+  </div>
 
 </div>
 
 <script>
-let selectedService = '';
-let selectedPrice = '';
+let service = null;
+let price = 0;
 
-function selectService(name, price){
-  selectedService = name;
-  selectedPrice = price;
-  document.getElementById('serviceTitle').innerText = name;
-  document.getElementById('servicePrice').innerText = 'Цена: ' + price;
-  document.getElementById('orderForm').style.display = 'block';
-  window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+function selectService(type) {
+  service = type;
+  document.getElementById('step2').classList.remove('hidden');
 }
 
-function goToTelegram(){
-  const text = encodeURIComponent(
-    'Заказ: ' + selectedService + '\nЦена: ' + selectedPrice
-  );
-  window.location.href =
-    'https://t.me/ТВОЙ_БОТ_USERNAME?start=order_' + text;
+function selectPlan(level, cost) {
+  price = cost;
+  document.getElementById('step3').classList.remove('hidden');
+}
+
+function goTelegram() {
+  // ВАЖНО: здесь будет твой бот
+  window.location.href = "https://t.me/YOUR_BOT_USERNAME?start=order_" + price;
 }
 </script>
 
