@@ -16,22 +16,33 @@ body{
   color:#fff;
   padding:20px
 }
-
-.logo{
-  font-size:28px;
-  font-weight:900
-}
+.logo{font-size:28px;font-weight:900}
 .logo span{color:#ff4ecd}
-
-h1{font-size:34px;margin:12px 0}
-h2{font-size:22px;margin-bottom:12px}
+h1{font-size:36px;margin:14px 0}
+h2{font-size:24px;margin-bottom:14px}
 p{opacity:.85;line-height:1.6}
+.screen{display:none}
+.screen.active{display:block}
 
 .card{
   background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.04));
   border-radius:22px;
   padding:24px;
   margin-top:20px
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px
+}
+
+.option{
+  padding:18px;
+  border-radius:18px;
+  background:rgba(255,255,255,.12);
+  text-align:center;
+  cursor:pointer
 }
 
 button{
@@ -70,66 +81,124 @@ input,textarea{
 
 .step{display:none}
 .step.active{display:block}
-
 .small{font-size:13px;opacity:.7}
 </style>
 </head>
 
 <body>
 
-<div class="logo">Creatify<span>AI</span> Studio</div>
-<h1>AI фото и видео под заказ</h1>
-<p>Современные AI-креативы под вашу задачу. Срок исполнения — до 24 часов.</p>
+<!-- HOME -->
+<div class="screen active" id="home">
+  <div class="logo">Creatify<span>AI</span> Studio</div>
+  <h1>AI фото и видео под заказ</h1>
+  <p>
+    Мы создаём AI-креативы для бизнеса, рекламы и соцсетей.  
+    Вы описываете задачу — мы присылаем готовый результат.  
+    ⏱ Срок исполнения — до 24 часов.
+  </p>
 
-<div class="progress">
-  <div class="active"></div>
-  <div></div>
-  <div></div>
+  <div class="grid">
+    <div class="card">🖼 Фото для рекламы, соцсетей, брендов</div>
+    <div class="card">🎥 Видео для Reels, Shorts, презентаций</div>
+    <div class="card">🎨 Любые стили: реализм, кино, арт</div>
+    <div class="card">⚡ Без съёмок и студий</div>
+  </div>
+
+  <button onclick="go('service')">Выбрать услугу</button>
 </div>
 
-<form
-  action="https://formsubmit.co/info@rmml.ru"
-  method="POST"
-  enctype="multipart/form-data">
+<!-- SERVICE -->
+<div class="screen" id="service">
+  <h2>Выберите услугу</h2>
 
-<input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_subject" value="Новый заказ Creatify AI">
-<input type="hidden" name="_template" value="table">
-
-<!-- STEP 1 -->
-<div class="card step active" id="step1">
-  <h2>1️⃣ Опишите задачу</h2>
-  <textarea name="description" rows="6"
-    placeholder="Что нужно сделать? Для чего? Стиль, примеры, пожелания"
-    required></textarea>
-
-  <button type="button" onclick="nextStep(1)">Далее →</button>
+  <div class="grid">
+    <div class="option" onclick="selectService('AI Фото','Лёгкое — 500 ₽')">
+      🖼 Лёгкое фото<br><b>500 ₽</b>
+    </div>
+    <div class="option" onclick="selectService('AI Фото','Среднее — 2 000 ₽')">
+      🖼 Среднее фото<br><b>2 000 ₽</b>
+    </div>
+    <div class="option" onclick="selectService('AI Фото','Сложное — 5 000 ₽')">
+      🖼 Сложное фото<br><b>5 000 ₽</b>
+    </div>
+    <div class="option" onclick="selectService('AI Видео','Простое — 1 500 ₽')">
+      🎥 Простое видео<br><b>1 500 ₽</b>
+    </div>
+    <div class="option" onclick="selectService('AI Видео','Среднее — 5 000 ₽')">
+      🎥 Среднее видео<br><b>5 000 ₽</b>
+    </div>
+    <div class="option" onclick="selectService('AI Видео','Сложное — 10 000 ₽')">
+      🎥 Сложное видео<br><b>10 000 ₽</b>
+    </div>
+  </div>
 </div>
 
-<!-- STEP 2 -->
-<div class="card step" id="step2">
-  <h2>2️⃣ Загрузите материалы</h2>
-  <p class="small">Фото, видео или референсы (если есть)</p>
-  <input type="file" name="files" multiple>
+<!-- ORDER -->
+<div class="screen" id="order">
+  <h2 id="orderTitle"></h2>
+  <p id="orderPrice"></p>
 
-  <button type="button" onclick="nextStep(2)">Далее →</button>
+  <div class="progress">
+    <div class="active"></div><div></div><div></div>
+  </div>
+
+  <form
+    action="https://formsubmit.co/ТВОЯПОЧТА@gmail.com"
+    method="POST"
+    enctype="multipart/form-data">
+
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_subject" value="Новый заказ Creatify AI">
+    <input type="hidden" name="service" id="serviceInput">
+    <input type="hidden" name="price" id="priceInput">
+
+    <div class="card step active" id="step1">
+      <h2>1️⃣ Описание</h2>
+      <textarea name="description" rows="5" placeholder="Опишите задачу" required></textarea>
+      <button type="button" onclick="nextStep(1)">Далее</button>
+    </div>
+
+    <div class="card step" id="step2">
+      <h2>2️⃣ Загрузка материалов</h2>
+      <input type="file" name="files" multiple>
+      <button type="button" onclick="nextStep(2)">Далее</button>
+    </div>
+
+    <div class="card step" id="step3">
+      <h2>3️⃣ Контакты</h2>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="telegram" placeholder="Telegram">
+      <p class="small">⏱ Срок исполнения — до 24 часов</p>
+      <button type="submit">Отправить заказ</button>
+    </div>
+  </form>
 </div>
 
-<!-- STEP 3 -->
-<div class="card step" id="step3">
-  <h2>3️⃣ Контакты</h2>
-
-  <input type="email" name="email" placeholder="Email для получения результата" required>
-  <input type="text" name="telegram" placeholder="Telegram для связи (@username)">
-
-  <p class="small">⏱ Срок исполнения — до 24 часов</p>
-
-  <button type="submit">🚀 Отправить заказ</button>
+<!-- CLIENT -->
+<div class="screen" id="client">
+  <h2>Ваш заказ</h2>
+  <div class="card">
+    <p><b>Статус:</b> В работе</p>
+    <p><b>Срок:</b> до 24 часов</p>
+    <p class="small">Мы свяжемся с вами для уточнений</p>
+  </div>
+  <button onclick="go('home')">На главную</button>
 </div>
-
-</form>
 
 <script>
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function selectService(service, price){
+  document.getElementById('orderTitle').innerText = service;
+  document.getElementById('orderPrice').innerText = price;
+  document.getElementById('serviceInput').value = service;
+  document.getElementById('priceInput').value = price;
+  go('order');
+}
+
 function nextStep(step){
   document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
   document.getElementById('step'+(step+1)).classList.add('active');
@@ -142,4 +211,3 @@ function nextStep(step){
 
 </body>
 </html>
-
