@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creatify AI Studio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background:radial-gradient(circle at top,#3b1cff,#0b0b0b 60%);
+  color:white;
+  padding:20px
+}
+.logo{
+  font-size:28px;
+  font-weight:900;
+  letter-spacing:-1px
+}
+.logo span{color:#ff4ecd}
+h1{font-size:32px;margin:10px 0}
+h2{font-size:24px;margin-bottom:12px}
+p{opacity:.85;line-height:1.5}
+.screen{display:none}
+.screen.active{display:block}
+.card{
+  background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.05));
+  border-radius:22px;
+  padding:22px;
+  margin-top:18px;
+  box-shadow:0 20px 40px rgba(0,0,0,.35)
+}
+button{
+  width:100%;
+  padding:18px;
+  margin-top:14px;
+  border:none;
+  border-radius:16px;
+  font-weight:700;
+  font-size:16px;
+  background:linear-gradient(135deg,#ff4ecd,#6c3eff);
+  color:white
+}
+button.secondary{background:rgba(255,255,255,.14)}
+input,textarea,select{
+  width:100%;
+  padding:16px;
+  margin-top:12px;
+  border-radius:14px;
+  border:none;
+  font-size:15px
+}
+.price{
+  font-size:22px;
+  font-weight:800;
+  color:#ffdd6c;
+  margin-top:10px
+}
+.checkbox{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:14px;
+  font-size:14px
+}
+.checkbox input{
+  width:18px;
+  height:18px;
+  accent-color:#ff4ecd
+}
+.small{font-size:13px;opacity:.7}
+.order-item{
+  background:rgba(255,255,255,.1);
+  border-radius:14px;
+  padding:14px;
+  margin-top:10px;
+  font-size:14px
+}
+</style>
+</head>
+
+<body>
+
+<!-- HOME -->
+<div class="screen active" id="home">
+  <div class="logo">Creatify<span>AI</span> Studio</div>
+  <h1>AI-креатив под заказ</h1>
+  <p>Вы описываете задачу — мы создаём AI-фото или AI-видео и отправляем готовый результат на почту.</p>
+
+  <div class="card">
+    <p>🖼 Фото — от <b>500 ₽</b></p>
+    <p>🎥 Видео — от <b>1 500 ₽</b></p>
+    <p class="small">⏱ Срок исполнения: до 24 часов</p>
+  </div>
+
+  <button onclick="go('order')">Сделать заказ</button>
+  <button class="secondary" onclick="go('admin')">Управление заказами</button>
+</div>
+
+<!-- ORDER -->
+<div class="screen" id="order">
+  <h2>Оформление заказа</h2>
+
+  <div class="card">
+    <select id="type" onchange="updateOptions()">
+      <option value="photo">AI-Фото</option>
+      <option value="video">AI-Видео</option>
+    </select>
+
+    <select id="level" onchange="calcPrice()"></select>
+
+    <textarea id="task" placeholder="Подробно опишите задачу"></textarea>
+    <input id="email" type="email" placeholder="Email для получения результата">
+
+    <div class="price" id="price">—</div>
+    <p class="small">⏱ Срок исполнения: до 24 часов</p>
+
+    <div class="checkbox">
+      <input type="checkbox" id="agree">
+      <label for="agree">Принимаю условия соглашения</label>
+    </div>
+
+    <button onclick="submitOrder()">Отправить заказ</button>
+  </div>
+
+  <button class="secondary" onclick="go('home')">← Назад</button>
+</div>
+
+<!-- CONFIRM -->
+<div class="screen" id="confirm">
+  <h2>✅ Заказ принят</h2>
+  <div class="card">
+    <p>Мы получили ваш запрос.</p>
+    <p>Результат будет отправлен на указанный email.</p>
+    <p class="small">Срок исполнения — до 24 часов.</p>
+  </div>
+  <button onclick="go('home')">На главную</button>
+</div>
+
+<!-- ADMIN -->
+<div class="screen" id="admin">
+  <h2>📋 Заказы</h2>
+  <div id="orders"></div>
+  <button class="secondary" onclick="go('home')">← Назад</button>
+</div>
+
+<script>
+let orders=[];
+
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function updateOptions(){
+  const type=document.getElementById('type').value;
+  const level=document.getElementById('level');
+  level.innerHTML='';
+
+  const options = type==='photo'
+    ? [
+      ['500','Лёгкое фото — 500 ₽'],
+      ['2000','Среднее фото — 2 000 ₽'],
+      ['5000','Сложное фото — 5 000 ₽'],
+      ['custom','Индивидуальный заказ']
+    ]
+    : [
+      ['1500','Простое видео — 1 500 ₽'],
+      ['5000','Среднее видео — 5 000 ₽'],
+      ['10000','Сложное видео — 10 000 ₽'],
+      ['custom','Индивидуальный заказ']
+    ];
+
+  options.forEach(o=>{
+    const opt=document.createElement('option');
+    opt.value=o[0];
+    opt.textContent=o[1];
+    level.appendChild(opt);
+  });
+
+  calcPrice();
+}
+
+function calcPrice(){
+  const v=document.getElementById('level').value;
+  document.getElementById('price').innerText =
+    v==='custom' ? 'Цена: обсуждается' : `Цена: ${Number(v).toLocaleString('ru-RU')} ₽`;
+}
+
+function submitOrder(){
+  if(!email.value || !agree.checked){
+    alert('Укажите email и примите условия соглашения');
+    return;
+  }
+
+  orders.push({
+    type:type.value,
+    level:level.options[level.selectedIndex].text,
+    email:email.value,
+    task:task.value
+  });
+
+  renderOrders();
+  go('confirm');
+}
+
+function renderOrders(){
+  const el=document.getElementById('orders');
+  el.innerHTML='';
+  orders.forEach(o=>{
+    el.innerHTML+=`
+      <div class="order-item">
+        <b>${o.type}</b><br>
+        ${o.level}<br>
+        ${o.email}
+      </div>`;
+  });
+}
+
+updateOptions();
+</script>
+
+</body>
+</html>
