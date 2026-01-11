@@ -1,219 +1,178 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <title>Creatify AI — TON Studio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Creatify AI — Telegram Service</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: radial-gradient(1200px 600px at 50% -10%, #5b7cff 0%, #090a18 60%);
-      color: #fff;
-    }
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background:radial-gradient(1000px 500px at 50% -10%,#5b7cff,#090a18 65%);
+  color:#fff;
+}
+.container{
+  max-width:480px;
+  margin:0 auto;
+  padding:24px;
+}
+.logo{text-align:center;margin:24px 0}
+.logo h1{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:34px;
+  margin:0;
+}
+.logo span{
+  font-size:12px;
+  letter-spacing:2px;
+  opacity:.7;
+}
+.hero{text-align:center;margin-bottom:32px}
+.hero h2{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:22px;
+}
+.hero p{opacity:.85}
 
-    .container {
-      max-width: 500px;
-      margin: 0 auto;
-      padding: 24px;
-    }
+.section-title{
+  font-family:'Space Grotesk',sans-serif;
+  margin:32px 0 16px;
+}
 
-    /* LOGO */
-    .logo {
-      text-align: center;
-      margin: 24px 0 36px;
-    }
-    .logo h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 34px;
-      letter-spacing: 1px;
-      margin: 0;
-    }
-    .logo span {
-      font-size: 12px;
-      opacity: 0.7;
-      letter-spacing: 2px;
-    }
+.card{
+  background:linear-gradient(135deg,#141633,#0b0c1d);
+  border-radius:16px;
+  padding:18px;
+  border:1px solid rgba(255,255,255,.08);
+  margin-bottom:14px;
+  cursor:pointer;
+}
 
-    /* HERO */
-    .hero {
-      text-align: center;
-      margin-bottom: 36px;
-    }
-    .hero h2 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 22px;
-      margin-bottom: 12px;
-    }
-    .hero p {
-      opacity: 0.85;
-      font-size: 15px;
-      line-height: 1.5;
-    }
+.price{
+  font-family:'Space Grotesk',sans-serif;
+  color:#9fb0ff;
+  font-size:18px;
+}
 
-    .section-title {
-      font-family: 'Space Grotesk', sans-serif;
-      margin: 32px 0 16px;
-      font-size: 18px;
-    }
+button{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  border:none;
+  font-weight:600;
+  background:linear-gradient(135deg,#6a7bff,#8b6bff);
+  color:#fff;
+  font-size:15px;
+}
 
-    .cards {
-      display: grid;
-      gap: 14px;
-    }
+.form{
+  display:none;
+  margin-top:24px;
+  background:#0d0f22;
+  border-radius:18px;
+  padding:20px;
+  border:1px solid rgba(255,255,255,.1);
+}
 
-    .card {
-      background: linear-gradient(135deg, #141633, #0b0c1d);
-      border-radius: 16px;
-      padding: 18px;
-      border: 1px solid rgba(255,255,255,0.07);
-      cursor: pointer;
-      transition: transform 0.15s ease, border 0.15s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(120,140,255,0.7);
-    }
-
-    .card h3 {
-      margin: 0 0 6px;
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .price {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 20px;
-      margin-top: 8px;
-      color: #9fb0ff;
-    }
-
-    /* FORM */
-    .form {
-      display: none;
-      margin-top: 36px;
-      background: linear-gradient(135deg, #10122a, #090a16);
-      border-radius: 18px;
-      padding: 22px;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .form h3 {
-      font-family: 'Space Grotesk', sans-serif;
-      margin-bottom: 16px;
-      font-size: 18px;
-    }
-
-    textarea, input {
-      width: 100%;
-      background: #0e1024;
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 12px;
-      padding: 12px;
-      color: #fff;
-      font-size: 14px;
-      margin-bottom: 14px;
-    }
-
-    input[type="file"] {
-      padding: 10px;
-    }
-
-    button {
-      width: 100%;
-      background: linear-gradient(135deg, #6a7bff, #8b6bff);
-      border: none;
-      border-radius: 14px;
-      padding: 14px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      color: #fff;
-    }
-
-    .note {
-      margin-top: 12px;
-      font-size: 12px;
-      opacity: 0.6;
-      text-align: center;
-    }
-  </style>
+input,textarea{
+  width:100%;
+  background:#0e1024;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:12px;
+  padding:12px;
+  color:#fff;
+  margin-bottom:14px;
+}
+.note{font-size:12px;opacity:.7;text-align:center;margin-top:12px}
+</style>
 </head>
 
 <body>
 <div class="container">
 
-  <div class="logo">
-    <h1>CREATIFY</h1>
-    <span>AI · TON STUDIO</span>
+<div class="logo">
+  <h1>CREATIFY</h1>
+  <span>AI · TELEGRAM STUDIO</span>
+</div>
+
+<div class="hero">
+  <h2>AI фото и видео под заказ</h2>
+  <p>
+    Выберите услугу → опишите задачу → <b>оплатите в Telegram</b>.<br>
+    Срок исполнения — до 24 часов.
+  </p>
+</div>
+
+<div class="section-title">Выберите услугу</div>
+
+<div class="card" onclick="selectService('Фото · лёгкое','10 TON')">
+  Фото · лёгкое
+  <div class="price">10 TON</div>
+</div>
+
+<div class="card" onclick="selectService('Фото · среднее','20 TON')">
+  Фото · среднее
+  <div class="price">20 TON</div>
+</div>
+
+<div class="card" onclick="selectService('Фото · сложное','60 TON')">
+  Фото · сложное
+  <div class="price">60 TON</div>
+</div>
+
+<div class="card" onclick="selectService('Видео · среднее','50 TON')">
+  Видео · среднее
+  <div class="price">50 TON</div>
+</div>
+
+<div class="card" onclick="selectService('Видео · сложное','100 TON')">
+  Видео · сложное
+  <div class="price">100 TON</div>
+</div>
+
+<div class="form" id="orderForm">
+  <h3 id="serviceTitle"></h3>
+  <p id="servicePrice"></p>
+
+  <textarea placeholder="Опишите задачу, стиль, цель"></textarea>
+  <input type="file" multiple>
+  <input type="email" placeholder="Email для получения результата">
+
+  <button onclick="goToTelegram()">Перейти к оплате в Telegram</button>
+
+  <div class="note">
+    Оплата производится <b>внутри Telegram</b><br>
+    через Wallet / Stars
   </div>
-
-  <div class="hero">
-    <h2>AI-креативы под заказ</h2>
-    <p>
-      Фото и видео для бизнеса, рекламы и соцсетей.  
-      Оплата в <b>TON</b>. Срок исполнения — до 24 часов.
-    </p>
-  </div>
-
-  <div class="section-title">Фото</div>
-  <div class="cards">
-    <div class="card" onclick="selectService('Фото · лёгкое — 10 TON')">
-      <h3>Лёгкое фото</h3>
-      <div class="price">10 TON</div>
-    </div>
-    <div class="card" onclick="selectService('Фото · среднее — 20 TON')">
-      <h3>Среднее фото</h3>
-      <div class="price">20 TON</div>
-    </div>
-    <div class="card" onclick="selectService('Фото · сложное — 60 TON')">
-      <h3>Сложное фото</h3>
-      <div class="price">60 TON</div>
-    </div>
-  </div>
-
-  <div class="section-title">Видео</div>
-  <div class="cards">
-    <div class="card" onclick="selectService('Видео · лёгкое — 20 TON')">
-      <h3>Лёгкое видео</h3>
-      <div class="price">20 TON</div>
-    </div>
-    <div class="card" onclick="selectService('Видео · среднее — 50 TON')">
-      <h3>Среднее видео</h3>
-      <div class="price">50 TON</div>
-    </div>
-    <div class="card" onclick="selectService('Видео · сложное — 100 TON')">
-      <h3>Сложное видео</h3>
-      <div class="price">100 TON</div>
-    </div>
-  </div>
-
-  <div class="form" id="orderForm">
-    <h3 id="serviceTitle"></h3>
-
-    <textarea placeholder="Опишите задачу, стиль, цель, примеры"></textarea>
-    <input type="file" multiple accept="image/*,video/*">
-    <input type="email" placeholder="Ваш e-mail">
-    <button>Отправить заказ</button>
-
-    <div class="note">
-      Оплата производится в TON. После отправки мы свяжемся с вами.
-    </div>
-  </div>
+</div>
 
 </div>
 
 <script>
-  function selectService(name) {
-    document.getElementById('orderForm').style.display = 'block';
-    document.getElementById('serviceTitle').innerText = name;
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-  }
+let selectedService = '';
+let selectedPrice = '';
+
+function selectService(name, price){
+  selectedService = name;
+  selectedPrice = price;
+  document.getElementById('serviceTitle').innerText = name;
+  document.getElementById('servicePrice').innerText = 'Цена: ' + price;
+  document.getElementById('orderForm').style.display = 'block';
+  window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+}
+
+function goToTelegram(){
+  const text = encodeURIComponent(
+    'Заказ: ' + selectedService + '\nЦена: ' + selectedPrice
+  );
+  window.location.href =
+    'https://t.me/ТВОЙ_БОТ_USERNAME?start=order_' + text;
+}
 </script>
+
 </body>
 </html>
