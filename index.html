@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Creatify AI</title>
 
-  <!-- Шрифт -->
+  <!-- Telegram Mini App API -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -17,98 +20,89 @@
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(180deg, #5B5FFF 0%, #1E1F3A 100%);
-      color: #fff;
+      background: linear-gradient(180deg, #5B61FF 0%, #1C1D36 100%);
+      color: #ffffff;
       min-height: 100vh;
     }
 
     .app {
       max-width: 420px;
       margin: 0 auto;
-      padding: 24px 20px 32px;
+      padding: 24px 20px 120px;
     }
 
     h1 {
       font-size: 28px;
       font-weight: 700;
-      margin: 0 0 8px;
+      margin: 0 0 6px;
     }
 
     .subtitle {
       font-size: 15px;
       opacity: 0.85;
-      line-height: 1.4;
       margin-bottom: 28px;
+      line-height: 1.4;
     }
 
     .card {
       background: rgba(255,255,255,0.08);
-      border-radius: 16px;
+      border-radius: 18px;
       padding: 20px;
       margin-bottom: 16px;
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(10px);
     }
 
     .card h2 {
       font-size: 18px;
+      margin: 0 0 10px;
       font-weight: 600;
-      margin: 0 0 8px;
     }
 
     .card p {
       font-size: 14px;
-      opacity: 0.9;
       line-height: 1.5;
+      opacity: 0.9;
       margin: 0;
     }
 
-    .primary-button {
-      display: block;
+    .button {
       width: 100%;
-      margin-top: 24px;
       padding: 16px;
       border-radius: 14px;
       border: none;
       background: #ffffff;
-      color: #1E1F3A;
+      color: #1C1D36;
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
+      margin-top: 12px;
     }
 
-    .primary-button:active {
-      transform: scale(0.98);
+    .button.secondary {
+      background: rgba(255,255,255,0.15);
+      color: #ffffff;
+    }
+
+    .button:active {
+      transform: scale(0.97);
     }
 
     .section-title {
-      margin: 32px 0 12px;
       font-size: 16px;
       font-weight: 600;
+      margin: 28px 0 12px;
       opacity: 0.9;
     }
 
-    .list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .list-item {
-      padding: 16px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.06);
-      font-size: 14px;
-      line-height: 1.4;
-    }
-
-    /* Нижняя навигация */
+    /* Bottom nav */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(20,21,45,0.95);
-      backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(255,255,255,0.08);
+      background: rgba(20,20,40,0.95);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
 
     .bottom-nav-inner {
@@ -119,10 +113,10 @@
     }
 
     .nav-btn {
-      padding: 14px 8px 16px;
-      font-size: 12px;
-      color: rgba(255,255,255,0.7);
+      padding: 14px 8px 18px;
       text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.65);
       cursor: pointer;
     }
 
@@ -130,67 +124,78 @@
       color: #ffffff;
       font-weight: 600;
     }
-
-    .spacer {
-      height: 88px;
-    }
   </style>
 </head>
 <body>
 
-  <div class="app">
-    <h1>Creatify AI</h1>
-    <div class="subtitle">
-      AI-фото и видео под заказ.  
-      Вы выбираете формат и сложность — мы делаем результат.
-    </div>
+<div class="app">
+  <h1>Creatify AI</h1>
+  <div class="subtitle">
+    AI-фото и видео под заказ.  
+    Вы выбираете формат и сложность — мы делаем результат.
+  </div>
 
-    <div class="card">
-      <h2>О сервисе</h2>
-      <p>
-        Creatify AI — это студия визуального контента с использованием
-        искусственного интеллекта и ручной доработки.
-      </p>
-    </div>
+  <div class="card">
+    <h2>Создание заказа</h2>
+    <p>
+      Выберите тип контента и уровень сложности.
+      Все заказы выполняются в течение 24 часов.
+    </p>
 
-    <div class="card">
-      <h2>Как проходит заказ</h2>
-      <p>
-        1. Вы выбираете тип контента и сложность<br>
-        2. Пополняете внутренний баланс<br>
-        3. Оплачиваете заказ<br>
-        4. Получаете результат в течение 24 часов
-      </p>
-    </div>
-
-    <button class="primary-button">
-      Создать заказ
+    <button class="button" onclick="createOrder('photo','easy')">
+      Фото — лёгкое
+    </button>
+    <button class="button secondary" onclick="createOrder('photo','medium')">
+      Фото — среднее
+    </button>
+    <button class="button secondary" onclick="createOrder('photo','hard')">
+      Фото — сложное
     </button>
 
-    <div class="section-title">Примеры работ</div>
-    <div class="list">
-      <div class="list-item">
-        AI-фото для бизнеса и маркетинга
-      </div>
-      <div class="list-item">
-        Креативы для рекламы и соцсетей
-      </div>
-      <div class="list-item">
-        Видео-ролики и визуальные концепты
-      </div>
-    </div>
-
-    <div class="spacer"></div>
+    <button class="button" style="margin-top:16px" onclick="createOrder('video','easy')">
+      Видео — лёгкое
+    </button>
+    <button class="button secondary" onclick="createOrder('video','medium')">
+      Видео — среднее
+    </button>
+    <button class="button secondary" onclick="createOrder('video','hard')">
+      Видео — сложное
+    </button>
   </div>
 
-  <div class="bottom-nav">
-    <div class="bottom-nav-inner">
-      <div class="nav-btn active">Главная</div>
-      <div class="nav-btn">Заказы</div>
-      <div class="nav-btn">Кошелёк</div>
-      <div class="nav-btn">Профиль</div>
-    </div>
+  <div class="card">
+    <h2>О сервисе</h2>
+    <p>
+      Creatify AI — студия визуального контента.
+      Мы создаём AI-фото и видео для бизнеса, рекламы и соцсетей
+      без съёмок и лишних согласований.
+    </p>
   </div>
+</div>
+
+<div class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <div class="nav-btn active">Главная</div>
+    <div class="nav-btn">Заказы</div>
+    <div class="nav-btn">Кошелёк</div>
+    <div class="nav-btn">Профиль</div>
+  </div>
+</div>
+
+<script>
+  const tg = window.Telegram.WebApp;
+  tg.expand();
+
+  function createOrder(type, complexity) {
+    const data = {
+      action: "create_order",
+      type: type,
+      complexity: complexity
+    };
+
+    tg.sendData(JSON.stringify(data));
+  }
+</script>
 
 </body>
 </html>
