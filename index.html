@@ -18,7 +18,7 @@ body {
 .app {
   max-width: 430px;
   margin: auto;
-  padding-bottom: 110px;
+  padding-bottom: 140px;
 }
 
 header {
@@ -51,12 +51,12 @@ header p {
 }
 
 .card h3 {
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   font-size: 17px;
 }
 
 .card p {
-  margin: 0 0 6px;
+  margin: 0 0 8px;
   font-size: 14px;
   opacity: 0.85;
   line-height: 1.45;
@@ -69,10 +69,6 @@ header p {
   margin-bottom: 12px;
   cursor: pointer;
   font-size: 15px;
-}
-
-.option.active {
-  background: linear-gradient(135deg, #6f5cff, #ff4fd8);
 }
 
 .price {
@@ -94,28 +90,33 @@ button {
 
 .hidden { display: none; }
 
-/* BOTTOM NAV */
+/* NAV BUTTONS */
 .nav {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(15,15,25,0.97);
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  background: rgba(15,15,25,0.98);
+  border-radius: 22px;
+  padding: 10px;
   display: flex;
-  justify-content: space-around;
-  padding: 16px 0 18px;
-  border-top: 1px solid rgba(255,255,255,0.08);
+  gap: 8px;
 }
 
-.nav div {
-  text-align: center;
-  font-size: 14px;
-  opacity: 0.65;
-  cursor: pointer;
-  width: 25%;
+.nav button {
+  flex: 1;
+  background: rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 14px 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  border: none;
+  opacity: 0.7;
 }
 
-.nav .active {
+.nav button.active {
+  background: linear-gradient(135deg, #6f5cff, #ff4fd8);
   opacity: 1;
   font-weight: 600;
 }
@@ -131,34 +132,21 @@ button {
   <header>
     <h1>Creatify AI</h1>
     <p>
-      Сервис создания AI-фото и видео под заказ.<br>
-      Вы описываете задачу — мы делаем результат и отправляем вам.
+      Сервис AI-фото и видео под заказ.<br>
+      Оплата и работа — через Telegram.
     </p>
   </header>
 
   <div class="section">
     <div class="card">
-      <h3>Что это за сервис</h3>
-      <p>
-        Creatify AI — это студия креативов нового поколения.
-        Мы создаём изображения и видео с помощью искусственного интеллекта
-        для бизнеса, блогеров, рекламы и социальных сетей.
-      </p>
-      <p>
-        Вам не нужно разбираться в нейросетях или генераторах —
-        просто опишите задачу.
-      </p>
+      <h3>Как это работает</h3>
+      <p>1. Выбираете услугу</p>
+      <p>2. Пополняете внутренний баланс</p>
+      <p>3. Оплачиваете заказ</p>
+      <p>4. Получаете результат за 24 часа</p>
     </div>
 
-    <div class="card">
-      <h3>Как проходит заказ</h3>
-      <p>1. Вы выбираете услугу и сложность</p>
-      <p>2. Описываете задачу и пожелания</p>
-      <p>3. Оплачиваете заказ в Telegram</p>
-      <p>4. Получаете готовый результат в течение 24 часов</p>
-    </div>
-
-    <button onclick="openTab('shop')">Перейти к заказу</button>
+    <button onclick="openTab('shop')">Заказать креатив</button>
   </div>
 </div>
 
@@ -166,26 +154,17 @@ button {
 <div id="shop" class="hidden section">
   <div class="card">
     <h3>Выбор услуги</h3>
-    <p>Выберите, что именно вы хотите получить.</p>
-    <div class="option" onclick="selectService('Фото')">AI-Фото</div>
-    <div class="option" onclick="selectService('Видео')">AI-Видео</div>
+    <div class="option">AI-Фото <span class="price">от 15 TON</span></div>
+    <div class="option">AI-Видео <span class="price">от 25 TON</span></div>
   </div>
 
-  <div class="card hidden" id="levels">
-    <h3>Сложность работы</h3>
-    <p>Чем сложнее задача — тем больше времени и ресурсов требуется.</p>
-    <div class="option" onclick="selectPrice(15)">Лёгкая <span class="price">15 TON</span></div>
-    <div class="option" onclick="selectPrice(25)">Средняя <span class="price">25 TON</span></div>
-    <div class="option" onclick="selectPrice(50)">Сложная <span class="price">50 TON</span></div>
-  </div>
-
-  <div class="card hidden" id="pay">
+  <div class="card">
     <h3>Оплата</h3>
     <p>
-      Оплата производится внутри Telegram через
-      Telegram Wallet или Telegram Stars.
+      Оплата списывается с вашего внутреннего баланса.
+      Если средств недостаточно — пополните кошелёк.
     </p>
-    <button onclick="goTelegram()">Перейти к оплате в Telegram</button>
+    <button onclick="openTab('wallet')">Перейти в кошелёк</button>
   </div>
 </div>
 
@@ -193,13 +172,30 @@ button {
 <div id="orders" class="hidden section">
   <div class="card">
     <h3>Мои заказы</h3>
+    <p>Здесь будет история всех заказов и их статус.</p>
+    <p>• Заказ #1023 — В работе</p>
+    <p>• Заказ #1018 — Готово</p>
+  </div>
+</div>
+
+<!-- КОШЕЛЁК -->
+<div id="wallet" class="hidden section">
+  <div class="card">
+    <h3>Мой кошелёк</h3>
+    <p><b>Баланс:</b> 0 TON</p>
     <p>
-      Здесь будут отображаться все ваши заказы,
-      их текущий статус и история выполненных работ.
+      Это ваш внутренний баланс в сервисе.
+      Он используется для оплаты заказов.
     </p>
-    <p>Пример:</p>
-    <p>• Заказ #1023 — Фото — В работе</p>
-    <p>• Заказ #1018 — Видео — Готово</p>
+  </div>
+
+  <div class="card">
+    <h3>Пополнение</h3>
+    <p>
+      Пополнить баланс можно через Telegram Wallet
+      или Telegram Stars.
+    </p>
+    <button onclick="goTelegram()">Пополнить в Telegram</button>
   </div>
 </div>
 
@@ -208,21 +204,9 @@ button {
   <div class="card">
     <h3>О проекте</h3>
     <p>
-      Creatify AI создан как удобный и понятный сервис,
-      где любой человек может заказать качественный
-      визуальный контент без лишних сложностей.
-    </p>
-    <p>
-      Мы работаем вручную + с AI, чтобы результат был
-      не «рандомной генерацией», а осознанным продуктом.
-    </p>
-  </div>
-
-  <div class="card">
-    <h3>Примеры работ</h3>
-    <p>
-      В следующих версиях здесь появится галерея
-      реальных выполненных проектов.
+      Creatify AI — это удобный сервис, где вы платите
+      через Telegram и получаете качественный визуал
+      без сложных настроек.
     </p>
   </div>
 </div>
@@ -231,38 +215,26 @@ button {
 
 <!-- NAV -->
 <div class="nav">
-  <div class="active" onclick="openTab('home')">Главная</div>
-  <div onclick="openTab('shop')">Заказать</div>
-  <div onclick="openTab('orders')">Заказы</div>
-  <div onclick="openTab('about')">О проекте</div>
+  <button class="active" onclick="openTab('home')">Главная</button>
+  <button onclick="openTab('shop')">Заказать</button>
+  <button onclick="openTab('orders')">Заказы</button>
+  <button onclick="openTab('wallet')">Кошелёк</button>
+  <button onclick="openTab('about')">О проекте</button>
 </div>
 
 <script>
-let service = '';
-let price = 0;
-
 function openTab(id) {
-  ['home','shop','orders','about'].forEach(t=>{
+  ['home','shop','orders','wallet','about'].forEach(t=>{
     document.getElementById(t).classList.add('hidden');
   });
   document.getElementById(id).classList.remove('hidden');
 
-  document.querySelectorAll('.nav div').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
   event.target.classList.add('active');
 }
 
-function selectService(s) {
-  service = s;
-  document.getElementById('levels').classList.remove('hidden');
-}
-
-function selectPrice(p) {
-  price = p;
-  document.getElementById('pay').classList.remove('hidden');
-}
-
 function goTelegram() {
-  window.location.href = "https://t.me/YOUR_BOT_USERNAME?start=pay_" + price;
+  window.location.href = "https://t.me/YOUR_BOT_USERNAME";
 }
 </script>
 
