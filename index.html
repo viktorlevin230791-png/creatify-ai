@@ -16,56 +16,59 @@ body {
 }
 
 .app {
-  max-width: 420px;
+  max-width: 430px;
   margin: auto;
-  padding-bottom: 90px;
+  padding-bottom: 110px;
 }
 
 header {
-  padding: 24px 16px 12px;
+  padding: 26px 18px 16px;
   text-align: center;
 }
 
 header h1 {
   margin: 0;
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 700;
 }
 
 header p {
-  opacity: 0.8;
-  font-size: 14px;
-  margin-top: 8px;
+  opacity: 0.85;
+  font-size: 15px;
+  margin-top: 10px;
+  line-height: 1.5;
 }
 
 .section {
-  padding: 16px;
+  padding: 18px;
 }
 
 .card {
   background: rgba(255,255,255,0.08);
-  border-radius: 18px;
-  padding: 16px;
-  margin-bottom: 14px;
+  border-radius: 20px;
+  padding: 18px;
+  margin-bottom: 16px;
 }
 
 .card h3 {
-  margin: 0 0 6px;
-  font-size: 16px;
+  margin: 0 0 8px;
+  font-size: 17px;
 }
 
 .card p {
-  margin: 0;
-  font-size: 13px;
-  opacity: 0.8;
+  margin: 0 0 6px;
+  font-size: 14px;
+  opacity: 0.85;
+  line-height: 1.45;
 }
 
 .option {
-  padding: 14px;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.1);
-  margin-bottom: 10px;
+  padding: 16px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.12);
+  margin-bottom: 12px;
   cursor: pointer;
+  font-size: 15px;
 }
 
 .option.active {
@@ -80,33 +83,36 @@ header p {
 button {
   width: 100%;
   border: none;
-  padding: 14px;
-  border-radius: 14px;
+  padding: 16px;
+  border-radius: 16px;
   background: linear-gradient(135deg, #6f5cff, #ff4fd8);
   color: #fff;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
-  margin-top: 10px;
+  margin-top: 14px;
 }
 
 .hidden { display: none; }
 
-/* Bottom menu */
+/* BOTTOM NAV */
 .nav {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(15,15,25,0.95);
+  background: rgba(15,15,25,0.97);
   display: flex;
   justify-content: space-around;
-  padding: 10px 0;
+  padding: 16px 0 18px;
+  border-top: 1px solid rgba(255,255,255,0.08);
 }
 
 .nav div {
-  font-size: 12px;
-  opacity: 0.6;
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.65;
   cursor: pointer;
+  width: 25%;
 }
 
 .nav .active {
@@ -120,66 +126,106 @@ button {
 
 <div class="app">
 
-  <!-- ГЛАВНАЯ -->
-  <div id="home">
-    <header>
-      <h1>Creatify AI</h1>
-      <p>AI-фото и видео под заказ для бизнеса и соцсетей</p>
-    </header>
+<!-- ГЛАВНАЯ -->
+<div id="home">
+  <header>
+    <h1>Creatify AI</h1>
+    <p>
+      Сервис создания AI-фото и видео под заказ.<br>
+      Вы описываете задачу — мы делаем результат и отправляем вам.
+    </p>
+  </header>
 
-    <div class="section">
-      <div class="card">
-        <h3>Что мы делаем</h3>
-        <p>Создаём фото и видео для рекламы, Reels, Shorts и презентаций. Без съёмок и студий.</p>
-      </div>
-
-      <button onclick="openTab('shop')">Заказать креатив</button>
-    </div>
-  </div>
-
-  <!-- МАГАЗИН -->
-  <div id="shop" class="hidden section">
+  <div class="section">
     <div class="card">
-      <h3>Выберите услугу</h3>
-      <div class="option" onclick="selectService('Фото')">Фото</div>
-      <div class="option" onclick="selectService('Видео')">Видео</div>
-    </div>
-
-    <div class="card hidden" id="levels">
-      <h3>Сложность</h3>
-      <div class="option" onclick="selectPrice(15)">Лёгкая <span class="price">15</span></div>
-      <div class="option" onclick="selectPrice(25)">Средняя <span class="price">25</span></div>
-      <div class="option" onclick="selectPrice(50)">Сложная <span class="price">50</span></div>
-    </div>
-
-    <div class="card hidden" id="pay">
-      <h3>Оплата</h3>
-      <p>Оплата через Telegram Wallet или Stars</p>
-      <button onclick="goTelegram()">Оплатить в Telegram</button>
-    </div>
-  </div>
-
-  <!-- ЗАКАЗЫ -->
-  <div id="orders" class="hidden section">
-    <div class="card">
-      <h3>Мои заказы</h3>
-      <p>#1023 — Фото — В работе</p>
-      <p>#1018 — Видео — Готово</p>
-    </div>
-  </div>
-
-  <!-- О ПРОЕКТЕ -->
-  <div id="about" class="hidden section">
-    <div class="card">
-      <h3>О проекте</h3>
-      <p>Creatify AI — сервис креативов под заказ с оплатой через Telegram.</p>
+      <h3>Что это за сервис</h3>
+      <p>
+        Creatify AI — это студия креативов нового поколения.
+        Мы создаём изображения и видео с помощью искусственного интеллекта
+        для бизнеса, блогеров, рекламы и социальных сетей.
+      </p>
+      <p>
+        Вам не нужно разбираться в нейросетях или генераторах —
+        просто опишите задачу.
+      </p>
     </div>
 
     <div class="card">
-      <h3>Примеры работ</h3>
-      <p>Будут добавлены в следующей версии</p>
+      <h3>Как проходит заказ</h3>
+      <p>1. Вы выбираете услугу и сложность</p>
+      <p>2. Описываете задачу и пожелания</p>
+      <p>3. Оплачиваете заказ в Telegram</p>
+      <p>4. Получаете готовый результат в течение 24 часов</p>
     </div>
+
+    <button onclick="openTab('shop')">Перейти к заказу</button>
   </div>
+</div>
+
+<!-- МАГАЗИН -->
+<div id="shop" class="hidden section">
+  <div class="card">
+    <h3>Выбор услуги</h3>
+    <p>Выберите, что именно вы хотите получить.</p>
+    <div class="option" onclick="selectService('Фото')">AI-Фото</div>
+    <div class="option" onclick="selectService('Видео')">AI-Видео</div>
+  </div>
+
+  <div class="card hidden" id="levels">
+    <h3>Сложность работы</h3>
+    <p>Чем сложнее задача — тем больше времени и ресурсов требуется.</p>
+    <div class="option" onclick="selectPrice(15)">Лёгкая <span class="price">15 TON</span></div>
+    <div class="option" onclick="selectPrice(25)">Средняя <span class="price">25 TON</span></div>
+    <div class="option" onclick="selectPrice(50)">Сложная <span class="price">50 TON</span></div>
+  </div>
+
+  <div class="card hidden" id="pay">
+    <h3>Оплата</h3>
+    <p>
+      Оплата производится внутри Telegram через
+      Telegram Wallet или Telegram Stars.
+    </p>
+    <button onclick="goTelegram()">Перейти к оплате в Telegram</button>
+  </div>
+</div>
+
+<!-- ЗАКАЗЫ -->
+<div id="orders" class="hidden section">
+  <div class="card">
+    <h3>Мои заказы</h3>
+    <p>
+      Здесь будут отображаться все ваши заказы,
+      их текущий статус и история выполненных работ.
+    </p>
+    <p>Пример:</p>
+    <p>• Заказ #1023 — Фото — В работе</p>
+    <p>• Заказ #1018 — Видео — Готово</p>
+  </div>
+</div>
+
+<!-- О ПРОЕКТЕ -->
+<div id="about" class="hidden section">
+  <div class="card">
+    <h3>О проекте</h3>
+    <p>
+      Creatify AI создан как удобный и понятный сервис,
+      где любой человек может заказать качественный
+      визуальный контент без лишних сложностей.
+    </p>
+    <p>
+      Мы работаем вручную + с AI, чтобы результат был
+      не «рандомной генерацией», а осознанным продуктом.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Примеры работ</h3>
+    <p>
+      В следующих версиях здесь появится галерея
+      реальных выполненных проектов.
+    </p>
+  </div>
+</div>
 
 </div>
 
