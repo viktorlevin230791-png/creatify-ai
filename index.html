@@ -1,213 +1,210 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creatify AI</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creatify AI</title>
 
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    * { box-sizing: border-box; }
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:Inter,sans-serif;
+background:radial-gradient(circle at top,#6a5cff,#3b2fa3);
+color:#fff;
+min-height:100vh
+}
+.app{max-width:430px;margin:0 auto;padding:24px 20px 120px}
+.hidden{display:none}
+h1{font-size:28px;font-weight:700;margin-bottom:8px;text-align:center}
+.subtitle{text-align:center;font-size:15px;opacity:.9;margin-bottom:24px}
 
-    body {
-      margin: 0;
-      font-family: Inter, sans-serif;
-      background: radial-gradient(circle at top, #6a5cff, #3b2fa3);
-      color: #fff;
-      min-height: 100vh;
-    }
+.card{
+background:rgba(255,255,255,.12);
+border-radius:18px;
+padding:18px;
+margin-bottom:16px;
+backdrop-filter:blur(10px)
+}
 
-    .app {
-      max-width: 430px;
-      margin: 0 auto;
-      padding: 24px 20px 120px;
-    }
+.card h2{font-size:18px;margin-bottom:10px}
+.card p{font-size:14px;line-height:1.4;opacity:.9}
 
-    h1 {
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      text-align: center;
-    }
+button{
+width:100%;
+padding:16px;
+border-radius:14px;
+border:none;
+font-size:15px;
+font-weight:600;
+cursor:pointer;
+margin-top:10px
+}
 
-    .subtitle {
-      text-align: center;
-      opacity: 0.9;
-      font-size: 15px;
-      margin-bottom: 24px;
-    }
+.primary{background:#fff;color:#3b2fa3}
+.secondary{background:rgba(255,255,255,.18);color:#fff}
 
-    .card {
-      background: rgba(255,255,255,0.12);
-      border-radius: 18px;
-      padding: 18px;
-      margin-bottom: 16px;
-      backdrop-filter: blur(10px);
-    }
+select,textarea,input{
+width:100%;
+padding:14px;
+border-radius:12px;
+border:none;
+margin-top:10px;
+font-family:Inter,sans-serif
+}
 
-    .card h2 {
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+background:rgba(30,25,90,.95);
+backdrop-filter:blur(10px);
+border-top:1px solid rgba(255,255,255,.15)
+}
 
-    .card p {
-      font-size: 14px;
-      line-height: 1.4;
-      opacity: 0.9;
-    }
+.bottom-inner{
+max-width:430px;
+margin:0 auto;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:8px;
+padding:10px
+}
 
-    .main-button {
-      width: 100%;
-      padding: 16px;
-      border-radius: 14px;
-      border: none;
-      background: #ffffff;
-      color: #3b2fa3;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 12px;
-    }
+.nav-btn{
+background:rgba(255,255,255,.12);
+border-radius:14px;
+padding:12px 6px;
+font-size:12px;
+text-align:center;
+cursor:pointer
+}
 
-    .hidden { display: none; }
-
-    input, textarea {
-      width: 100%;
-      padding: 14px;
-      border-radius: 12px;
-      border: none;
-      font-family: Inter, sans-serif;
-      margin-top: 10px;
-    }
-
-    /* Bottom menu */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(30,25,90,0.95);
-      backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(255,255,255,0.15);
-    }
-
-    .bottom-nav-inner {
-      max-width: 430px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      padding: 10px;
-    }
-
-    .nav-btn {
-      background: rgba(255,255,255,0.12);
-      border-radius: 14px;
-      padding: 12px 6px;
-      font-size: 13px;
-      text-align: center;
-      cursor: pointer;
-      font-weight: 500;
-    }
-
-    .nav-btn.active {
-      background: #ffffff;
-      color: #3b2fa3;
-      font-weight: 600;
-    }
-  </style>
+.nav-btn.active{
+background:#fff;
+color:#3b2fa3;
+font-weight:600
+}
+</style>
 </head>
 
 <body>
 <div class="app">
 
-  <!-- SCREEN: HOME -->
-  <div id="screen-home">
-    <h1>Creatify AI</h1>
-    <div class="subtitle">
-      AI-фото и видео под заказ.  
-      Вы описываете задачу — мы делаем результат.
-    </div>
+<!-- HOME -->
+<div id="home">
+<h1>Creatify AI</h1>
+<div class="subtitle">AI-фото и видео под заказ</div>
 
-    <div class="card">
-      <h2>Как это работает</h2>
-      <p>
-        1. Выбираете формат (фото или видео)<br>
-        2. Описываете задачу и прикрепляете файлы<br>
-        3. Мы выполняем заказ в течение 24 часов
-      </p>
-    </div>
+<div class="card">
+<h2>О проекте</h2>
+<p>
+Creatify AI — студия визуального контента.
+Мы создаём AI-фото и видео для бизнеса, рекламы и соцсетей.
+Вы описываете задачу — мы делаем результат в течение 24 часов.
+</p>
+</div>
 
-    <button class="main-button" onclick="openOrderType()">
-      Создать заказ
-    </button>
-  </div>
+<div class="card">
+<h2>Как это работает</h2>
+<p>
+1. Вы выбираете формат и сложность<br>
+2. Описываете задачу и прикрепляете материалы<br>
+3. Оплачиваете заказ<br>
+4. Получаете результат
+</p>
+</div>
+</div>
 
-  <!-- SCREEN: TYPE -->
-  <div id="screen-type" class="hidden">
-    <div class="card">
-      <h2>Выберите формат</h2>
-      <button class="main-button" onclick="openOrderForm('photo')">Фото</button>
-      <button class="main-button" onclick="openOrderForm('video')">Видео</button>
-    </div>
-  </div>
+<!-- ORDER -->
+<div id="order" class="hidden">
+<div class="card">
+<h2>Новый заказ</h2>
 
-  <!-- SCREEN: FORM -->
-  <div id="screen-form" class="hidden">
-    <div class="card">
-      <h2>Описание задачи</h2>
-      <textarea id="description" rows="4" placeholder="Опишите, что нужно сделать"></textarea>
-      <input type="file" id="files" multiple>
-      <button class="main-button" onclick="sendOrder()">Отправить заказ</button>
-    </div>
-  </div>
+<select id="type">
+<option value="">Формат</option>
+<option value="photo">Фото</option>
+<option value="video">Видео</option>
+</select>
+
+<select id="level">
+<option value="">Сложность</option>
+<option value="easy">Лёгкая</option>
+<option value="medium">Средняя</option>
+<option value="hard">Сложная</option>
+</select>
+
+<textarea id="desc" rows="4" placeholder="Опишите задачу"></textarea>
+<input type="file" multiple>
+
+<button class="primary" onclick="sendOrder()">Отправить заказ</button>
+</div>
+</div>
+
+<!-- ORDERS -->
+<div id="orders" class="hidden">
+<div class="card">
+<h2>Мои заказы</h2>
+<p>Заказов пока нет. Здесь будут отображаться статусы ваших заказов.</p>
+</div>
+</div>
+
+<!-- WALLET -->
+<div id="wallet" class="hidden">
+<div class="card">
+<h2>Кошелёк</h2>
+<p>Баланс: 0</p>
+<button class="primary">Пополнить</button>
+</div>
+</div>
+
+<!-- EXAMPLES -->
+<div id="examples" class="hidden">
+<div class="card">
+<h2>Примеры работ</h2>
+<p>
+Лёгкий уровень — простые фото и клипы<br>
+Средний уровень — рекламные материалы<br>
+Сложный уровень — концепты, брендинг, сложные сцены
+</p>
+</div>
+</div>
 
 </div>
 
-<!-- Bottom navigation -->
 <div class="bottom-nav">
-  <div class="bottom-nav-inner">
-    <div class="nav-btn active" onclick="showScreen('home')">Главная</div>
-    <div class="nav-btn" onclick="showScreen('type')">Заказ</div>
-    <div class="nav-btn" onclick="showScreen('home')">Заказы</div>
-    <div class="nav-btn" onclick="showScreen('home')">Профиль</div>
-  </div>
+<div class="bottom-inner">
+<div class="nav-btn active" onclick="nav('home')">Главная</div>
+<div class="nav-btn" onclick="nav('order')">Заказать</div>
+<div class="nav-btn" onclick="nav('orders')">Заказы</div>
+<div class="nav-btn" onclick="nav('wallet')">Кошелёк</div>
+<div class="nav-btn" onclick="nav('examples')">Примеры</div>
+</div>
 </div>
 
 <script>
-  const tg = window.Telegram.WebApp;
-  tg.expand();
+const tg = window.Telegram.WebApp;
+tg.expand();
 
-  let orderType = null;
+function nav(id){
+document.querySelectorAll('.app > div').forEach(d=>d.classList.add('hidden'));
+document.getElementById(id).classList.remove('hidden');
+document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+event.target.classList.add('active');
+}
 
-  function showScreen(name) {
-    document.querySelectorAll('[id^="screen-"]').forEach(el => el.classList.add('hidden'));
-    document.getElementById('screen-' + name).classList.remove('hidden');
-
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
-  }
-
-  function openOrderType() {
-    showScreen('type');
-  }
-
-  function openOrderForm(type) {
-    orderType = type;
-    showScreen('form');
-  }
-
-  function sendOrder() {
-    const description = document.getElementById('description').value;
-
-    tg.sendData(JSON.stringify({
-      action: 'create_order',
-      type: orderType,
-      description: description
-    }));
-  }
+function sendOrder(){
+tg.sendData(JSON.stringify({
+action:'create_order',
+type:document.getElementById('type').value,
+level:document.getElementById('level').value,
+description:document.getElementById('desc').value
+}));
+}
 </script>
 </body>
 </html>
