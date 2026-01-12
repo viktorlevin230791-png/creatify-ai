@@ -71,9 +71,16 @@ header p {
   font-size: 15px;
 }
 
+.option small {
+  display: block;
+  opacity: 0.7;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
 .price {
   float: right;
-  opacity: 0.9;
+  font-weight: 600;
 }
 
 button {
@@ -90,7 +97,7 @@ button {
 
 .hidden { display: none; }
 
-/* NAV BUTTONS */
+/* NAV */
 .nav {
   position: fixed;
   bottom: 10px;
@@ -133,17 +140,29 @@ button {
     <h1>Creatify AI</h1>
     <p>
       Сервис AI-фото и видео под заказ.<br>
-      Оплата и работа — через Telegram.
+      Вы выбираете формат и сложность — мы делаем результат.
     </p>
   </header>
 
   <div class="section">
     <div class="card">
-      <h3>Как это работает</h3>
-      <p>1. Выбираете услугу</p>
+      <h3>О проекте</h3>
+      <p>
+        Creatify AI — это студия визуального контента,
+        которая использует искусственный интеллект и ручную доработку.
+      </p>
+      <p>
+        Мы создаём фото и видео для бизнеса, рекламы и соцсетей,
+        без съёмок, студий и лишних согласований.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Как проходит заказ</h3>
+      <p>1. Вы выбираете тип контента и сложность</p>
       <p>2. Пополняете внутренний баланс</p>
       <p>3. Оплачиваете заказ</p>
-      <p>4. Получаете результат за 24 часа</p>
+      <p>4. Получаете результат в течение 24 часов</p>
     </div>
 
     <button onclick="openTab('shop')">Заказать креатив</button>
@@ -152,29 +171,63 @@ button {
 
 <!-- МАГАЗИН -->
 <div id="shop" class="hidden section">
+
   <div class="card">
-    <h3>Выбор услуги</h3>
-    <div class="option">AI-Фото <span class="price">от 15 TON</span></div>
-    <div class="option">AI-Видео <span class="price">от 25 TON</span></div>
+    <h3>AI-Фото</h3>
+
+    <div class="option">
+      Лёгкое фото <span class="price">15 TON</span>
+      <small>Простой объект, один стиль, минимальные детали</small>
+    </div>
+
+    <div class="option">
+      Среднее фото <span class="price">25 TON</span>
+      <small>Композиция, персонажи, больше деталей</small>
+    </div>
+
+    <div class="option">
+      Сложное фото <span class="price">50 TON</span>
+      <small>Реализм, бренд, сложная сцена</small>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>AI-Видео</h3>
+
+    <div class="option">
+      Лёгкое видео <span class="price">25 TON</span>
+      <small>Короткий ролик, простой эффект</small>
+    </div>
+
+    <div class="option">
+      Среднее видео <span class="price">50 TON</span>
+      <small>Сцены, монтаж, стиль</small>
+    </div>
+
+    <div class="option">
+      Сложное видео <span class="price">100 TON</span>
+      <small>Динамика, сложный монтаж, эффектность</small>
+    </div>
   </div>
 
   <div class="card">
     <h3>Оплата</h3>
     <p>
-      Оплата списывается с вашего внутреннего баланса.
-      Если средств недостаточно — пополните кошелёк.
+      Оплата производится через внутренний кошелёк
+      с использованием Telegram Wallet или Telegram Stars.
     </p>
     <button onclick="openTab('wallet')">Перейти в кошелёк</button>
   </div>
+
 </div>
 
 <!-- ЗАКАЗЫ -->
 <div id="orders" class="hidden section">
   <div class="card">
     <h3>Мои заказы</h3>
-    <p>Здесь будет история всех заказов и их статус.</p>
-    <p>• Заказ #1023 — В работе</p>
-    <p>• Заказ #1018 — Готово</p>
+    <p>Здесь отображаются все ваши заказы и их статус.</p>
+    <p>• Заказ #1023 — Фото — В работе</p>
+    <p>• Заказ #1018 — Видео — Готово</p>
   </div>
 </div>
 
@@ -184,30 +237,15 @@ button {
     <h3>Мой кошелёк</h3>
     <p><b>Баланс:</b> 0 TON</p>
     <p>
-      Это ваш внутренний баланс в сервисе.
-      Он используется для оплаты заказов.
+      Баланс используется для оплаты заказов.
+      Если средств недостаточно — пополните кошелёк.
     </p>
   </div>
 
   <div class="card">
     <h3>Пополнение</h3>
-    <p>
-      Пополнить баланс можно через Telegram Wallet
-      или Telegram Stars.
-    </p>
-    <button onclick="goTelegram()">Пополнить в Telegram</button>
-  </div>
-</div>
-
-<!-- О ПРОЕКТЕ -->
-<div id="about" class="hidden section">
-  <div class="card">
-    <h3>О проекте</h3>
-    <p>
-      Creatify AI — это удобный сервис, где вы платите
-      через Telegram и получаете качественный визуал
-      без сложных настроек.
-    </p>
+    <p>Пополнение происходит внутри Telegram.</p>
+    <button onclick="goTelegram()">Пополнить через Telegram</button>
   </div>
 </div>
 
@@ -219,12 +257,11 @@ button {
   <button onclick="openTab('shop')">Заказать</button>
   <button onclick="openTab('orders')">Заказы</button>
   <button onclick="openTab('wallet')">Кошелёк</button>
-  <button onclick="openTab('about')">О проекте</button>
 </div>
 
 <script>
 function openTab(id) {
-  ['home','shop','orders','wallet','about'].forEach(t=>{
+  ['home','shop','orders','wallet'].forEach(t=>{
     document.getElementById(t).classList.add('hidden');
   });
   document.getElementById(id).classList.remove('hidden');
