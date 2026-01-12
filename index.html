@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Creatify AI</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -13,47 +13,38 @@
 body{
 margin:0;
 font-family:Inter,sans-serif;
-background:linear-gradient(180deg,#6a5cff,#3b2fa3);
+background:radial-gradient(circle at top,#6a5cff,#3b2fa3);
 color:#fff;
 min-height:100vh
 }
 .app{
 max-width:430px;
 margin:0 auto;
-padding:20px 20px 120px
+padding:24px 20px 120px
 }
 .hidden{display:none}
 
 .hero{
 width:100%;
 border-radius:22px;
-margin-bottom:18px;
+margin-bottom:22px;
 box-shadow:0 20px 40px rgba(0,0,0,.35)
 }
 
-h1{
-text-align:center;
-font-size:26px;
-margin:10px 0 6px
-}
-.subtitle{
-text-align:center;
-opacity:.9;
-margin-bottom:22px
-}
+h1{text-align:center;margin:10px 0}
+.subtitle{text-align:center;opacity:.9;margin-bottom:20px}
 
 .card{
-background:rgba(255,255,255,.14);
+background:rgba(255,255,255,.12);
 border-radius:18px;
 padding:18px;
-margin-bottom:16px
+margin-bottom:16px;
+backdrop-filter:blur(10px)
 }
 
 .bottom-nav{
 position:fixed;
-bottom:0;
-left:0;
-right:0;
+bottom:0;left:0;right:0;
 background:rgba(30,25,90,.95);
 border-top:1px solid rgba(255,255,255,.15)
 }
@@ -66,7 +57,7 @@ gap:8px;
 padding:10px
 }
 .nav-btn{
-background:rgba(255,255,255,.15);
+background:rgba(255,255,255,.14);
 border-radius:14px;
 padding:12px 6px;
 font-size:12px;
@@ -86,48 +77,49 @@ font-weight:600
 
 <!-- HOME -->
 <div id="home">
-<img src="hero.png" class="hero" alt="Creatify AI">
-
+<img src="hero.png" class="hero">
 <h1>Creatify AI</h1>
 <div class="subtitle">
 AI-фото и видео под заказ<br>
-Оплата через Telegram Stars ⭐
+Работаем в Telegram
 </div>
 
 <div class="card">
 <b>О сервисе</b><br><br>
-Creatify AI — студия визуального контента в Telegram.
-Вы выбираете формат и сложность, описываете задачу —
-мы создаём результат в течение 24 часов.
-</div>
-
-<div class="card">
-<b>Как это работает</b><br><br>
-1. Выбираете фото или видео<br>
-2. Указываете сложность и описание<br>
-3. Оплачиваете заказ ⭐<br>
-4. Получаете готовый результат
+Вы выбираете формат и сложность — мы создаём результат в течение 24 часов.
 </div>
 </div>
 
 <!-- ORDER -->
 <div id="order" class="hidden">
-<div class="card"><b>Новый заказ</b><br><br>Форма заказа будет здесь</div>
+<div class="card">
+<b>Новый заказ</b><br><br>
+(форма будет дальше)
+</div>
 </div>
 
 <!-- ORDERS -->
 <div id="orders" class="hidden">
-<div class="card"><b>Мои заказы</b><br><br>История заказов появится здесь</div>
+<div class="card">
+<b>Мои заказы</b><br><br>
+Здесь будут ваши заказы
+</div>
 </div>
 
 <!-- WALLET -->
 <div id="wallet" class="hidden">
-<div class="card"><b>Кошелёк</b><br><br>Баланс и пополнение появятся здесь</div>
+<div class="card">
+<b>Кошелёк</b><br><br>
+Баланс появится позже
+</div>
 </div>
 
 <!-- EXAMPLES -->
 <div id="examples" class="hidden">
-<div class="card"><b>Примеры работ</b><br><br>Галерея примеров появится здесь</div>
+<div class="card">
+<b>Примеры работ</b><br><br>
+Будут добавлены
+</div>
 </div>
 
 </div>
@@ -144,6 +136,7 @@ Creatify AI — студия визуального контента в Telegram
 
 <script>
 const tg = window.Telegram.WebApp;
+tg.ready();
 tg.expand();
 
 function nav(id,el){
@@ -153,5 +146,6 @@ document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
 el.classList.add('active');
 }
 </script>
+
 </body>
 </html>
