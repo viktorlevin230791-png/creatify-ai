@@ -24,13 +24,23 @@ padding:24px 20px 120px
 }
 .hidden{display:none}
 
-h1{text-align:center;font-size:28px}
-.subtitle{text-align:center;opacity:.9;margin-bottom:20px}
+h1{
+font-size:28px;
+font-weight:700;
+margin:12px 0 6px;
+text-align:center
+}
+.subtitle{
+text-align:center;
+font-size:15px;
+opacity:.9;
+margin-bottom:22px
+}
 
 .hero{
 width:100%;
 border-radius:22px;
-margin-bottom:20px;
+margin-bottom:22px;
 box-shadow:0 20px 40px rgba(0,0,0,.35)
 }
 
@@ -41,6 +51,15 @@ padding:18px;
 margin-bottom:16px;
 backdrop-filter:blur(10px)
 }
+.card h2{
+font-size:18px;
+margin-bottom:10px
+}
+.card p{
+font-size:14px;
+line-height:1.45;
+opacity:.92
+}
 
 button{
 width:100%;
@@ -49,38 +68,59 @@ border-radius:14px;
 border:none;
 font-size:15px;
 font-weight:600;
-margin-top:12px;
-cursor:pointer
+cursor:pointer;
+margin-top:14px
 }
-.primary{background:#fff;color:#3b2fa3}
-.secondary{background:rgba(255,255,255,.2);color:#fff}
+.primary{
+background:#fff;
+color:#3b2fa3
+}
 
 select,textarea,input{
 width:100%;
 padding:14px;
 border-radius:12px;
 border:none;
-margin-top:10px
+margin-top:10px;
+font-family:Inter,sans-serif
+}
+
+.price{
+margin-top:8px;
+font-size:14px;
+opacity:.9
 }
 
 .bottom-nav{
-position:fixed;bottom:0;left:0;right:0;
+position:fixed;
+bottom:0;
+left:0;
+right:0;
 background:rgba(30,25,90,.95);
-backdrop-filter:blur(10px)
+backdrop-filter:blur(10px);
+border-top:1px solid rgba(255,255,255,.15)
 }
 .bottom-inner{
-max-width:430px;margin:0 auto;
-display:grid;grid-template-columns:repeat(5,1fr);
-gap:8px;padding:10px
+max-width:430px;
+margin:0 auto;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:8px;
+padding:10px
 }
 .nav-btn{
-background:rgba(255,255,255,.15);
+background:rgba(255,255,255,.14);
 border-radius:14px;
 padding:12px 6px;
 font-size:12px;
-text-align:center
+text-align:center;
+cursor:pointer
 }
-.nav-btn.active{background:#fff;color:#3b2fa3;font-weight:600}
+.nav-btn.active{
+background:#fff;
+color:#3b2fa3;
+font-weight:600
+}
 </style>
 </head>
 
@@ -89,13 +129,30 @@ text-align:center
 
 <!-- HOME -->
 <div id="home">
-<img src="hero.png" class="hero">
+<img src="lowe.png" class="hero">
+
 <h1>Creatify AI</h1>
-<div class="subtitle">AI-фото и видео под заказ</div>
+<div class="subtitle">
+AI-фото и видео под заказ<br>
+Оплата через Telegram Stars ⭐
+</div>
 
 <div class="card">
-<p>Баланс: <b><span id="balance">0</span> credits</b></p>
-<button class="primary" onclick="topUp()">Пополнить баланс ⭐</button>
+<h2>О сервисе</h2>
+<p>
+Creatify AI — студия визуального контента.<br>
+Вы выбираете формат и сложность, мы создаём результат в течение 24 часов.
+</p>
+</div>
+
+<div class="card">
+<h2>Как это работает</h2>
+<p>
+1. Пополняете баланс ⭐<br>
+2. Создаёте заказ<br>
+3. Средства списываются автоматически<br>
+4. Получаете готовый результат
+</p>
 </div>
 </div>
 
@@ -104,47 +161,75 @@ text-align:center
 <div class="card">
 <h2>Новый заказ</h2>
 
-<select id="type">
+<select id="type" onchange="updatePrice()">
+<option value="">Формат</option>
 <option value="photo">Фото</option>
 <option value="video">Видео</option>
 </select>
 
-<select id="level">
-<option value="easy">Лёгкий</option>
-<option value="medium">Средний</option>
-<option value="hard">Сложный</option>
+<select id="level" onchange="updatePrice()">
+<option value="">Сложность</option>
+<option value="easy">Лёгкая</option>
+<option value="medium">Средняя</option>
+<option value="hard">Сложная</option>
 </select>
 
-<textarea id="desc" rows="4" placeholder="Описание задачи"></textarea>
+<div class="price" id="price">Стоимость: —</div>
+
+<textarea id="desc" rows="4" placeholder="Опишите задачу"></textarea>
 
 <button class="primary" onclick="sendOrder()">Создать заказ</button>
 </div>
 </div>
 
+<!-- ORDERS -->
+<div id="orders" class="hidden">
+<div class="card">
+<h2>Мои заказы</h2>
+<p>История и статус заказов будут отображаться здесь.</p>
+</div>
 </div>
 
+<!-- WALLET -->
+<div id="wallet" class="hidden">
+<div class="card">
+<h2>Кошелёк</h2>
+<p id="balance">Баланс: — ⭐</p>
+<button class="primary" onclick="topUp()">Пополнить через Telegram Stars</button>
+</div>
+</div>
+
+<!-- EXAMPLES -->
+<div id="examples" class="hidden">
+<div class="card">
+<h2>Примеры работ</h2>
+<p>
+Фото, видео, рекламные материалы, концепты и бренд-проекты.
+</p>
+</div>
+</div>
+
+</div>
+
+<!-- BOTTOM NAV -->
 <div class="bottom-nav">
 <div class="bottom-inner">
 <div class="nav-btn active" onclick="nav('home',this)">Главная</div>
 <div class="nav-btn" onclick="nav('order',this)">Заказать</div>
+<div class="nav-btn" onclick="nav('orders',this)">Заказы</div>
+<div class="nav-btn" onclick="nav('wallet',this)">Кошелёк</div>
+<div class="nav-btn" onclick="nav('examples',this)">Примеры</div>
 </div>
 </div>
 
 <script>
-const tg = Telegram.WebApp;
+const tg = window.Telegram.WebApp;
 tg.expand();
 
-let balance = 0;
-
-tg.onEvent("message", () => {
-  try {
-    const data = JSON.parse(tg.initDataUnsafe?.web_app_data?.data || "{}");
-    if(data.balance !== undefined){
-      balance = data.balance;
-      document.getElementById("balance").innerText = balance;
-    }
-  } catch {}
-});
+const prices = {
+photo:{easy:50,medium:100,hard:150},
+video:{easy:100,medium:200,hard:300}
+};
 
 function nav(id,el){
 document.querySelectorAll('.app > div').forEach(d=>d.classList.add('hidden'));
@@ -153,20 +238,33 @@ document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
 el.classList.add('active');
 }
 
-function topUp(){
-tg.sendData(JSON.stringify({
-action:"topup",
-amount:100
-}));
+function updatePrice(){
+const type=document.getElementById('type').value;
+const level=document.getElementById('level').value;
+const priceEl=document.getElementById('price');
+if(type && level){
+priceEl.innerText=`Стоимость: ${prices[type][level]} ⭐`;
+}else{
+priceEl.innerText='Стоимость: —';
+}
 }
 
 function sendOrder(){
+const type=document.getElementById('type').value;
+const level=document.getElementById('level').value;
+const desc=document.getElementById('desc').value;
+if(!type||!level||!desc)return;
+
 tg.sendData(JSON.stringify({
 action:"create_order",
-type:document.getElementById("type").value,
-level:document.getElementById("level").value,
-description:document.getElementById("desc").value
+type,level,
+price:prices[type][level],
+description:desc
 }));
+}
+
+function topUp(){
+tg.sendData(JSON.stringify({ action:"topup" }));
 }
 </script>
 </body>
