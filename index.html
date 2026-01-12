@@ -2,151 +2,195 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Creatify AI</title>
 
-  <!-- Telegram Mini App SDK -->
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <!-- Шрифт -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: radial-gradient(circle at top, #6a5cff, #3b2fa3);
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, #5B5FFF 0%, #1E1F3A 100%);
       color: #fff;
       min-height: 100vh;
-      padding-bottom: 120px;
     }
 
     .app {
-      max-width: 430px;
+      max-width: 420px;
       margin: 0 auto;
-      padding: 24px;
+      padding: 24px 20px 32px;
     }
 
     h1 {
       font-size: 28px;
       font-weight: 700;
-      margin-bottom: 12px;
-      text-align: center;
+      margin: 0 0 8px;
     }
 
     .subtitle {
-      text-align: center;
-      opacity: 0.9;
-      margin-bottom: 24px;
       font-size: 15px;
+      opacity: 0.85;
+      line-height: 1.4;
+      margin-bottom: 28px;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 18px;
-      padding: 18px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 20px;
       margin-bottom: 16px;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(8px);
     }
 
     .card h2 {
       font-size: 18px;
-      margin-bottom: 10px;
+      font-weight: 600;
+      margin: 0 0 8px;
     }
 
     .card p {
       font-size: 14px;
       opacity: 0.9;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .primary-button {
+      display: block;
+      width: 100%;
+      margin-top: 24px;
+      padding: 16px;
+      border-radius: 14px;
+      border: none;
+      background: #ffffff;
+      color: #1E1F3A;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .primary-button:active {
+      transform: scale(0.98);
+    }
+
+    .section-title {
+      margin: 32px 0 12px;
+      font-size: 16px;
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
+    .list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .list-item {
+      padding: 16px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.06);
+      font-size: 14px;
       line-height: 1.4;
     }
 
-    .steps li {
-      margin-left: 18px;
-      margin-bottom: 6px;
-      font-size: 14px;
-    }
-
+    /* Нижняя навигация */
     .bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      background: #1f1b4f;
-      display: flex;
-      justify-content: space-around;
-      padding: 14px 8px;
-      border-top-left-radius: 18px;
-      border-top-right-radius: 18px;
+      background: rgba(20,21,45,0.95);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .bottom-nav-inner {
+      max-width: 420px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
     }
 
     .nav-btn {
-      color: #aaa;
-      font-size: 13px;
+      padding: 14px 8px 16px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.7);
       text-align: center;
       cursor: pointer;
     }
 
     .nav-btn.active {
-      color: #fff;
+      color: #ffffff;
       font-weight: 600;
+    }
+
+    .spacer {
+      height: 88px;
     }
   </style>
 </head>
-
 <body>
+
   <div class="app">
     <h1>Creatify AI</h1>
     <div class="subtitle">
-      AI-фото и видео под заказ — быстро и без съёмок
+      AI-фото и видео под заказ.  
+      Вы выбираете формат и сложность — мы делаем результат.
     </div>
 
     <div class="card">
-      <h2>О проекте</h2>
+      <h2>О сервисе</h2>
       <p>
-        Creatify AI — это студия визуального контента,
-        которая сочетает искусственный интеллект и ручную доработку.
-        Мы создаём фото и видео для бизнеса, рекламы и соцсетей.
+        Creatify AI — это студия визуального контента с использованием
+        искусственного интеллекта и ручной доработки.
       </p>
     </div>
 
     <div class="card">
       <h2>Как проходит заказ</h2>
-      <ol class="steps">
-        <li>Вы выбираете формат и сложность</li>
-        <li>Пополняете внутренний баланс</li>
-        <li>Оплачиваете заказ</li>
-        <li>Получаете результат до 24 часов</li>
-      </ol>
+      <p>
+        1. Вы выбираете тип контента и сложность<br>
+        2. Пополняете внутренний баланс<br>
+        3. Оплачиваете заказ<br>
+        4. Получаете результат в течение 24 часов
+      </p>
     </div>
 
-    <div class="card">
-      <h2>Статус</h2>
-      <p id="userStatus">Загрузка данных пользователя…</p>
+    <button class="primary-button">
+      Создать заказ
+    </button>
+
+    <div class="section-title">Примеры работ</div>
+    <div class="list">
+      <div class="list-item">
+        AI-фото для бизнеса и маркетинга
+      </div>
+      <div class="list-item">
+        Креативы для рекламы и соцсетей
+      </div>
+      <div class="list-item">
+        Видео-ролики и визуальные концепты
+      </div>
     </div>
+
+    <div class="spacer"></div>
   </div>
 
   <div class="bottom-nav">
-    <div class="nav-btn active">Главная</div>
-    <div class="nav-btn">Заказать</div>
-    <div class="nav-btn">Заказы</div>
-    <div class="nav-btn">Кошелёк</div>
+    <div class="bottom-nav-inner">
+      <div class="nav-btn active">Главная</div>
+      <div class="nav-btn">Заказы</div>
+      <div class="nav-btn">Кошелёк</div>
+      <div class="nav-btn">Профиль</div>
+    </div>
   </div>
 
-  <script>
-    const tg = window.Telegram.WebApp;
-    tg.expand();
-
-    const user = tg.initDataUnsafe?.user;
-
-    if (user) {
-      document.getElementById("userStatus").innerText =
-        `Вы вошли как ${user.first_name} (ID: ${user.id})`;
-    } else {
-      document.getElementById("userStatus").innerText =
-        "Открыто вне Telegram";
-    }
-  </script>
 </body>
 </html>
