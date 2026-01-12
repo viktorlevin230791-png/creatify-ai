@@ -1,216 +1,295 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>Creatify AI</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creatify AI</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
-    }
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:Inter,sans-serif;
+background:radial-gradient(circle at top,#6a5cff,#3b2fa3);
+color:#fff;
+min-height:100vh
+}
+.app{max-width:430px;margin:0 auto;padding:24px 20px 120px}
+.hidden{display:none}
+h1{font-size:28px;font-weight:700;margin-bottom:8px;text-align:center}
+.subtitle{text-align:center;font-size:15px;opacity:.9;margin-bottom:24px}
 
-    body {
-      margin: 0;
-      background: radial-gradient(circle at top, #6c63ff, #3f3caa);
-      color: #fff;
-    }
+.card{
+background:rgba(255,255,255,.12);
+border-radius:18px;
+padding:18px;
+margin-bottom:16px;
+backdrop-filter:blur(10px)
+}
 
-    .app {
-      max-width: 430px;
-      margin: 0 auto;
-      padding: 20px 16px 110px;
-    }
+.card h2{font-size:18px;margin-bottom:10px}
+.card p{font-size:14px;line-height:1.4;opacity:.9}
 
-    h1 {
-      margin: 0 0 20px;
-      font-size: 22px;
-      font-weight: 700;
-    }
+button{
+width:100%;
+padding:16px;
+border-radius:14px;
+border:none;
+font-size:15px;
+font-weight:600;
+cursor:pointer;
+margin-top:10px
+}
 
-    .card {
-      background: rgba(255,255,255,0.12);
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 16px;
-    }
+.primary{background:#fff;color:#3b2fa3}
+.secondary{background:rgba(255,255,255,.18);color:#fff}
 
-    .card h2 {
-      margin: 0 0 12px;
-      font-size: 16px;
-      font-weight: 600;
-    }
+select,textarea{
+width:100%;
+padding:14px;
+border-radius:12px;
+border:none;
+margin-top:10px;
+font-family:Inter,sans-serif
+}
 
-    select, textarea {
-      width: 100%;
-      padding: 14px;
-      border-radius: 14px;
-      border: none;
-      font-size: 15px;
-      margin-bottom: 12px;
-      outline: none;
-    }
+.price{
+margin-top:6px;
+font-size:13px;
+opacity:.85
+}
 
-    textarea {
-      min-height: 90px;
-      resize: vertical;
-    }
+/* ===== КРАСИВЫЙ FILE UPLOAD ===== */
 
-    .price {
-      font-size: 14px;
-      opacity: 0.9;
-      margin-bottom: 10px;
-    }
+.file-box{
+margin-top:12px;
+border:2px dashed rgba(255,255,255,.35);
+border-radius:14px;
+padding:16px;
+text-align:center;
+cursor:pointer;
+transition:.2s;
+position:relative
+}
 
-    /* ===== КРАСИВЫЙ FILE INPUT ===== */
+.file-box:hover{
+background:rgba(255,255,255,.08);
+border-color:#fff
+}
 
-    .file-box {
-      position: relative;
-      border: 2px dashed rgba(255,255,255,0.35);
-      border-radius: 16px;
-      padding: 18px;
-      text-align: center;
-      transition: 0.2s;
-      cursor: pointer;
-    }
+.file-box input{
+position:absolute;
+inset:0;
+opacity:0;
+cursor:pointer
+}
 
-    .file-box:hover {
-      background: rgba(255,255,255,0.08);
-      border-color: #fff;
-    }
+.file-title{
+font-size:14px;
+font-weight:500
+}
 
-    .file-box input {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      cursor: pointer;
-    }
+.file-sub{
+font-size:12px;
+opacity:.75;
+margin-top:4px
+}
 
-    .file-title {
-      font-size: 15px;
-      font-weight: 500;
-    }
+.file-name{
+font-size:12px;
+margin-top:6px;
+opacity:.85
+}
 
-    .file-sub {
-      font-size: 13px;
-      opacity: 0.75;
-      margin-top: 4px;
-    }
+/* ===== BOTTOM NAV ===== */
 
-    .file-name {
-      margin-top: 8px;
-      font-size: 13px;
-      opacity: 0.9;
-    }
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+background:rgba(30,25,90,.95);
+backdrop-filter:blur(10px);
+border-top:1px solid rgba(255,255,255,.15)
+}
 
-    /* ===== КНОПКА ===== */
+.bottom-inner{
+max-width:430px;
+margin:0 auto;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:8px;
+padding:10px
+}
 
-    .btn {
-      width: 100%;
-      padding: 16px;
-      border-radius: 16px;
-      border: none;
-      background: #fff;
-      color: #4b46c6;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-    }
+.nav-btn{
+background:rgba(255,255,255,.12);
+border-radius:14px;
+padding:12px 6px;
+font-size:12px;
+text-align:center;
+cursor:pointer
+}
 
-    /* ===== НИЖНЕЕ МЕНЮ ===== */
-
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #2f2d7a;
-      padding: 10px 8px 18px;
-      display: flex;
-      gap: 8px;
-    }
-
-    .nav-btn {
-      flex: 1;
-      padding: 12px 6px;
-      text-align: center;
-      font-size: 13px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.12);
-      color: #fff;
-    }
-
-    .nav-btn.active {
-      background: #fff;
-      color: #4b46c6;
-      font-weight: 600;
-    }
-
-  </style>
+.nav-btn.active{
+background:#fff;
+color:#3b2fa3;
+font-weight:600
+}
+</style>
 </head>
-<body>
 
+<body>
 <div class="app">
 
-  <h1>Новый заказ</h1>
+<!-- HOME -->
+<div id="home">
+<h1>Creatify AI</h1>
+<div class="subtitle">AI-фото и видео под заказ · оплата в Telegram Stars ⭐</div>
 
-  <div class="card">
-    <h2>Тип контента</h2>
-    <select id="type">
-      <option value="photo">Фото</option>
-      <option value="video">Видео</option>
-    </select>
+<div class="card">
+<h2>О проекте</h2>
+<p>
+Creatify AI — студия визуального контента.
+Вы заказываете фото или видео, мы выполняем работу в течение 24 часов.
+Оплата производится через Telegram Stars.
+</p>
+</div>
 
-    <h2>Сложность</h2>
-    <select id="level" onchange="updatePrice()">
-      <option value="easy">Лёгкая</option>
-      <option value="medium">Средняя</option>
-      <option value="hard">Сложная</option>
-    </select>
+<div class="card">
+<h2>Как это работает</h2>
+<p>
+1. Вы выбираете формат и сложность<br>
+2. Описываете задачу и прикрепляете материалы<br>
+3. Оплачиваете заказ ⭐<br>
+4. Получаете результат
+</p>
+</div>
+</div>
 
-    <div class="price" id="price">Стоимость: 50 ⭐</div>
+<!-- ORDER -->
+<div id="order" class="hidden">
+<div class="card">
+<h2>Новый заказ</h2>
 
-    <textarea placeholder="Опишите задачу"></textarea>
+<select id="type" onchange="updatePrice()">
+<option value="">Формат</option>
+<option value="photo">Фото</option>
+<option value="video">Видео</option>
+</select>
 
-    <div class="file-box">
-      <input type="file" multiple onchange="showFiles(this)">
-      <div class="file-title">Добавить файлы</div>
-      <div class="file-sub">Изображения, референсы, видео</div>
-      <div class="file-name" id="files"></div>
-    </div>
+<select id="level" onchange="updatePrice()">
+<option value="">Сложность</option>
+<option value="easy">Лёгкая</option>
+<option value="medium">Средняя</option>
+<option value="hard">Сложная</option>
+</select>
 
-  </div>
+<div class="price" id="price">Стоимость: —</div>
 
-  <button class="btn">Отправить заказ</button>
+<textarea id="desc" rows="4" placeholder="Опишите задачу"></textarea>
+
+<div class="file-box">
+<input type="file" multiple onchange="showFiles(this)">
+<div class="file-title">Добавить файлы</div>
+<div class="file-sub">Изображения, референсы, видео</div>
+<div class="file-name" id="files"></div>
+</div>
+
+<button class="primary" onclick="sendOrder()">Перейти к оплате</button>
+</div>
+</div>
+
+<!-- ORDERS -->
+<div id="orders" class="hidden">
+<div class="card">
+<h2>Мои заказы</h2>
+<p>Здесь будут отображаться ваши заказы и их статусы.</p>
+</div>
+</div>
+
+<!-- WALLET -->
+<div id="wallet" class="hidden">
+<div class="card">
+<h2>Кошелёк</h2>
+<p>Баланс: 0 ⭐</p>
+<button class="primary">Пополнить через Telegram Stars</button>
+</div>
+</div>
+
+<!-- EXAMPLES -->
+<div id="examples" class="hidden">
+<div class="card">
+<h2>Примеры работ</h2>
+<p>
+Лёгкий уровень — базовые фото и клипы<br>
+Средний уровень — рекламные материалы<br>
+Сложный уровень — брендовые и концептуальные проекты
+</p>
+</div>
+</div>
 
 </div>
 
 <div class="bottom-nav">
-  <div class="nav-btn">Главная</div>
-  <div class="nav-btn active">Заказать</div>
-  <div class="nav-btn">Заказы</div>
-  <div class="nav-btn">Кошелёк</div>
-  <div class="nav-btn">Примеры</div>
+<div class="bottom-inner">
+<div class="nav-btn active" onclick="nav('home')">Главная</div>
+<div class="nav-btn" onclick="nav('order')">Заказать</div>
+<div class="nav-btn" onclick="nav('orders')">Заказы</div>
+<div class="nav-btn" onclick="nav('wallet')">Кошелёк</div>
+<div class="nav-btn" onclick="nav('examples')">Примеры</div>
+</div>
 </div>
 
 <script>
-  function updatePrice() {
-    const level = document.getElementById('level').value;
-    const price = document.getElementById('price');
+const tg = window.Telegram.WebApp;
+tg.expand();
 
-    if (level === 'easy') price.textContent = 'Стоимость: 50 ⭐';
-    if (level === 'medium') price.textContent = 'Стоимость: 100 ⭐';
-    if (level === 'hard') price.textContent = 'Стоимость: 200 ⭐';
-  }
+const prices = {
+photo:{easy:5,medium:15,hard:25},
+video:{easy:15,medium:25,hard:50}
+};
 
-  function showFiles(input) {
-    const names = Array.from(input.files).map(f => f.name).join(', ');
-    document.getElementById('files').textContent = names;
-  }
+function nav(id){
+document.querySelectorAll('.app > div').forEach(d=>d.classList.add('hidden'));
+document.getElementById(id).classList.remove('hidden');
+document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+event.target.classList.add('active');
+}
+
+function updatePrice(){
+const type=document.getElementById('type').value;
+const level=document.getElementById('level').value;
+const priceEl=document.getElementById('price');
+if(type && level){
+priceEl.innerText=`Стоимость: ${prices[type][level]} ⭐`;
+}else{
+priceEl.innerText='Стоимость: —';
+}
+}
+
+function showFiles(input){
+const names=[...input.files].map(f=>f.name).join(', ');
+document.getElementById('files').innerText=names;
+}
+
+function sendOrder(){
+const type=document.getElementById('type').value;
+const level=document.getElementById('level').value;
+const description=document.getElementById('desc').value;
+if(!type||!level||!description)return;
+
+tg.sendData(JSON.stringify({
+action:'create_order',
+type:type,
+level:level,
+price:prices[type][level],
+description:description
+}));
+}
 </script>
-
 </body>
 </html>
