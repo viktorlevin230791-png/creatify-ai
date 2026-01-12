@@ -1,146 +1,222 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Creatify AI</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-* { box-sizing: border-box; }
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background: radial-gradient(circle at top, #5b4bff, #0b0b14);
+  background: radial-gradient(circle at top, #5b4bff, #0a0a12);
   color: #fff;
 }
 
-.container {
+.app {
   max-width: 420px;
   margin: auto;
-  padding: 24px 16px 40px;
+  padding-bottom: 90px;
 }
 
-.logo {
+header {
+  padding: 24px 16px 12px;
   text-align: center;
-  font-size: 28px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 26px;
   font-weight: 700;
-  margin-bottom: 8px;
 }
 
-.subtitle {
-  text-align: center;
-  opacity: 0.85;
-  margin-bottom: 32px;
-  line-height: 1.5;
+header p {
+  opacity: 0.8;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.section {
+  padding: 16px;
 }
 
 .card {
   background: rgba(255,255,255,0.08);
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 16px;
-  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 14px;
 }
 
 .card h3 {
   margin: 0 0 6px;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .card p {
   margin: 0;
+  font-size: 13px;
   opacity: 0.8;
-  font-size: 14px;
 }
-
-.button {
-  display: block;
-  width: 100%;
-  margin-top: 16px;
-  padding: 14px;
-  border-radius: 14px;
-  border: none;
-  background: linear-gradient(135deg, #7b6cff, #ff4fd8);
-  color: #fff;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.hidden { display: none; }
 
 .option {
   padding: 14px;
   border-radius: 14px;
   background: rgba(255,255,255,0.1);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   cursor: pointer;
-  font-weight: 500;
 }
 
 .option.active {
-  background: linear-gradient(135deg, #6f5cff, #ff55c8);
+  background: linear-gradient(135deg, #6f5cff, #ff4fd8);
 }
+
 .price {
   float: right;
   opacity: 0.9;
+}
+
+button {
+  width: 100%;
+  border: none;
+  padding: 14px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #6f5cff, #ff4fd8);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.hidden { display: none; }
+
+/* Bottom menu */
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(15,15,25,0.95);
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+}
+
+.nav div {
+  font-size: 12px;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.nav .active {
+  opacity: 1;
+  font-weight: 600;
 }
 </style>
 </head>
 
 <body>
-<div class="container">
 
-  <div class="logo">Creatify AI</div>
-  <div class="subtitle">
-    AI-фото и видео под заказ для бизнеса, рекламы и соцсетей.<br>
-    Срок выполнения — до 24 часов.
+<div class="app">
+
+  <!-- ГЛАВНАЯ -->
+  <div id="home">
+    <header>
+      <h1>Creatify AI</h1>
+      <p>AI-фото и видео под заказ для бизнеса и соцсетей</p>
+    </header>
+
+    <div class="section">
+      <div class="card">
+        <h3>Что мы делаем</h3>
+        <p>Создаём фото и видео для рекламы, Reels, Shorts и презентаций. Без съёмок и студий.</p>
+      </div>
+
+      <button onclick="openTab('shop')">Заказать креатив</button>
+    </div>
   </div>
 
-  <!-- ШАГ 1 -->
-  <div class="card" id="step1">
-    <h3>1. Выберите услугу</h3>
-    <div class="option" onclick="selectService('photo')">Фото</div>
-    <div class="option" onclick="selectService('video')">Видео</div>
+  <!-- МАГАЗИН -->
+  <div id="shop" class="hidden section">
+    <div class="card">
+      <h3>Выберите услугу</h3>
+      <div class="option" onclick="selectService('Фото')">Фото</div>
+      <div class="option" onclick="selectService('Видео')">Видео</div>
+    </div>
+
+    <div class="card hidden" id="levels">
+      <h3>Сложность</h3>
+      <div class="option" onclick="selectPrice(15)">Лёгкая <span class="price">15</span></div>
+      <div class="option" onclick="selectPrice(25)">Средняя <span class="price">25</span></div>
+      <div class="option" onclick="selectPrice(50)">Сложная <span class="price">50</span></div>
+    </div>
+
+    <div class="card hidden" id="pay">
+      <h3>Оплата</h3>
+      <p>Оплата через Telegram Wallet или Stars</p>
+      <button onclick="goTelegram()">Оплатить в Telegram</button>
+    </div>
   </div>
 
-  <!-- ШАГ 2 -->
-  <div class="card hidden" id="step2">
-    <h3>2. Сложность</h3>
-
-    <div class="option" onclick="selectPlan('easy',5)">Лёгкая <span class="price">5 TON</span></div>
-    <div class="option" onclick="selectPlan('medium',20)">Средняя <span class="price">20 TON</span></div>
-    <div class="option" onclick="selectPlan('hard',50)">Сложная <span class="price">50 TON</span></div>
+  <!-- ЗАКАЗЫ -->
+  <div id="orders" class="hidden section">
+    <div class="card">
+      <h3>Мои заказы</h3>
+      <p>#1023 — Фото — В работе</p>
+      <p>#1018 — Видео — Готово</p>
+    </div>
   </div>
 
-  <!-- ШАГ 3 -->
-  <div class="card hidden" id="step3">
-    <h3>3. Оплата</h3>
-    <p>Оплата происходит в Telegram через внутренний баланс (TON).</p>
-    <button class="button" onclick="goTelegram()">Перейти к оплате</button>
+  <!-- О ПРОЕКТЕ -->
+  <div id="about" class="hidden section">
+    <div class="card">
+      <h3>О проекте</h3>
+      <p>Creatify AI — сервис креативов под заказ с оплатой через Telegram.</p>
+    </div>
+
+    <div class="card">
+      <h3>Примеры работ</h3>
+      <p>Будут добавлены в следующей версии</p>
+    </div>
   </div>
 
 </div>
 
+<!-- NAV -->
+<div class="nav">
+  <div class="active" onclick="openTab('home')">Главная</div>
+  <div onclick="openTab('shop')">Заказать</div>
+  <div onclick="openTab('orders')">Заказы</div>
+  <div onclick="openTab('about')">О проекте</div>
+</div>
+
 <script>
-let service = null;
+let service = '';
 let price = 0;
 
-function selectService(type) {
-  service = type;
-  document.getElementById('step2').classList.remove('hidden');
+function openTab(id) {
+  ['home','shop','orders','about'].forEach(t=>{
+    document.getElementById(t).classList.add('hidden');
+  });
+  document.getElementById(id).classList.remove('hidden');
+
+  document.querySelectorAll('.nav div').forEach(n=>n.classList.remove('active'));
+  event.target.classList.add('active');
 }
 
-function selectPlan(level, cost) {
-  price = cost;
-  document.getElementById('step3').classList.remove('hidden');
+function selectService(s) {
+  service = s;
+  document.getElementById('levels').classList.remove('hidden');
+}
+
+function selectPrice(p) {
+  price = p;
+  document.getElementById('pay').classList.remove('hidden');
 }
 
 function goTelegram() {
-  // ВАЖНО: здесь будет твой бот
-  window.location.href = "https://t.me/YOUR_BOT_USERNAME?start=order_" + price;
+  window.location.href = "https://t.me/YOUR_BOT_USERNAME?start=pay_" + price;
 }
 </script>
 
