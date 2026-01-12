@@ -17,10 +17,32 @@ background:radial-gradient(circle at top,#6a5cff,#3b2fa3);
 color:#fff;
 min-height:100vh
 }
-.app{max-width:430px;margin:0 auto;padding:24px 20px 120px}
+.app{
+max-width:430px;
+margin:0 auto;
+padding:24px 20px 120px
+}
 .hidden{display:none}
-h1{font-size:28px;font-weight:700;margin-bottom:8px;text-align:center}
-.subtitle{text-align:center;font-size:15px;opacity:.9;margin-bottom:24px}
+
+h1{
+font-size:28px;
+font-weight:700;
+margin:12px 0 6px;
+text-align:center
+}
+.subtitle{
+text-align:center;
+font-size:15px;
+opacity:.9;
+margin-bottom:22px
+}
+
+.hero{
+width:100%;
+border-radius:22px;
+margin-bottom:22px;
+box-shadow:0 20px 40px rgba(0,0,0,.35)
+}
 
 .card{
 background:rgba(255,255,255,.12);
@@ -29,9 +51,15 @@ padding:18px;
 margin-bottom:16px;
 backdrop-filter:blur(10px)
 }
-
-.card h2{font-size:18px;margin-bottom:10px}
-.card p{font-size:14px;line-height:1.4;opacity:.9}
+.card h2{
+font-size:18px;
+margin-bottom:10px
+}
+.card p{
+font-size:14px;
+line-height:1.45;
+opacity:.92
+}
 
 button{
 width:100%;
@@ -41,13 +69,14 @@ border:none;
 font-size:15px;
 font-weight:600;
 cursor:pointer;
-margin-top:10px
+margin-top:14px
+}
+.primary{
+background:#fff;
+color:#3b2fa3
 }
 
-.primary{background:#fff;color:#3b2fa3}
-.secondary{background:rgba(255,255,255,.18);color:#fff}
-
-select,textarea{
+select,textarea,input{
 width:100%;
 padding:14px;
 border-radius:12px;
@@ -57,54 +86,10 @@ font-family:Inter,sans-serif
 }
 
 .price{
-margin-top:6px;
-font-size:13px;
-opacity:.85
-}
-
-/* ===== КРАСИВЫЙ FILE UPLOAD ===== */
-
-.file-box{
-margin-top:12px;
-border:2px dashed rgba(255,255,255,.35);
-border-radius:14px;
-padding:16px;
-text-align:center;
-cursor:pointer;
-transition:.2s;
-position:relative
-}
-
-.file-box:hover{
-background:rgba(255,255,255,.08);
-border-color:#fff
-}
-
-.file-box input{
-position:absolute;
-inset:0;
-opacity:0;
-cursor:pointer
-}
-
-.file-title{
+margin-top:8px;
 font-size:14px;
-font-weight:500
+opacity:.9
 }
-
-.file-sub{
-font-size:12px;
-opacity:.75;
-margin-top:4px
-}
-
-.file-name{
-font-size:12px;
-margin-top:6px;
-opacity:.85
-}
-
-/* ===== BOTTOM NAV ===== */
 
 .bottom-nav{
 position:fixed;
@@ -115,7 +100,6 @@ background:rgba(30,25,90,.95);
 backdrop-filter:blur(10px);
 border-top:1px solid rgba(255,255,255,.15)
 }
-
 .bottom-inner{
 max-width:430px;
 margin:0 auto;
@@ -124,16 +108,14 @@ grid-template-columns:repeat(5,1fr);
 gap:8px;
 padding:10px
 }
-
 .nav-btn{
-background:rgba(255,255,255,.12);
+background:rgba(255,255,255,.14);
 border-radius:14px;
 padding:12px 6px;
 font-size:12px;
 text-align:center;
 cursor:pointer
 }
-
 .nav-btn.active{
 background:#fff;
 color:#3b2fa3;
@@ -147,25 +129,30 @@ font-weight:600
 
 <!-- HOME -->
 <div id="home">
+<img src="hero.png" alt="Creatify AI" class="hero">
+
 <h1>Creatify AI</h1>
-<div class="subtitle">AI-фото и видео под заказ · оплата в Telegram Stars ⭐</div>
+<div class="subtitle">
+AI-фото и видео под заказ<br>
+Оплата через Telegram Stars ⭐
+</div>
 
 <div class="card">
 <h2>О проекте</h2>
 <p>
 Creatify AI — студия визуального контента.
 Вы заказываете фото или видео, мы выполняем работу в течение 24 часов.
-Оплата производится через Telegram Stars.
+Оплата — через Telegram Stars прямо в Telegram.
 </p>
 </div>
 
 <div class="card">
 <h2>Как это работает</h2>
 <p>
-1. Вы выбираете формат и сложность<br>
+1. Выбираете формат и сложность<br>
 2. Описываете задачу и прикрепляете материалы<br>
 3. Оплачиваете заказ ⭐<br>
-4. Получаете результат
+4. Получаете готовый результат
 </p>
 </div>
 </div>
@@ -191,13 +178,7 @@ Creatify AI — студия визуального контента.
 <div class="price" id="price">Стоимость: —</div>
 
 <textarea id="desc" rows="4" placeholder="Опишите задачу"></textarea>
-
-<div class="file-box">
-<input type="file" multiple onchange="showFiles(this)">
-<div class="file-title">Добавить файлы</div>
-<div class="file-sub">Изображения, референсы, видео</div>
-<div class="file-name" id="files"></div>
-</div>
+<input type="file" multiple>
 
 <button class="primary" onclick="sendOrder()">Перейти к оплате</button>
 </div>
@@ -207,7 +188,7 @@ Creatify AI — студия визуального контента.
 <div id="orders" class="hidden">
 <div class="card">
 <h2>Мои заказы</h2>
-<p>Здесь будут отображаться ваши заказы и их статусы.</p>
+<p>Здесь будут отображаться ваши заказы и их текущий статус.</p>
 </div>
 </div>
 
@@ -234,13 +215,14 @@ Creatify AI — студия визуального контента.
 
 </div>
 
+<!-- BOTTOM NAV -->
 <div class="bottom-nav">
 <div class="bottom-inner">
-<div class="nav-btn active" onclick="nav('home')">Главная</div>
-<div class="nav-btn" onclick="nav('order')">Заказать</div>
-<div class="nav-btn" onclick="nav('orders')">Заказы</div>
-<div class="nav-btn" onclick="nav('wallet')">Кошелёк</div>
-<div class="nav-btn" onclick="nav('examples')">Примеры</div>
+<div class="nav-btn active" onclick="nav('home',this)">Главная</div>
+<div class="nav-btn" onclick="nav('order',this)">Заказать</div>
+<div class="nav-btn" onclick="nav('orders',this)">Заказы</div>
+<div class="nav-btn" onclick="nav('wallet',this)">Кошелёк</div>
+<div class="nav-btn" onclick="nav('examples',this)">Примеры</div>
 </div>
 </div>
 
@@ -253,11 +235,11 @@ photo:{easy:5,medium:15,hard:25},
 video:{easy:15,medium:25,hard:50}
 };
 
-function nav(id){
+function nav(id,el){
 document.querySelectorAll('.app > div').forEach(d=>d.classList.add('hidden'));
 document.getElementById(id).classList.remove('hidden');
 document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-event.target.classList.add('active');
+el.classList.add('active');
 }
 
 function updatePrice(){
@@ -269,11 +251,6 @@ priceEl.innerText=`Стоимость: ${prices[type][level]} ⭐`;
 }else{
 priceEl.innerText='Стоимость: —';
 }
-}
-
-function showFiles(input){
-const names=[...input.files].map(f=>f.name).join(', ');
-document.getElementById('files').innerText=names;
 }
 
 function sendOrder(){
