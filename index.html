@@ -24,10 +24,17 @@ padding:24px 20px 120px
 }
 .hidden{display:none}
 
+.hero{
+width:100%;
+border-radius:22px;
+margin-bottom:20px;
+box-shadow:0 20px 40px rgba(0,0,0,.35)
+}
+
 h1{
 font-size:28px;
 font-weight:700;
-margin:14px 0 6px;
+margin:10px 0 6px;
 text-align:center
 }
 .subtitle{
@@ -37,28 +44,12 @@ opacity:.9;
 margin-bottom:22px
 }
 
-.hero{
-width:100%;
-border-radius:22px;
-margin-bottom:22px;
-box-shadow:0 20px 40px rgba(0,0,0,.35)
-}
-
 .card{
 background:rgba(255,255,255,.12);
 border-radius:18px;
 padding:18px;
 margin-bottom:16px;
 backdrop-filter:blur(10px)
-}
-.card h2{
-font-size:18px;
-margin-bottom:10px
-}
-.card p{
-font-size:14px;
-line-height:1.45;
-opacity:.92
 }
 
 button{
@@ -74,21 +65,6 @@ margin-top:14px
 .primary{
 background:#fff;
 color:#3b2fa3
-}
-
-select,textarea,input{
-width:100%;
-padding:14px;
-border-radius:12px;
-border:none;
-margin-top:10px;
-font-family:Inter,sans-serif
-}
-
-.price{
-margin-top:8px;
-font-size:14px;
-opacity:.9
 }
 
 .bottom-nav{
@@ -129,7 +105,7 @@ font-weight:600
 
 <!-- HOME -->
 <div id="home">
-<img src="Hero.png" alt="Creatify AI" class="hero">
+<img src="Hero.png" class="hero" alt="Creatify AI">
 
 <h1>Creatify AI</h1>
 <div class="subtitle">
@@ -138,84 +114,19 @@ AI-фото и видео под заказ<br>
 </div>
 
 <div class="card">
-<h2>О сервисе</h2>
-<p>
-Creatify AI — студия визуального контента в Telegram.
-Вы выбираете формат и сложность, описываете задачу —
-мы создаём результат в течение 24 часов.
-</p>
-</div>
-
-<div class="card">
-<h2>Как это работает</h2>
-<p>
-1. Выбираете фото или видео<br>
-2. Указываете сложность и описание<br>
-3. Оплачиваете заказ ⭐<br>
-4. Получаете готовый результат
-</p>
+Creatify AI — студия визуального контента.
+Вы выбираете формат и сложность, мы создаём результат в течение 24 часов.
 </div>
 </div>
 
-<!-- ORDER -->
-<div id="order" class="hidden">
-<div class="card">
-<h2>Новый заказ</h2>
-
-<select id="type" onchange="updatePrice()">
-<option value="">Формат</option>
-<option value="photo">Фото</option>
-<option value="video">Видео</option>
-</select>
-
-<select id="level" onchange="updatePrice()">
-<option value="">Сложность</option>
-<option value="easy">Лёгкая</option>
-<option value="medium">Средняя</option>
-<option value="hard">Сложная</option>
-</select>
-
-<div class="price" id="price">Стоимость: —</div>
-
-<textarea id="desc" rows="4" placeholder="Опишите задачу"></textarea>
-<input type="file" multiple>
-
-<button class="primary" onclick="sendOrder()">Создать заказ</button>
-</div>
-</div>
-
-<!-- ORDERS -->
-<div id="orders" class="hidden">
-<div class="card">
-<h2>Мои заказы</h2>
-<p>Здесь будут отображаться ваши заказы и их статус.</p>
-</div>
-</div>
-
-<!-- WALLET -->
-<div id="wallet" class="hidden">
-<div class="card">
-<h2>Кошелёк</h2>
-<p>Баланс: определяется через Telegram Stars</p>
-<button class="primary">Пополнить ⭐</button>
-</div>
-</div>
-
-<!-- EXAMPLES -->
-<div id="examples" class="hidden">
-<div class="card">
-<h2>Примеры работ</h2>
-<p>
-Лёгкий — простые изображения<br>
-Средний — рекламные материалы<br>
-Сложный — концептуальные проекты
-</p>
-</div>
-</div>
+<!-- OTHER SECTIONS -->
+<div id="order" class="hidden card">Форма заказа</div>
+<div id="orders" class="hidden card">Мои заказы</div>
+<div id="wallet" class="hidden card">Кошелёк</div>
+<div id="examples" class="hidden card">Примеры работ</div>
 
 </div>
 
-<!-- NAV -->
 <div class="bottom-nav">
 <div class="bottom-inner">
 <div class="nav-btn active" onclick="nav('home',this)">Главная</div>
@@ -230,42 +141,11 @@ Creatify AI — студия визуального контента в Telegram
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-const prices = {
-photo:{easy:5,medium:15,hard:25},
-video:{easy:15,medium:25,hard:50}
-};
-
 function nav(id,el){
 document.querySelectorAll('.app > div').forEach(d=>d.classList.add('hidden'));
 document.getElementById(id).classList.remove('hidden');
 document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
 el.classList.add('active');
-}
-
-function updatePrice(){
-const type=document.getElementById('type').value;
-const level=document.getElementById('level').value;
-const priceEl=document.getElementById('price');
-if(type && level){
-priceEl.innerText=`Стоимость: ${prices[type][level]} ⭐`;
-}else{
-priceEl.innerText='Стоимость: —';
-}
-}
-
-function sendOrder(){
-const type=document.getElementById('type').value;
-const level=document.getElementById('level').value;
-const description=document.getElementById('desc').value;
-if(!type||!level||!description)return;
-
-tg.sendData(JSON.stringify({
-action:'create_order',
-type:type,
-level:level,
-price:prices[type][level],
-description:description
-}));
 }
 </script>
 </body>
