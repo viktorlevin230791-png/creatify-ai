@@ -1,157 +1,3 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<title>Creatify AI</title>
-
-<style>
-body{
-margin:0;
-font-family:Arial, sans-serif;
-background:linear-gradient(180deg,#7b6cff,#5a4edc);
-color:#fff;
-}
-
-.app{
-padding:16px;
-padding-bottom:90px;
-}
-
-.hidden{display:none}
-
-.card{
-background:rgba(255,255,255,.15);
-border-radius:18px;
-padding:18px;
-margin-bottom:16px;
-}
-
-/* ЗАГРУЗКА ФАЙЛА — ЕДИНСТВЕННОЕ НОВОЕ */
-.upload-box{
-border:2px dashed rgba(255,255,255,.4);
-border-radius:16px;
-padding:18px;
-text-align:center;
-cursor:pointer;
-margin-top:12px;
-}
-
-.upload-icon{
-font-size:28px;
-margin-bottom:6px;
-}
-
-.upload-text span{
-font-size:13px;
-opacity:.7;
-}
-
-/* BOTTOM NAV */
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-background:rgba(0,0,0,.25);
-padding:10px 0;
-}
-
-.bottom-inner{
-display:flex;
-justify-content:space-around;
-}
-
-.nav-btn{
-color:#ddd;
-padding:8px 12px;
-border-radius:12px;
-cursor:pointer;
-}
-
-.nav-btn.active{
-background:#fff;
-color:#000;
-}
-</style>
-</head>
-
-<body>
-<div class="app">
-
-<!-- HOME -->
-<div id="home">
-<div class="card">
-<h2>Creatify AI</h2>
-<p>AI-фото и видео под заказ.<br>Выполнение до 24 часов.</p>
-<p>⭐ Оплата через Telegram Stars</p>
-</div>
-</div>
-
-<!-- ORDER -->
-<div id="order" class="hidden">
-<div class="card">
-<h3>Новый заказ</h3>
-
-<select id="type" onchange="updatePrice()">
-<option value="">Тип контента</option>
-<option value="photo">Фото</option>
-<option value="video">Видео</option>
-</select>
-
-<br><br>
-
-<select id="level" onchange="updatePrice()">
-<option value="">Сложность</option>
-<option value="easy">Лёгкая</option>
-<option value="medium">Средняя</option>
-<option value="hard">Сложная</option>
-</select>
-
-<p id="price">Стоимость: —</p>
-
-<textarea id="desc" placeholder="Описание заказа" style="width:100%;border-radius:12px;padding:10px"></textarea>
-
-<!-- КРАСИВАЯ КНОПКА ЗАГРУЗКИ -->
-<div class="upload-box" onclick="document.getElementById('file').click()">
-<div class="upload-icon">📎</div>
-<div class="upload-text">
-<b>Загрузить файл</b><br>
-<span>PNG / JPG / MP4 (необязательно)</span>
-</div>
-</div>
-<input type="file" id="file" hidden>
-
-<br><br>
-<button onclick="sendOrder()">Отправить заказ</button>
-</div>
-</div>
-
-<!-- ORDERS -->
-<div id="orders" class="hidden">
-<div class="card">
-<h3>Мои заказы</h3>
-<p>Здесь будут ваши заказы</p>
-</div>
-</div>
-
-<!-- WALLET -->
-<div id="wallet" class="hidden">
-<div class="card">
-<h3>Кошелёк</h3>
-<p>Баланс появится позже</p>
-</div>
-</div>
-
-<!-- EXAMPLES -->
-<div id="examples" class="hidden">
-<div class="card">
-<h3>Примеры</h3>
-<p>Примеры работ появятся позже</p>
-</div>
-</div>
-
-</div>
-
 <!-- BOTTOM NAV -->
 <div class="bottom-nav">
 <div class="bottom-inner">
@@ -184,7 +30,7 @@ const type=document.getElementById('type').value;
 const level=document.getElementById('level').value;
 const priceEl=document.getElementById('price');
 if(type && level){
-priceEl.innerText=`Стоимость: ${prices[type][level]} ⭐`;
+priceEl.innerText=Стоимость: ${prices[type][level]} ⭐;
 }else{
 priceEl.innerText='Стоимость: —';
 }
@@ -194,7 +40,7 @@ function sendOrder(){
 const type=document.getElementById('type').value;
 const level=document.getElementById('level').value;
 const description=document.getElementById('desc').value;
-if(!type || !level || !description) return;
+if(!type!level!description)return;
 
 tg.sendData(JSON.stringify({
 action:'create_order',
