@@ -214,3 +214,59 @@ Creatify AI — студия визуального контента.
 </div>
 
 </div>
+  <!-- BOTTOM NAV -->
+<div class="bottom-nav">
+<div class="bottom-inner">
+<div class="nav-btn active" onclick="nav('home',this)">Главная</div>
+<div class="nav-btn" onclick="nav('order',this)">Заказать</div>
+<div class="nav-btn" onclick="nav('orders',this)">Заказы</div>
+<div class="nav-btn" onclick="nav('wallet',this)">Кошелёк</div>
+<div class="nav-btn" onclick="nav('examples',this)">Примеры</div>
+</div>
+</div>
+
+<script>
+const tg = window.Telegram.WebApp;
+tg.expand();
+
+const prices = {
+photo:{easy:5,medium:15,hard:25},
+video:{easy:15,medium:25,hard:50}
+};
+
+function nav(id,el){
+document.querySelectorAll('.app > div').forEach(d=>d.classList.add('hidden'));
+document.getElementById(id).classList.remove('hidden');
+document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+el.classList.add('active');
+}
+
+function updatePrice(){
+const type=document.getElementById('type').value;
+const level=document.getElementById('level').value;
+const priceEl=document.getElementById('price');
+if(type && level){
+priceEl.innerText=Стоимость: ${prices[type][level]} ⭐;
+}else{
+priceEl.innerText='Стоимость: —';
+}
+}
+
+function sendOrder(){
+const type=document.getElementById('type').value;
+const level=document.getElementById('level').value;
+const description=document.getElementById('desc').value;
+if(!type!level!description)return;
+
+tg.sendData(JSON.stringify({
+action:'create_order',
+type:type,
+level:level,
+price:prices[type][level],
+description:description
+}));
+}
+</script>
+</body>
+</html>
+
