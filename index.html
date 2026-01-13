@@ -2,74 +2,42 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Creatify AI</title>
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-
 <style>
-*{box-sizing:border-box}
 body{
 margin:0;
-font-family:-apple-system,BlinkMacSystemFont,sans-serif;
-background:linear-gradient(180deg,#6b5cff,#4a3fcf);
+font-family:Arial, sans-serif;
+background:linear-gradient(180deg,#7b6cff,#5a4edc);
 color:#fff;
 }
-.hidden{display:none}
+
 .app{
-max-width:430px;
-margin:0 auto;
-padding:20px 16px 120px;
+padding:16px;
+padding-bottom:90px;
 }
+
+.hidden{display:none}
 
 .card{
 background:rgba(255,255,255,.15);
 border-radius:18px;
-padding:16px;
+padding:18px;
 margin-bottom:16px;
 }
 
-select,textarea{
-width:100%;
-border-radius:14px;
-border:none;
-padding:12px;
-margin-top:10px;
-font-size:15px;
-}
-
-textarea{min-height:90px}
-
-button{
-width:100%;
-border:none;
-border-radius:16px;
-padding:14px;
-font-size:16px;
-font-weight:600;
-background:#fff;
-color:#4a3fcf;
-margin-top:14px;
-}
-
-/* 🔥 КРАСИВАЯ ЗАГРУЗКА */
+/* ЗАГРУЗКА ФАЙЛА — ЕДИНСТВЕННОЕ НОВОЕ */
 .upload-box{
 border:2px dashed rgba(255,255,255,.4);
-border-radius:18px;
-padding:22px;
+border-radius:16px;
+padding:18px;
 text-align:center;
 cursor:pointer;
-background:rgba(255,255,255,.05);
-transition:.25s;
 margin-top:12px;
 }
 
-.upload-box:hover{
-background:rgba(255,255,255,.1);
-}
-
 .upload-icon{
-font-size:32px;
+font-size:28px;
 margin-bottom:6px;
 }
 
@@ -78,64 +46,59 @@ font-size:13px;
 opacity:.7;
 }
 
-.preview{
-width:100%;
-border-radius:14px;
-margin-top:12px;
-}
-
+/* BOTTOM NAV */
 .bottom-nav{
 position:fixed;
 bottom:0;
 left:0;
 right:0;
-background:rgba(0,0,0,.15);
-backdrop-filter:blur(10px);
+background:rgba(0,0,0,.25);
+padding:10px 0;
 }
 
 .bottom-inner{
 display:flex;
 justify-content:space-around;
-padding:10px;
 }
 
 .nav-btn{
-opacity:.7;
+color:#ddd;
+padding:8px 12px;
+border-radius:12px;
 cursor:pointer;
 }
 
 .nav-btn.active{
-opacity:1;
-font-weight:600;
+background:#fff;
+color:#000;
 }
 </style>
 </head>
 
 <body>
-
 <div class="app">
 
 <!-- HOME -->
 <div id="home">
 <div class="card">
 <h2>Creatify AI</h2>
-<p>
-AI-фото и видео под заказ.<br>
-Выполнение до 24 часов.<br><br>
-⭐ Оплата через Telegram Stars
-</p>
+<p>AI-фото и видео под заказ.<br>Выполнение до 24 часов.</p>
+<p>⭐ Оплата через Telegram Stars</p>
 </div>
 </div>
 
 <!-- ORDER -->
 <div id="order" class="hidden">
 <div class="card">
+<h3>Новый заказ</h3>
 
 <select id="type" onchange="updatePrice()">
-<option value="">Формат</option>
+<option value="">Тип контента</option>
 <option value="photo">Фото</option>
 <option value="video">Видео</option>
 </select>
+
+<br><br>
 
 <select id="level" onchange="updatePrice()">
 <option value="">Сложность</option>
@@ -144,40 +107,47 @@ AI-фото и видео под заказ.<br>
 <option value="hard">Сложная</option>
 </select>
 
-<!-- 🔥 НОВАЯ КНОПКА ЗАГРУЗКИ -->
-<div class="upload-box" onclick="document.getElementById('file').click()">
-<div class="upload-icon">⬆️</div>
-<div class="upload-text">
-<b>Загрузить файл</b><br>
-<span>PNG / JPG / MP4 (опционально)</span>
-</div>
-</div>
-
-<input type="file" id="file" hidden onchange="previewFile(this)">
-<img id="preview" class="preview hidden">
-
-<textarea id="desc" placeholder="Опишите задачу"></textarea>
-
 <p id="price">Стоимость: —</p>
 
-<button onclick="sendOrder()">Создать заказ</button>
+<textarea id="desc" placeholder="Описание заказа" style="width:100%;border-radius:12px;padding:10px"></textarea>
 
+<!-- КРАСИВАЯ КНОПКА ЗАГРУЗКИ -->
+<div class="upload-box" onclick="document.getElementById('file').click()">
+<div class="upload-icon">📎</div>
+<div class="upload-text">
+<b>Загрузить файл</b><br>
+<span>PNG / JPG / MP4 (необязательно)</span>
+</div>
+</div>
+<input type="file" id="file" hidden>
+
+<br><br>
+<button onclick="sendOrder()">Отправить заказ</button>
 </div>
 </div>
 
 <!-- ORDERS -->
 <div id="orders" class="hidden">
-<div class="card">Здесь будут ваши заказы</div>
+<div class="card">
+<h3>Мои заказы</h3>
+<p>Здесь будут ваши заказы</p>
+</div>
 </div>
 
 <!-- WALLET -->
 <div id="wallet" class="hidden">
-<div class="card">Баланс появится позже</div>
+<div class="card">
+<h3>Кошелёк</h3>
+<p>Баланс появится позже</p>
+</div>
 </div>
 
 <!-- EXAMPLES -->
 <div id="examples" class="hidden">
-<div class="card">Примеры работ появятся позже</div>
+<div class="card">
+<h3>Примеры</h3>
+<p>Примеры работ появятся позже</p>
+</div>
 </div>
 
 </div>
@@ -214,24 +184,17 @@ const type=document.getElementById('type').value;
 const level=document.getElementById('level').value;
 const priceEl=document.getElementById('price');
 if(type && level){
-priceEl.innerText = `Стоимость: ${prices[type][level]} ⭐`;
+priceEl.innerText=`Стоимость: ${prices[type][level]} ⭐`;
 }else{
-priceEl.innerText = 'Стоимость: —';
+priceEl.innerText='Стоимость: —';
 }
-}
-
-function previewFile(input){
-const file=input.files[0];
-if(!file) return;
-preview.src=URL.createObjectURL(file);
-preview.classList.remove('hidden');
 }
 
 function sendOrder(){
 const type=document.getElementById('type').value;
 const level=document.getElementById('level').value;
 const description=document.getElementById('desc').value;
-if(!type||!level||!description) return;
+if(!type || !level || !description) return;
 
 tg.sendData(JSON.stringify({
 action:'create_order',
@@ -242,6 +205,5 @@ description:description
 }));
 }
 </script>
-
 </body>
 </html>
