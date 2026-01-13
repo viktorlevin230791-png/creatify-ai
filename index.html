@@ -1,55 +1,216 @@
-<!-- BOTTOM NAV -->
-<div class="bottom-nav">
-<div class="bottom-inner">
-<div class="nav-btn active" onclick="nav('home',this)">Главная</div>
-<div class="nav-btn" onclick="nav('order',this)">Заказать</div>
-<div class="nav-btn" onclick="nav('orders',this)">Заказы</div>
-<div class="nav-btn" onclick="nav('wallet',this)">Кошелёк</div>
-<div class="nav-btn" onclick="nav('examples',this)">Примеры</div>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creatify AI</title>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:Inter,sans-serif;
+background:radial-gradient(circle at top,#6a5cff,#3b2fa3);
+color:#fff;
+min-height:100vh
+}
+.app{
+max-width:430px;
+margin:0 auto;
+padding:24px 20px 120px
+}
+.hidden{display:none}
+
+h1{
+font-size:28px;
+font-weight:700;
+margin:12px 0 6px;
+text-align:center
+}
+.subtitle{
+text-align:center;
+font-size:15px;
+opacity:.9;
+margin-bottom:22px
+}
+
+.hero{
+width:100%;
+border-radius:22px;
+margin-bottom:22px;
+box-shadow:0 20px 40px rgba(0,0,0,.35)
+}
+
+.card{
+background:rgba(255,255,255,.12);
+border-radius:18px;
+padding:18px;
+margin-bottom:16px;
+backdrop-filter:blur(10px)
+}
+.card h2{
+font-size:18px;
+margin-bottom:10px
+}
+.card p{
+font-size:14px;
+line-height:1.45;
+opacity:.92
+}
+
+button{
+width:100%;
+padding:16px;
+border-radius:14px;
+border:none;
+font-size:15px;
+font-weight:600;
+cursor:pointer;
+margin-top:14px
+}
+.primary{
+background:#fff;
+color:#3b2fa3
+}
+
+select,textarea,input{
+width:100%;
+padding:14px;
+border-radius:12px;
+border:none;
+margin-top:10px;
+font-family:Inter,sans-serif
+}
+
+.price{
+margin-top:8px;
+font-size:14px;
+opacity:.9
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+background:rgba(30,25,90,.95);
+backdrop-filter:blur(10px);
+border-top:1px solid rgba(255,255,255,.15)
+}
+.bottom-inner{
+max-width:430px;
+margin:0 auto;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:8px;
+padding:10px
+}
+.nav-btn{
+background:rgba(255,255,255,.14);
+border-radius:14px;
+padding:12px 6px;
+font-size:12px;
+text-align:center;
+cursor:pointer
+}
+.nav-btn.active{
+background:#fff;
+color:#3b2fa3;
+font-weight:600
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<!-- HOME -->
+<div id="home">
+<img src="hero.png" alt="Creatify AI" class="hero">
+
+<h1>Creatify AI</h1>
+<div class="subtitle">
+AI-фото и видео под заказ<br>
+Оплата через Telegram Stars ⭐
+</div>
+
+<div class="card">
+<h2>О проекте</h2>
+<p>
+Creatify AI — студия визуального контента.
+Вы заказываете фото или видео, мы выполняем работу в течение 24 часов.
+Оплата — через Telegram Stars прямо в Telegram.
+</p>
+</div>
+
+<div class="card">
+<h2>Как это работает</h2>
+<p>
+1. Выбираете формат и сложность<br>
+2. Описываете задачу и прикрепляете материалы<br>
+3. Оплачиваете заказ ⭐<br>
+4. Получаете готовый результат
+</p>
 </div>
 </div>
 
-<script>
-const tg = window.Telegram.WebApp;
-tg.expand();
+<!-- ORDER -->
+<div id="order" class="hidden">
+<div class="card">
+<h2>Новый заказ</h2>
 
-const prices = {
-photo:{easy:5,medium:15,hard:25},
-video:{easy:15,medium:25,hard:50}
-};
+<select id="type" onchange="updatePrice()">
+<option value="">Формат</option>
+<option value="photo">Фото</option>
+<option value="video">Видео</option>
+</select>
 
-function nav(id,el){
-document.querySelectorAll('.app > div').forEach(d=>d.classList.add('hidden'));
-document.getElementById(id).classList.remove('hidden');
-document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-el.classList.add('active');
-}
+<select id="level" onchange="updatePrice()">
+<option value="">Сложность</option>
+<option value="easy">Лёгкая</option>
+<option value="medium">Средняя</option>
+<option value="hard">Сложная</option>
+</select>
 
-function updatePrice(){
-const type=document.getElementById('type').value;
-const level=document.getElementById('level').value;
-const priceEl=document.getElementById('price');
-if(type && level){
-priceEl.innerText=Стоимость: ${prices[type][level]} ⭐;
-}else{
-priceEl.innerText='Стоимость: —';
-}
-}
+<div class="price" id="price">Стоимость: —</div>
 
-function sendOrder(){
-const type=document.getElementById('type').value;
-const level=document.getElementById('level').value;
-const description=document.getElementById('desc').value;
-if(!type!level!description)return;
+<textarea id="desc" rows="4" placeholder="Опишите задачу"></textarea>
+<input type="file" multiple>
 
-tg.sendData(JSON.stringify({
-action:'create_order',
-type:type,
-level:level,
-price:prices[type][level],
-description:description
-}));
-}
-</script>
-</body>
-</html>
+<button class="primary" onclick="sendOrder()">Перейти к оплате</button>
+</div>
+</div>
+
+<!-- ORDERS -->
+<div id="orders" class="hidden">
+<div class="card">
+<h2>Мои заказы</h2>
+<p>Здесь будут отображаться ваши заказы и их текущий статус.</p>
+</div>
+</div>
+
+<!-- WALLET -->
+<div id="wallet" class="hidden">
+<div class="card">
+<h2>Кошелёк</h2>
+<p>Баланс: 0 ⭐</p>
+<button class="primary">Пополнить через Telegram Stars</button>
+</div>
+</div>
+
+<!-- EXAMPLES -->
+<div id="examples" class="hidden">
+<div class="card">
+<h2>Примеры работ</h2>
+<p>
+Лёгкий уровень — базовые фото и клипы<br>
+Средний уровень — рекламные материалы<br>
+Сложный уровень — брендовые и концептуальные проекты
+</p>
+</div>
+</div>
+
+</div>
