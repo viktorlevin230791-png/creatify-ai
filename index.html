@@ -23,27 +23,7 @@ margin:0 auto;
 padding:24px 20px 120px
 }
 .hidden{display:none}
-
-h1{
-font-size:28px;
-font-weight:700;
-margin:12px 0 6px;
-text-align:center
-}
-.subtitle{
-text-align:center;
-font-size:15px;
-opacity:.9;
-margin-bottom:22px
-}
-
-.hero{
-width:100%;
-border-radius:22px;
-margin-bottom:22px;
-box-shadow:0 20px 40px rgba(0,0,0,.35)
-}
-
+h1{text-align:center}
 .card{
 background:rgba(255,255,255,.12);
 border-radius:18px;
@@ -51,54 +31,28 @@ padding:18px;
 margin-bottom:16px;
 backdrop-filter:blur(10px)
 }
-.card h2{
-font-size:18px;
-margin-bottom:10px
-}
-.card p{
-font-size:14px;
-line-height:1.45;
-opacity:.92
-}
-
 button{
 width:100%;
 padding:16px;
 border-radius:14px;
 border:none;
-font-size:15px;
 font-weight:600;
 cursor:pointer;
 margin-top:14px
 }
-.primary{
-background:#fff;
-color:#3b2fa3
-}
-
-select,textarea,input{
+.primary{background:#fff;color:#3b2fa3}
+input,select,textarea{
 width:100%;
 padding:14px;
 border-radius:12px;
 border:none;
-margin-top:10px;
-font-family:Inter,sans-serif
+margin-top:10px
 }
-
-.price{
-margin-top:8px;
-font-size:14px;
-opacity:.9
-}
-
+.price{margin-top:8px;font-size:14px}
 .bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
+position:fixed;bottom:0;left:0;right:0;
 background:rgba(30,25,90,.95);
-backdrop-filter:blur(10px);
-border-top:1px solid rgba(255,255,255,.15)
+backdrop-filter:blur(10px)
 }
 .bottom-inner{
 max-width:430px;
@@ -111,17 +65,12 @@ padding:10px
 .nav-btn{
 background:rgba(255,255,255,.14);
 border-radius:14px;
-padding:12px 6px;
+padding:12px;
 font-size:12px;
 text-align:center;
-cursor:pointer;
-user-select:none
+cursor:pointer
 }
-.nav-btn.active{
-background:#fff;
-color:#3b2fa3;
-font-weight:600
-}
+.nav-btn.active{background:#fff;color:#3b2fa3}
 </style>
 </head>
 
@@ -130,31 +79,10 @@ font-weight:600
 
 <!-- HOME -->
 <div id="home">
-<img src="hero.png" class="hero" alt="Creatify AI">
-
 <h1>Creatify AI</h1>
-<div class="subtitle">
+<div class="card">
 AI-фото и видео под заказ<br>
 Оплата через Telegram Stars ⭐
-</div>
-
-<div class="card">
-<h2>О проекте</h2>
-<p>
-Creatify AI — студия визуального контента.<br>
-Срок выполнения — до 24 часов.<br>
-Оплата через Telegram Stars прямо в Telegram.
-</p>
-</div>
-
-<div class="card">
-<h2>Как это работает</h2>
-<p>
-1. Вы выбираете формат и сложность<br>
-2. Описываете задачу<br>
-3. Оплачиваете заказ ⭐<br>
-4. Получаете готовый результат
-</p>
 </div>
 </div>
 
@@ -178,17 +106,11 @@ Creatify AI — студия визуального контента.<br>
 
 <div class="price" id="price">Стоимость: —</div>
 
-<textarea id="desc" rows="4" placeholder="Опишите задачу"></textarea>
+<textarea id="desc" placeholder="Описание задачи"></textarea>
 
-<button class="primary" onclick="sendOrder()">Перейти к оплате</button>
-</div>
-</div>
+<input type="file" id="files" multiple>
 
-<!-- ORDERS -->
-<div id="orders" class="hidden">
-<div class="card">
-<h2>Мои заказы</h2>
-<p>После оплаты здесь появится история заказов.</p>
+<button class="primary" onclick="confirmOrder()">Продолжить</button>
 </div>
 </div>
 
@@ -196,21 +118,19 @@ Creatify AI — студия визуального контента.<br>
 <div id="wallet" class="hidden">
 <div class="card">
 <h2>Кошелёк</h2>
-<p>Баланс определяется Telegram Stars</p>
-<button class="primary" onclick="openStars()">Пополнить ⭐</button>
+<p>Баланс: <b><span id="balance">0</span> ⭐</b></p>
+<button class="primary" onclick="topUp()">Пополнить ⭐</button>
 </div>
+</div>
+
+<!-- ORDERS -->
+<div id="orders" class="hidden">
+<div class="card">История заказов появится здесь</div>
 </div>
 
 <!-- EXAMPLES -->
 <div id="examples" class="hidden">
-<div class="card">
-<h2>Примеры работ</h2>
-<p>
-Лёгкий — базовые фото<br>
-Средний — реклама<br>
-Сложный — брендинг
-</p>
-</div>
+<div class="card">Примеры работ</div>
 </div>
 
 </div>
@@ -230,52 +150,53 @@ Creatify AI — студия визуального контента.<br>
 const tg = window.Telegram.WebApp;
 tg.expand();
 
+// ❗ Имитируем баланс (в реальности приходит от бота)
+let userBalance = 10;
+
 const prices = {
-  photo:{easy:5,medium:15,hard:25},
-  video:{easy:15,medium:25,hard:50}
+photo:{easy:5,medium:15,hard:25},
+video:{easy:15,medium:25,hard:50}
 };
 
+document.getElementById('balance').innerText = userBalance;
+
 function nav(id, el){
-  document.querySelectorAll('.app > div').forEach(d => d.classList.add('hidden'));
-  document.getElementById(id).classList.remove('hidden');
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  tg.HapticFeedback.impactOccurred('light');
+document.querySelectorAll('.app > div').forEach(d=>d.classList.add('hidden'));
+document.getElementById(id).classList.remove('hidden');
+document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+el.classList.add('active');
 }
 
 function updatePrice(){
-  const type = document.getElementById('type').value;
-  const level = document.getElementById('level').value;
-  const priceEl = document.getElementById('price');
-
-  if(type && level){
-    priceEl.innerText = `Стоимость: ${prices[type][level]} ⭐`;
-  } else {
-    priceEl.innerText = 'Стоимость: —';
-  }
+const t=type.value,l=level.value;
+price.innerText=t&&l?`Стоимость: ${prices[t][l]} ⭐`:'Стоимость: —';
 }
 
-function sendOrder(){
-  const type = document.getElementById('type').value;
-  const level = document.getElementById('level').value;
-  const description = document.getElementById('desc').value;
+function confirmOrder(){
+const t=type.value,l=level.value,d=desc.value;
+if(!t||!l||!d){tg.showAlert('Заполните все поля');return;}
 
-  if (!type || !level || !description) {
-    tg.showAlert('Заполните все поля');
-    return;
-  }
+const cost=prices[t][l];
 
-  tg.sendData(JSON.stringify({
-    action: 'create_order',
-    type,
-    level,
-    price: prices[type][level],
-    description
-  }));
+if(userBalance>=cost){
+userBalance-=cost;
+balance.innerText=userBalance;
+tg.sendData(JSON.stringify({
+action:'create_order',
+type:t,
+level:l,
+price:cost
+}));
+tg.showAlert('Заказ оплачен ⭐');
+nav('orders',document.querySelectorAll('.nav-btn')[2]);
+}else{
+tg.showAlert('Недостаточно средств, пополните баланс');
+nav('wallet',document.querySelectorAll('.nav-btn')[3]);
+}
 }
 
-function openStars(){
-  tg.showAlert('Пополнение происходит через оплату заказа ⭐');
+function topUp(){
+tg.sendData(JSON.stringify({action:'topup'}));
 }
 </script>
 </body>
