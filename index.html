@@ -114,7 +114,8 @@ border-radius:14px;
 padding:12px 6px;
 font-size:12px;
 text-align:center;
-cursor:pointer
+cursor:pointer;
+user-select:none
 }
 .nav-btn.active{
 background:#fff;
@@ -129,7 +130,7 @@ font-weight:600
 
 <!-- HOME -->
 <div id="home">
-<img src="hero.png" alt="Creatify AI" class="hero">
+<img src="hero.png" class="hero" alt="Creatify AI">
 
 <h1>Creatify AI</h1>
 <div class="subtitle">
@@ -140,17 +141,17 @@ AI-фото и видео под заказ<br>
 <div class="card">
 <h2>О проекте</h2>
 <p>
-Creatify AI — студия визуального контента.
-Вы заказываете фото или видео, мы выполняем работу в течение 24 часов.
-Оплата — через Telegram Stars прямо в Telegram.
+Creatify AI — студия визуального контента.<br>
+Срок выполнения — до 24 часов.<br>
+Оплата через Telegram Stars прямо в Telegram.
 </p>
 </div>
 
 <div class="card">
 <h2>Как это работает</h2>
 <p>
-1. Выбираете формат и сложность<br>
-2. Описываете задачу и прикрепляете материалы<br>
+1. Вы выбираете формат и сложность<br>
+2. Описываете задачу<br>
 3. Оплачиваете заказ ⭐<br>
 4. Получаете готовый результат
 </p>
@@ -178,7 +179,6 @@ Creatify AI — студия визуального контента.
 <div class="price" id="price">Стоимость: —</div>
 
 <textarea id="desc" rows="4" placeholder="Опишите задачу"></textarea>
-<input type="file" multiple>
 
 <button class="primary" onclick="sendOrder()">Перейти к оплате</button>
 </div>
@@ -188,7 +188,7 @@ Creatify AI — студия визуального контента.
 <div id="orders" class="hidden">
 <div class="card">
 <h2>Мои заказы</h2>
-<p>Здесь будут отображаться ваши заказы и их текущий статус.</p>
+<p>После оплаты здесь появится история заказов.</p>
 </div>
 </div>
 
@@ -196,8 +196,8 @@ Creatify AI — студия визуального контента.
 <div id="wallet" class="hidden">
 <div class="card">
 <h2>Кошелёк</h2>
-<p>Баланс: 0 ⭐</p>
-<button class="primary">Пополнить через Telegram Stars</button>
+<p>Баланс определяется Telegram Stars</p>
+<button class="primary" onclick="openStars()">Пополнить ⭐</button>
 </div>
 </div>
 
@@ -206,15 +206,16 @@ Creatify AI — студия визуального контента.
 <div class="card">
 <h2>Примеры работ</h2>
 <p>
-Лёгкий уровень — базовые фото и клипы<br>
-Средний уровень — рекламные материалы<br>
-Сложный уровень — брендовые и концептуальные проекты
+Лёгкий — базовые фото<br>
+Средний — реклама<br>
+Сложный — брендинг
 </p>
 </div>
 </div>
 
 </div>
-  <!-- BOTTOM NAV -->
+
+<!-- NAV -->
 <div class="bottom-nav">
 <div class="bottom-inner">
 <div class="nav-btn active" onclick="nav('home',this)">Главная</div>
@@ -230,43 +231,52 @@ const tg = window.Telegram.WebApp;
 tg.expand();
 
 const prices = {
-photo:{easy:5,medium:15,hard:25},
-video:{easy:15,medium:25,hard:50}
+  photo:{easy:5,medium:15,hard:25},
+  video:{easy:15,medium:25,hard:50}
 };
 
-function nav(id,el){
-document.querySelectorAll('.app > div').forEach(d=>d.classList.add('hidden'));
-document.getElementById(id).classList.remove('hidden');
-document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-el.classList.add('active');
+function nav(id, el){
+  document.querySelectorAll('.app > div').forEach(d => d.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  tg.HapticFeedback.impactOccurred('light');
 }
 
 function updatePrice(){
-const type=document.getElementById('type').value;
-const level=document.getElementById('level').value;
-const priceEl=document.getElementById('price');
-if(type && level){
-priceEl.innerText=Стоимость: ${prices[type][level]} ⭐;
-}else{
-priceEl.innerText='Стоимость: —';
-}
+  const type = document.getElementById('type').value;
+  const level = document.getElementById('level').value;
+  const priceEl = document.getElementById('price');
+
+  if(type && level){
+    priceEl.innerText = `Стоимость: ${prices[type][level]} ⭐`;
+  } else {
+    priceEl.innerText = 'Стоимость: —';
+  }
 }
 
 function sendOrder(){
-const type=document.getElementById('type').value;
-const level=document.getElementById('level').value;
-const description=document.getElementById('desc').value;
-if(!type!level!description)return;
+  const type = document.getElementById('type').value;
+  const level = document.getElementById('level').value;
+  const description = document.getElementById('desc').value;
 
-tg.sendData(JSON.stringify({
-action:'create_order',
-type:type,
-level:level,
-price:prices[type][level],
-description:description
-}));
+  if (!type || !level || !description) {
+    tg.showAlert('Заполните все поля');
+    return;
+  }
+
+  tg.sendData(JSON.stringify({
+    action: 'create_order',
+    type,
+    level,
+    price: prices[type][level],
+    description
+  }));
+}
+
+function openStars(){
+  tg.showAlert('Пополнение происходит через оплату заказа ⭐');
 }
 </script>
 </body>
 </html>
-
