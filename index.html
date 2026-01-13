@@ -8,16 +8,19 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
+*{box-sizing:border-box}
 body{
 margin:0;
 font-family:-apple-system,BlinkMacSystemFont,sans-serif;
 background:linear-gradient(180deg,#6b5cff,#4a3fcf);
 color:#fff;
 }
-
-.hidden{display:none;}
-
-.app>div{padding:16px;}
+.hidden{display:none}
+.app{
+max-width:430px;
+margin:0 auto;
+padding:20px 16px 120px;
+}
 
 .card{
 background:rgba(255,255,255,.15);
@@ -31,11 +34,11 @@ width:100%;
 border-radius:14px;
 border:none;
 padding:12px;
-margin-bottom:12px;
+margin-top:10px;
 font-size:15px;
 }
 
-textarea{min-height:90px;}
+textarea{min-height:90px}
 
 button{
 width:100%;
@@ -46,20 +49,33 @@ font-size:16px;
 font-weight:600;
 background:#fff;
 color:#4a3fcf;
+margin-top:14px;
 }
 
+/* 🔥 КРАСИВАЯ ЗАГРУЗКА */
 .upload-box{
 border:2px dashed rgba(255,255,255,.4);
 border-radius:18px;
 padding:22px;
 text-align:center;
 cursor:pointer;
-margin-bottom:12px;
 background:rgba(255,255,255,.05);
+transition:.25s;
+margin-top:12px;
 }
 
 .upload-box:hover{
 background:rgba(255,255,255,.1);
+}
+
+.upload-icon{
+font-size:32px;
+margin-bottom:6px;
+}
+
+.upload-text span{
+font-size:13px;
+opacity:.7;
 }
 
 .preview{
@@ -103,8 +119,11 @@ font-weight:600;
 <div id="home">
 <div class="card">
 <h2>Creatify AI</h2>
-<p>AI-фото и видео под заказ.<br>Результат в течение 24 часов.</p>
-<p>⭐ Оплата через Telegram Stars</p>
+<p>
+AI-фото и видео под заказ.<br>
+Выполнение до 24 часов.<br><br>
+⭐ Оплата через Telegram Stars
+</p>
 </div>
 </div>
 
@@ -113,7 +132,7 @@ font-weight:600;
 <div class="card">
 
 <select id="type" onchange="updatePrice()">
-<option value="">Тип контента</option>
+<option value="">Формат</option>
 <option value="photo">Фото</option>
 <option value="video">Видео</option>
 </select>
@@ -125,13 +144,19 @@ font-weight:600;
 <option value="hard">Сложная</option>
 </select>
 
+<!-- 🔥 НОВАЯ КНОПКА ЗАГРУЗКИ -->
 <div class="upload-box" onclick="document.getElementById('file').click()">
-⬆️ Загрузить файл (опционально)
+<div class="upload-icon">⬆️</div>
+<div class="upload-text">
+<b>Загрузить файл</b><br>
+<span>PNG / JPG / MP4 (опционально)</span>
 </div>
+</div>
+
 <input type="file" id="file" hidden onchange="previewFile(this)">
 <img id="preview" class="preview hidden">
 
-<textarea id="desc" placeholder="Описание задачи"></textarea>
+<textarea id="desc" placeholder="Опишите задачу"></textarea>
 
 <p id="price">Стоимость: —</p>
 
@@ -172,43 +197,48 @@ font-weight:600;
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-const prices={
+const prices = {
 photo:{easy:5,medium:15,hard:25},
 video:{easy:15,medium:25,hard:50}
 };
 
-let uploadedFile=false;
-
 function nav(id,el){
-document.querySelectorAll('.app>div').forEach(d=>d.classList.add('hidden'));
+document.querySelectorAll('.app > div').forEach(d=>d.classList.add('hidden'));
 document.getElementById(id).classList.remove('hidden');
 document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
 el.classList.add('active');
 }
 
 function updatePrice(){
-const t=type.value,l=level.value;
-price.innerText=t&&l?`Стоимость: ${prices[t][l]} ⭐`:'Стоимость: —';
+const type=document.getElementById('type').value;
+const level=document.getElementById('level').value;
+const priceEl=document.getElementById('price');
+if(type && level){
+priceEl.innerText = `Стоимость: ${prices[type][level]} ⭐`;
+}else{
+priceEl.innerText = 'Стоимость: —';
+}
 }
 
 function previewFile(input){
-if(input.files.length){
-uploadedFile=true;
-preview.src=URL.createObjectURL(input.files[0]);
+const file=input.files[0];
+if(!file) return;
+preview.src=URL.createObjectURL(file);
 preview.classList.remove('hidden');
-}
 }
 
 function sendOrder(){
-if(!type.value||!level.value||!desc.value)return;
+const type=document.getElementById('type').value;
+const level=document.getElementById('level').value;
+const description=document.getElementById('desc').value;
+if(!type||!level||!description) return;
 
 tg.sendData(JSON.stringify({
 action:'create_order',
-type:type.value,
-level:level.value,
-price:prices[type.value][level.value],
-description:desc.value,
-hasFile:uploadedFile
+type:type,
+level:level,
+price:prices[type][level],
+description:description
 }));
 }
 </script>
