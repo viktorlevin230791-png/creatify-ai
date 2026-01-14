@@ -1,353 +1,169 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Creatify AI</title>
+  <meta charset="UTF-8" />
+  <title>Взлетай Music</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Telegram WebApp SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<style>
-*{box-sizing:border-box}
-body{
-margin:0;
-font-family:Inter,sans-serif;
-background:radial-gradient(circle at top,#6a5cff,#3b2fa3);
-color:#fff;
-min-height:100vh
-}
-.app{
-max-width:430px;
-margin:0 auto;
-padding:24px 20px 120px
-}
-.hidden{display:none}
+  <style>
+    :root {
+      --bg: #0b0b0f;
+      --card: #14141a;
+      --primary: #7c5cff;
+      --accent: #00e0a4;
+      --text: #ffffff;
+      --muted: #8b8b9a;
+      --radius: 18px;
+    }
 
-h1{
-font-size:28px;
-font-weight:700;
-margin:12px 0 6px;
-text-align:center
-}
-.subtitle{
-text-align:center;
-font-size:15px;
-opacity:.9;
-margin-bottom:22px
-}
+    * {
+      box-sizing: border-box;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont;
+    }
 
-.hero{
-width:100%;
-border-radius:22px;
-margin-bottom:22px;
-box-shadow:0 20px 40px rgba(0,0,0,.35)
-}
+    body {
+      margin: 0;
+      background: radial-gradient(1200px 600px at 50% -20%, #1a1a2f, var(--bg));
+      color: var(--text);
+    }
 
-.card{
-background:rgba(255,255,255,.12);
-border-radius:18px;
-padding:18px;
-margin-bottom:16px;
-backdrop-filter:blur(10px)
-}
-.card h2{
-font-size:18px;
-margin-bottom:10px
-}
-.card p{
-font-size:14px;
-line-height:1.45;
-opacity:.92
-}
+    .app {
+      padding: 20px;
+      max-width: 420px;
+      margin: 0 auto;
+    }
 
-button{
-width:100%;
-padding:16px;
-border-radius:14px;
-border:none;
-font-size:15px;
-font-weight:600;
-cursor:pointer;
-margin-top:14px
-}
-.primary{
-background:#fff;
-color:#3b2fa3
-}
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: 0.5px;
+    }
 
-select,textarea{
-width:100%;
-padding:14px;
-border-radius:12px;
-border:none;
-margin-top:10px;
-font-family:Inter,sans-serif
-}
+    .subtitle {
+      color: var(--muted);
+      margin-top: 6px;
+      margin-bottom: 22px;
+      font-size: 14px;
+    }
 
-.price{
-margin-top:8px;
-font-size:14px;
-opacity:.9
-}
+    .card {
+      background: linear-gradient(180deg, #181820, var(--card));
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
 
-/* DRAG & DROP */
-.drop-zone{
-margin-top:12px;
-border:2px dashed rgba(255,255,255,.4);
-border-radius:16px;
-padding:20px;
-text-align:center;
-transition:.2s;
-cursor:pointer;
-background:rgba(255,255,255,.06)
-}
-.drop-zone.dragover{
-background:rgba(255,255,255,.18);
-border-color:#fff
-}
-.drop-title{
-font-weight:600;
-margin-bottom:6px
-}
-.drop-sub{
-font-size:13px;
-opacity:.85
-}
-.files-list{
-margin-top:10px;
-font-size:13px;
-opacity:.9
-}
-.files-list div{
-margin-top:4px;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis
-}
+    .label {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
 
-/* NAV */
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-background:rgba(30,25,90,.95);
-backdrop-filter:blur(10px);
-border-top:1px solid rgba(255,255,255,.15)
-}
-.bottom-inner{
-max-width:430px;
-margin:0 auto;
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:8px;
-padding:10px
-}
-.nav-btn{
-background:rgba(255,255,255,.14);
-border-radius:14px;
-padding:12px 6px;
-font-size:12px;
-text-align:center;
-cursor:pointer
-}
-.nav-btn.active{
-background:#fff;
-color:#3b2fa3;
-font-weight:600
-}
-</style>
+    .balance {
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .artwork {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 16px;
+      background: linear-gradient(
+        135deg,
+        #7c5cff,
+        #00e0a4,
+        #1a1aff
+      );
+      background-size: 400% 400%;
+      animation: gradient 8s ease infinite;
+      margin-bottom: 14px;
+    }
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      margin-top: 10px;
+    }
+
+    .secondary {
+      background: #1f1f28;
+      color: #d1d1dc;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 30px;
+      opacity: 0.7;
+    }
+  </style>
 </head>
 
 <body>
-<div class="app">
+  <div class="app">
+    <h1>🚀 Взлетай Music</h1>
+    <div class="subtitle">
+      Музыкальный лейбл нового поколения • 2026
+    </div>
 
-<!-- HOME (ВОССТАНОВЛЕНО) -->
-<div id="home">
-<img src="hero.png" class="hero" alt="Creatify AI">
+    <!-- Баланс -->
+    <div class="card">
+      <div class="label">Роялти</div>
+      <div class="balance">₽ 128 450</div>
+    </div>
 
-<h1>Creatify AI</h1>
-<div class="subtitle">
-AI-фото и видео под заказ<br>
-Оплата через Telegram Stars ⭐
-</div>
+    <!-- Музыкальная заглушка -->
+    <div class="card">
+      <div class="label">Арт трека / релиза</div>
+      <div class="artwork"></div>
+      <button onclick="alert('Позже тут будет AI-арт')">
+        🎧 Создать арт релиза
+      </button>
+    </div>
 
-<div class="card">
-<h2>О проекте</h2>
-<p>
-Creatify AI — студия визуального контента.<br>
-Вы заказываете фото или видео, мы выполняем работу в течение 24 часов.<br>
-Оплата — через Telegram Stars прямо в Telegram.
-</p>
-</div>
+    <!-- Действия -->
+    <div class="card">
+      <button onclick="alert('Заявка отправлена')">
+        📝 Подать заявку в лейбл
+      </button>
+      <button class="secondary" onclick="alert('Загрузка трека')">
+        🎵 Загрузить трек
+      </button>
+    </div>
 
-<div class="card">
-<h2>Как это работает</h2>
-<p>
-1. Выбираете формат и сложность<br>
-2. Описываете задачу и прикрепляете материалы<br>
-3. Оплачиваете заказ ⭐<br>
-4. Получаете готовый результат
-</p>
-</div>
-</div>
+    <div class="footer">
+      © 2026 Взлетай Music
+    </div>
+  </div>
 
-<!-- ORDER -->
-<div id="order" class="hidden">
-<div class="card">
-<h2>Новый заказ</h2>
-
-<select id="type" onchange="updatePrice()">
-<option value="">Формат</option>
-<option value="photo">Фото</option>
-<option value="video">Видео</option>
-</select>
-
-<select id="level" onchange="updatePrice()">
-<option value="">Сложность</option>
-<option value="easy">Лёгкая</option>
-<option value="medium">Средняя</option>
-<option value="hard">Сложная</option>
-</select>
-
-<div class="price" id="price">Стоимость: —</div>
-
-<textarea id="desc" rows="4" placeholder="Опишите задачу"></textarea>
-
-<input type="file" id="fileInput" multiple class="hidden">
-
-<div class="drop-zone" id="dropZone">
-<div class="drop-title">📎 Перетащите файлы сюда</div>
-<div class="drop-sub">или нажмите для выбора</div>
-</div>
-
-<div class="files-list" id="filesList"></div>
-
-<button class="primary" onclick="sendOrder()">Перейти к оплате</button>
-</div>
-</div>
-
-<!-- ORDERS -->
-<div id="orders" class="hidden">
-<div class="card">
-<h2>Мои заказы</h2>
-<p>После оплаты здесь появится история заказов.</p>
-</div>
-</div>
-
-<!-- WALLET -->
-<div id="wallet" class="hidden">
-<div class="card">
-<h2>Кошелёк</h2>
-<p>Баланс определяется через Telegram Stars</p>
-</div>
-</div>
-
-<!-- EXAMPLES -->
-<div id="examples" class="hidden">
-<div class="card">
-<h2>Примеры работ</h2>
-<p>
-Лёгкий — базовые фото<br>
-Средний — рекламные материалы<br>
-Сложный — брендовые и концептуальные проекты
-</p>
-</div>
-</div>
-
-</div>
-
-<!-- NAV -->
-<div class="bottom-nav">
-<div class="bottom-inner">
-<div class="nav-btn active" onclick="nav('home',this)">Главная</div>
-<div class="nav-btn" onclick="nav('order',this)">Заказать</div>
-<div class="nav-btn" onclick="nav('orders',this)">Заказы</div>
-<div class="nav-btn" onclick="nav('wallet',this)">Кошелёк</div>
-<div class="nav-btn" onclick="nav('examples',this)">Примеры</div>
-</div>
-</div>
-
-<script>
-const tg = window.Telegram.WebApp;
-tg.ready();   // ← ВАЖНО
-tg.expand();
-
-const prices = {
-photo:{easy:5,medium:15,hard:25},
-video:{easy:15,medium:25,hard:50}
-};
-
-let selectedFiles = [];
-
-function nav(id, el){
-document.querySelectorAll('.app > div').forEach(d=>d.classList.add('hidden'));
-document.getElementById(id).classList.remove('hidden');
-document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-el.classList.add('active');
-tg.HapticFeedback.impactOccurred('light');
-}
-
-function updatePrice(){
-const t=type.value,l=level.value;
-price.innerText=t&&l?`Стоимость: ${prices[t][l]} ⭐`:'Стоимость: —';
-}
-
-/* DRAG & DROP */
-const dropZone = document.getElementById('dropZone');
-const fileInput = document.getElementById('fileInput');
-const filesList = document.getElementById('filesList');
-
-dropZone.onclick = () => fileInput.click();
-
-dropZone.ondragover = e => {
-e.preventDefault();
-dropZone.classList.add('dragover');
-};
-
-dropZone.ondragleave = () => dropZone.classList.remove('dragover');
-
-dropZone.ondrop = e => {
-e.preventDefault();
-dropZone.classList.remove('dragover');
-handleFiles(e.dataTransfer.files);
-};
-
-fileInput.onchange = () => handleFiles(fileInput.files);
-
-function handleFiles(files){
-for(const file of files){
-selectedFiles.push(file);
-}
-renderFiles();
-}
-
-function renderFiles(){
-filesList.innerHTML='';
-selectedFiles.forEach(f=>{
-const div=document.createElement('div');
-div.innerText=`📄 ${f.name}`;
-filesList.appendChild(div);
-});
-}
-
-function sendOrder(){
-if(!type.value||!level.value||!desc.value){
-tg.showAlert('Заполните все поля');
-return;
-}
-
-tg.sendData(JSON.stringify({
-action:'create_order',
-type:type.value,
-level:level.value,
-price:prices[type.value][level.value],
-description:desc.value,
-files_count:selectedFiles.length
-}));
-}
-</script>
+  <script>
+    // Telegram Mini App init
+    if (window.Telegram && window.Telegram.WebApp) {
+      const tg = window.Telegram.WebApp;
+      tg.ready();
+      tg.expand();
+    }
+  </script>
 </body>
 </html>
-
