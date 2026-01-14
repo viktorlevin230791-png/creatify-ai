@@ -18,13 +18,13 @@
       --line: #1e1e26;
       --text: #f5f5f7;
       --muted: #8c8c98;
-      --accent: #b89b5e; /* premium gold */
+      --accent: #b89b5e;
       --radius: 20px;
     }
 
     * {
       box-sizing: border-box;
-      font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont;
+      font-family: 'Manrope', system-ui, -apple-system;
     }
 
     body {
@@ -39,7 +39,6 @@
       padding-bottom: 96px;
     }
 
-    /* HEADER */
     header {
       padding: 24px 20px 16px;
       border-bottom: 1px solid var(--line);
@@ -61,7 +60,7 @@
       text-transform: uppercase;
     }
 
-    /* HERO / LOGO */
+    /* HERO */
     .hero {
       margin: 20px;
       height: 260px;
@@ -69,7 +68,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
 
       background:
         radial-gradient(600px 300px at 30% 20%, rgba(184,155,94,0.18), transparent),
@@ -79,24 +77,25 @@
       box-shadow: 0 40px 90px rgba(0,0,0,0.65);
     }
 
+    /* LOGO */
     .logo {
       display: flex;
       flex-direction: column;
       align-items: center;
+      gap: 14px;
     }
 
-    .logo-title {
-      font-size: 34px;
-      font-weight: 600;
-      letter-spacing: 0.6px;
+    .logo svg {
+      width: 110px;
+      height: 110px;
+      opacity: 0.95;
+      animation: float 6s ease-in-out infinite;
     }
 
-    .logo-divider {
-      width: 60px;
-      height: 1px;
-      background: var(--accent);
-      margin: 14px 0;
-      opacity: 0.8;
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
     }
 
     .logo-subtitle {
@@ -106,7 +105,6 @@
       color: var(--muted);
     }
 
-    /* CARDS */
     .card {
       background: var(--surface);
       border-radius: var(--radius);
@@ -138,7 +136,6 @@
       background: linear-gradient(180deg, #1a1a20, #121216);
       color: var(--text);
       font-size: 14px;
-      font-weight: 500;
       cursor: pointer;
     }
 
@@ -146,7 +143,6 @@
       border-color: var(--accent);
     }
 
-    /* BOTTOM NAV */
     .nav {
       position: fixed;
       bottom: 0;
@@ -161,7 +157,6 @@
     }
 
     .nav-item {
-      text-align: center;
       font-size: 10px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
@@ -182,35 +177,38 @@
       <span>Private Music Label</span>
     </header>
 
-    <!-- HERO WITH LOGO -->
+    <!-- HERO WITH ABSTRACT LOGO -->
     <div class="hero">
       <div class="logo">
-        <div class="logo-title">Взлетай Music</div>
-        <div class="logo-divider"></div>
+        <!-- MODERN ABSTRACT MUSIC LOGO -->
+        <svg viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="46" stroke="url(#g)" stroke-width="2"/>
+          <path d="M35 60 L50 30 L65 60" stroke="url(#g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="100" y2="100">
+              <stop offset="0%" stop-color="#b89b5e"/>
+              <stop offset="100%" stop-color="#ffffff"/>
+            </linearGradient>
+          </defs>
+        </svg>
+
         <div class="logo-subtitle">Private Music Label</div>
       </div>
     </div>
 
-    <!-- BALANCE -->
     <div class="card">
       <div class="label">Current Balance</div>
       <div class="value">128 450 ₽</div>
     </div>
 
-    <!-- ACTIONS -->
     <div class="card">
       <div class="label">Artist Access</div>
-      <button class="button" onclick="alert('Application sent')">
-        Submit Application
-      </button>
-      <button class="button" onclick="alert('Upload release')">
-        Upload Release
-      </button>
+      <button class="button">Submit Application</button>
+      <button class="button">Upload Release</button>
     </div>
 
   </div>
 
-  <!-- BOTTOM NAV -->
   <div class="nav">
     <div class="nav-item active">Dashboard</div>
     <div class="nav-item">Releases</div>
