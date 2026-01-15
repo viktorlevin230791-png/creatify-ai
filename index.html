@@ -6,58 +6,158 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Премиальный шрифт (спокойный, не кричащий) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg:#0a0a0c;--surface:#121216;--line:#1e1e26;
-      --text:#f5f5f7;--muted:#8c8c98;--accent:#b89b5e;
+      --bg:#0a0a0c;
+      --surface:#121216;
+      --line:#1e1e26;
+      --text:#f5f5f7;
+      --muted:#8c8c98;
+      --accent:#b89b5e;
       --radius:20px;
     }
-    *{box-sizing:border-box;font-family:'Manrope',system-ui}
-    body{margin:0;background:var(--bg);color:var(--text)}
-    .app{max-width:420px;margin:0 auto;padding-bottom:96px}
-    header{padding:24px 20px 16px;border-bottom:1px solid var(--line)}
-    header h1{margin:0;font-size:22px;font-weight:600}
-    header span{font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
 
-    .card{background:var(--surface);border:1px solid var(--line);
-      border-radius:var(--radius);margin:16px 20px;padding:18px}
-
-    .label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-      color:var(--muted);margin-bottom:8px}
-
-    .value{font-size:14px}
-
-    .button{margin-top:14px;padding:14px;width:100%;
-      border-radius:14px;border:1px solid var(--line);
-      background:linear-gradient(180deg,#1a1a20,#121216);
-      color:var(--text);font-size:14px;cursor:pointer}
-
-    .button[disabled]{opacity:.4;cursor:not-allowed}
-
-    .input, .textarea{
-      width:100%;padding:12px 14px;border-radius:12px;
-      background:#0f0f14;border:1px solid var(--line);
-      color:var(--text);margin-top:10px;font-size:14px
+    * {
+      box-sizing:border-box;
+      font-family:'Inter', system-ui, -apple-system;
     }
 
-    .textarea{min-height:120px;resize:vertical}
+    body {
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+    }
 
-    .nav{position:fixed;bottom:0;left:0;right:0;
-      background:rgba(10,10,12,.88);
+    .app {
+      max-width:420px;
+      margin:0 auto;
+      padding-bottom:96px;
+    }
+
+    header {
+      padding:22px 20px 14px;
+      border-bottom:1px solid var(--line);
+    }
+
+    header h1 {
+      margin:0;
+      font-size:20px;
+      font-weight:500;
+      letter-spacing:.2px;
+    }
+
+    header span {
+      display:block;
+      margin-top:4px;
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+
+    .hero {
+      margin:20px;
+      height:220px;
+      border-radius:var(--radius);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:
+        radial-gradient(600px 300px at 30% 20%, rgba(184,155,94,.18), transparent),
+        linear-gradient(160deg,#15151c,#0b0b10);
+      box-shadow:0 40px 90px rgba(0,0,0,.6);
+    }
+
+    .logo svg {
+      width:96px;
+      height:96px;
+      opacity:.95;
+    }
+
+    .card {
+      background:var(--surface);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      margin:16px 20px;
+      padding:18px;
+    }
+
+    .label {
+      font-size:11px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin-bottom:8px;
+    }
+
+    .value {
+      font-size:30px;
+      font-weight:500;
+      color:var(--accent);
+    }
+
+    .button {
+      margin-top:14px;
+      padding:14px;
+      width:100%;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg,#1a1a20,#121216);
+      color:var(--text);
+      font-size:14px;
+      cursor:pointer;
+    }
+
+    .button:hover {
+      border-color:var(--accent);
+    }
+
+    .input, .textarea {
+      width:100%;
+      margin-top:10px;
+      padding:12px 14px;
+      border-radius:12px;
+      background:#0f0f14;
+      border:1px solid var(--line);
+      color:var(--text);
+      font-size:14px;
+    }
+
+    .textarea {
+      min-height:110px;
+      resize:vertical;
+    }
+
+    .nav {
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      background:rgba(10,10,12,.9);
       backdrop-filter:blur(22px);
       border-top:1px solid var(--line);
-      display:flex;justify-content:space-around;
-      padding:14px 0 18px}
+      display:flex;
+      justify-content:space-around;
+      padding:14px 0 18px;
+    }
 
-    .nav-item{font-size:10px;letter-spacing:.14em;
-      text-transform:uppercase;color:var(--muted);cursor:pointer}
+    .nav-item {
+      font-size:10px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--muted);
+      cursor:pointer;
+    }
 
-    .nav-item.active{color:var(--accent)}
-    .hidden{display:none}
-    .status-ok{color:#7dd3a8}
-    .status-wait{color:#facc15}
+    .nav-item.active {
+      color:var(--accent);
+    }
+
+    .hidden { display:none; }
   </style>
 </head>
 
@@ -66,28 +166,24 @@
 
 <header>
   <h1>Взлетай Music</h1>
-  <span>Private Artist Cabinet</span>
+  <span>Private Music Label · Demo Mode</span>
 </header>
 
-<!-- PROFILE -->
-<section id="profile">
-  <div class="card">
-    <div class="label">Artist Profile</div>
-    <div class="value">Имя артиста: <strong>Demo Artist</strong></div>
-    <div class="value">Статус договора:
-      <strong class="status-ok">Подписан</strong>
+<!-- DASHBOARD -->
+<section id="dashboard">
+  <div class="hero">
+    <div class="logo">
+      <svg viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="44" stroke="#b89b5e" stroke-width="2"/>
+        <path d="M35 60 L50 32 L65 60" stroke="#b89b5e" stroke-width="3"
+          stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </div>
-
-    <input class="input" type="file" />
-    <button class="button" onclick="confirmContract()">
-      Attach Contract Scan
-    </button>
   </div>
 
   <div class="card">
-    <button class="button" onclick="openUpload()">
-      Upload Release
-    </button>
+    <div class="label">Current Balance</div>
+    <div class="value">128 450 ₽</div>
   </div>
 </section>
 
@@ -96,22 +192,38 @@
   <div class="card">
     <div class="label">Release Upload</div>
 
-    <input class="input" placeholder="Artist name" />
-    <input class="input" placeholder="Track title" />
-    <input class="input" placeholder="Lyrics author" />
-    <input class="input" placeholder="Music author" />
-
+    <input class="input" placeholder="Artist name">
+    <input class="input" placeholder="Track title">
+    <input class="input" placeholder="Lyrics author">
+    <input class="input" placeholder="Music author">
     <textarea class="textarea" placeholder="Lyrics text"></textarea>
+    <input class="input" type="time">
+    <input class="input" type="file">
+    <input class="input" type="file">
+    <input class="input" type="file">
+    <input class="input" type="file">
 
-    <input class="input" type="time" />
-    <input class="input" type="file" />
-    <input class="input" type="file" />
-    <input class="input" type="file" />
-    <input class="input" type="file" />
-
-    <button class="button" onclick="submitTrack()">
+    <button class="button" onclick="alert('Demo: release submitted')">
       Submit Release
     </button>
+  </div>
+</section>
+
+<!-- ROYALTIES -->
+<section id="royalties" class="hidden">
+  <div class="card">
+    <div class="label">Royalties</div>
+    <div class="value">Coming soon</div>
+  </div>
+</section>
+
+<!-- PROFILE -->
+<section id="profile" class="hidden">
+  <div class="card">
+    <div class="label">Artist Profile</div>
+    <div class="value">Demo Artist</div>
+    <div class="label" style="margin-top:12px">Status</div>
+    <div class="value">Active · Demo Access</div>
   </div>
 </section>
 
@@ -119,41 +231,21 @@
 
 <!-- NAV -->
 <div class="nav">
-  <div class="nav-item active" onclick="openProfile()">Profile</div>
-  <div class="nav-item" onclick="openUpload()">Upload</div>
-  <div class="nav-item">Royalties</div>
-  <div class="nav-item">Account</div>
+  <div class="nav-item active" onclick="openTab('dashboard',0)">Dashboard</div>
+  <div class="nav-item" onclick="openTab('upload',1)">Upload</div>
+  <div class="nav-item" onclick="openTab('royalties',2)">Royalties</div>
+  <div class="nav-item" onclick="openTab('profile',3)">Profile</div>
 </div>
 
 <script>
-  const profile = document.getElementById('profile');
-  const upload = document.getElementById('upload');
-  const navItems = document.querySelectorAll('.nav-item');
+  const tabs = ['dashboard','upload','royalties','profile'];
+  const nav = document.querySelectorAll('.nav-item');
 
-  function setActive(i){
-    navItems.forEach(n=>n.classList.remove('active'));
-    navItems[i].classList.add('active');
-  }
-
-  function openProfile(){
-    profile.classList.remove('hidden');
-    upload.classList.add('hidden');
-    setActive(0);
-  }
-
-  function openUpload(){
-    profile.classList.add('hidden');
-    upload.classList.remove('hidden');
-    setActive(1);
-  }
-
-  function confirmContract(){
-    alert('Contract attached (demo)');
-  }
-
-  function submitTrack(){
-    alert('Release submitted for moderation');
-    openProfile();
+  function openTab(id,i){
+    tabs.forEach(t=>document.getElementById(t).classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
+    nav.forEach(n=>n.classList.remove('active'));
+    nav[i].classList.add('active');
   }
 
   if(window.Telegram?.WebApp){
