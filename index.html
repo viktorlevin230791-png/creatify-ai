@@ -9,8 +9,13 @@
 
 <style>
 :root{
---bg:#0a0a0c;--surface:#121216;--line:#1e1e26;
---text:#f5f5f7;--muted:#8c8c98;--accent:#b89b5e;--radius:20px
+--bg:#0a0a0c;
+--surface:#121216;
+--line:#1e1e26;
+--text:#f5f5f7;
+--muted:#8c8c98;
+--accent:#b89b5e;
+--radius:20px
 }
 *{box-sizing:border-box;font-family:Inter,system-ui}
 body{margin:0;background:var(--bg);color:var(--text)}
@@ -20,43 +25,113 @@ header{padding:22px 20px 14px;border-bottom:1px solid var(--line)}
 header h1{margin:0;font-size:20px;font-weight:500}
 header span{font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
 
-.section-title{margin:24px 20px 8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);margin:12px 20px;padding:16px}
-
-.input,.textarea{width:100%;margin-top:10px;padding:12px 14px;border-radius:12px;background:#0f0f14;border:1px solid var(--line);color:var(--text);font-size:13px}
-.textarea{min-height:100px}
-
-.file-label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:16px}
-
-.file-upload{
-margin-top:8px;padding:14px;border-radius:12px;border:1px dashed var(--line);
-background:#0f0f14;display:flex;justify-content:space-between;align-items:center;
-cursor:pointer
+.section-title{
+margin:24px 20px 8px;
+font-size:11px;
+letter-spacing:.16em;
+text-transform:uppercase;
+color:var(--muted)
 }
-.file-upload:hover{border-color:var(--accent)}
-.file-upload span{font-size:13px}
-.file-upload .filename{max-width:55%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
-.file-upload input{display:none}
 
-.btn{margin-top:18px;padding:14px;width:100%;border-radius:14px;border:1px solid var(--line);
-background:transparent;color:var(--text);font-size:13px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
-.btn:hover{border-color:var(--accent);color:var(--accent)}
+.card{
+background:var(--surface);
+border:1px solid var(--line);
+border-radius:var(--radius);
+margin:12px 20px;
+padding:16px
+}
 
-.value{font-size:28px;color:var(--accent)}
 .artist-name{font-size:16px;font-weight:500}
 .track-name{font-size:14px;color:var(--muted)}
+.value{font-size:28px;color:var(--accent)}
 .status{font-size:12px;color:#7dd3a8}
 
-.release-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.input,.textarea{
+width:100%;
+margin-top:10px;
+padding:12px 14px;
+border-radius:12px;
+background:#0f0f14;
+border:1px solid var(--line);
+color:var(--text);
+font-size:13px
+}
+.textarea{min-height:100px}
+
+.file-label{
+font-size:11px;
+letter-spacing:.12em;
+text-transform:uppercase;
+color:var(--muted);
+margin-top:18px
+}
+
+/* ПРЕМИАЛЬНЫЙ FILE UPLOAD */
+.file-upload{
+margin-top:8px;
+padding:18px;
+border-radius:14px;
+border:1px dashed var(--line);
+background:#0f0f14;
+cursor:pointer;
+transition:.2s;
+display:flex;
+align-items:center;
+justify-content:center;
+color:var(--muted);
+font-size:13px;
+letter-spacing:.08em;
+text-transform:uppercase;
+}
+.file-upload:hover{
+border-color:var(--accent);
+color:var(--accent)
+}
+.file-upload input{display:none}
+
+.btn{
+margin-top:18px;
+padding:14px;
+width:100%;
+border-radius:14px;
+border:1px solid var(--line);
+background:transparent;
+color:var(--text);
+font-size:13px;
+letter-spacing:.08em;
+text-transform:uppercase;
+cursor:pointer
+}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+
+.release-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:10px 0;
+border-bottom:1px solid var(--line)
+}
 .release-row:last-child{border-bottom:none}
 
 .hidden{display:none}
 
-.nav{position:fixed;bottom:0;left:0;right:0;background:rgba(10,10,12,.9);
-backdrop-filter:blur(22px);border-top:1px solid var(--line);
-display:flex;justify-content:space-around;padding:14px 0 18px}
-.nav-item{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);cursor:pointer}
+.nav{
+position:fixed;
+bottom:0;left:0;right:0;
+background:rgba(10,10,12,.9);
+backdrop-filter:blur(22px);
+border-top:1px solid var(--line);
+display:flex;
+justify-content:space-around;
+padding:14px 0 18px
+}
+.nav-item{
+font-size:10px;
+letter-spacing:.14em;
+text-transform:uppercase;
+color:var(--muted);
+cursor:pointer
+}
 .nav-item.active{color:var(--accent)}
 </style>
 </head>
@@ -76,6 +151,14 @@ display:flex;justify-content:space-around;padding:14px 0 18px}
 <div class="artist-name">AERON</div>
 <div class="track-name">No Signal · Электроника</div>
 </div>
+
+<div class="section-title">Новости индустрии</div>
+<div class="card">
+<div class="track-name">
+Независимые лейблы усиливают позиции благодаря прямой работе с артистами и аналитике данных.
+</div>
+</div>
+
 <div class="section-title">Баланс</div>
 <div class="card"><div class="value">128 450 ₽</div></div>
 </section>
@@ -96,33 +179,29 @@ display:flex;justify-content:space-around;padding:14px 0 18px}
 
 <div class="file-label">Аудиофайл трека</div>
 <label class="file-upload">
-<span>Выбрать файл</span>
-<span class="filename">Файл не выбран</span>
-<input type="file" onchange="this.parentElement.querySelector('.filename').innerText=this.files[0]?.name||'Файл не выбран'">
+Добавить файл
+<input type="file">
 </label>
 
 <div class="file-label">Обложка релиза</div>
 <label class="file-upload">
-<span>Выбрать файл</span>
-<span class="filename">Файл не выбран</span>
-<input type="file" onchange="this.parentElement.querySelector('.filename').innerText=this.files[0]?.name||'Файл не выбран'">
+Добавить файл
+<input type="file">
 </label>
 
 <div class="file-label">Скан паспорта</div>
 <label class="file-upload">
-<span>Выбрать файл</span>
-<span class="filename">Файл не выбран</span>
-<input type="file" onchange="this.parentElement.querySelector('.filename').innerText=this.files[0]?.name||'Файл не выбран'">
+Добавить файл
+<input type="file">
 </label>
 
 <div class="file-label">Скан подписанного договора</div>
 <label class="file-upload">
-<span>Выбрать файл</span>
-<span class="filename">Файл не выбран</span>
-<input type="file" onchange="this.parentElement.querySelector('.filename').innerText=this.files[0]?.name||'Файл не выбран'">
+Добавить файл
+<input type="file">
 </label>
 
-<button class="btn" onclick="alert('Релиз отправлен на модерацию')">Отправить релиз</button>
+<button class="btn">Отправить релиз</button>
 </div>
 </section>
 
@@ -130,7 +209,17 @@ display:flex;justify-content:space-around;padding:14px 0 18px}
 <section id="royalties" class="hidden">
 <div class="card">
 <div class="section-title">Роялти</div>
-<div class="value">128 450 ₽</div>
+
+<svg viewBox="0 0 300 100" width="100%" height="100">
+<polyline
+points="0,80 40,60 80,65 120,40 160,50 200,30 240,35 300,20"
+fill="none"
+stroke="#b89b5e"
+stroke-width="2"
+/>
+</svg>
+
+<div class="track-name">Доход по релизам за период</div>
 </div>
 </section>
 
@@ -143,10 +232,15 @@ display:flex;justify-content:space-around;padding:14px 0 18px}
 </div>
 
 <div class="card">
-<div class="section-title">Кошелёк</div>
-<div class="track-name">0xA3F9...91C4</div>
+<div class="section-title">Баланс роялти</div>
+<div class="value">128 450 ₽</div>
 <button class="btn">Снять</button>
 <button class="btn">Пополнить</button>
+</div>
+
+<div class="card">
+<div class="section-title">Кошелёк</div>
+<div class="track-name">0xA3F9…91C4</div>
 </div>
 
 <div class="card">
@@ -168,12 +262,14 @@ display:flex;justify-content:space-around;padding:14px 0 18px}
 <script>
 const tabs=['dashboard','upload','royalties','profile'];
 const nav=document.querySelectorAll('.nav-item');
+
 function openTab(id,i){
 tabs.forEach(t=>document.getElementById(t).classList.add('hidden'));
 document.getElementById(id).classList.remove('hidden');
 nav.forEach(n=>n.classList.remove('active'));
 nav[i].classList.add('active');
 }
+
 Telegram?.WebApp?.ready();
 Telegram?.WebApp?.expand();
 </script>
