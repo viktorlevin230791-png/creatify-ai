@@ -14,7 +14,7 @@
 }
 *{box-sizing:border-box;font-family:Inter,system-ui}
 body{margin:0;background:var(--bg);color:var(--text)}
-.app{max-width:420px;margin:0 auto;padding-bottom:110px}
+.app{max-width:420px;margin:0 auto;padding-bottom:120px}
 
 header{padding:22px 20px 14px;border-bottom:1px solid var(--line)}
 header h1{margin:0;font-size:20px;font-weight:500}
@@ -32,10 +32,8 @@ box-shadow:0 40px 90px rgba(0,0,0,.6)
 
 .section-title{
 margin:24px 20px 8px;
-font-size:11px;
-letter-spacing:.16em;
-text-transform:uppercase;
-color:var(--muted)
+font-size:11px;letter-spacing:.16em;
+text-transform:uppercase;color:var(--muted)
 }
 
 .card{
@@ -95,6 +93,7 @@ padding:10px 0;border-bottom:1px solid var(--line)
 
 .hidden{display:none}
 
+/* NAV */
 .nav{
 position:fixed;bottom:0;left:0;right:0;
 background:rgba(10,10,12,.9);
@@ -105,7 +104,8 @@ padding:14px 0 18px
 }
 .nav-item{
 font-size:10px;letter-spacing:.14em;
-text-transform:uppercase;color:var(--muted);cursor:pointer
+text-transform:uppercase;color:var(--muted);
+cursor:pointer
 }
 .nav-item.active{color:var(--accent)}
 </style>
@@ -180,125 +180,76 @@ stroke-linecap="round" stroke-linejoin="round"/>
 
 <!-- ROYALTIES -->
 <section id="royalties" class="hidden">
-  <div class="card">
-    <div class="section-title">Роялти · Выплаты</div>
+<div class="card">
+<div class="section-title">Роялти · Выплаты</div>
+<div class="value">97 000 ₽</div>
 
-    <!-- TOTAL -->
-    <div class="value" style="margin-bottom:14px;">
-      97 000 ₽
-    </div>
+<svg viewBox="0 0 300 100" width="100%" height="100">
+<polyline points="0,70 60,50 120,55 180,35 240,40 300,25"
+fill="none" stroke="#b89b5e" stroke-width="2"/>
+</svg>
 
-    <!-- GRAPH -->
-    <svg viewBox="0 0 300 100" width="100%" height="100">
-      <polyline
-        points="0,70 60,50 120,55 180,35 240,40 300,25"
-        fill="none"
-        stroke="#b89b5e"
-        stroke-width="2"
-      />
-    </svg>
+<div class="track-name">Динамика выплат за 2025 год</div>
+</div>
 
-    <div class="track-name" style="margin-top:10px;">
-      Динамика выплат за 2025 год
-    </div>
-  </div>
-
-  <!-- PERIODS -->
-  <div class="card">
-    <div class="section-title">Периоды</div>
-
-    <div class="release-row">
-      <span>2025 · I квартал</span>
-      <span class="track-name">+50 000 ₽</span>
-    </div>
-
-    <div class="release-row">
-      <span>2025 · II квартал</span>
-      <span class="track-name">+47 000 ₽</span>
-    </div>
-  </div>
+<div class="card">
+<div class="section-title">Периоды</div>
+<div class="release-row"><span>2025 · I квартал</span><span class="track-name">+50 000 ₽</span></div>
+<div class="release-row"><span>2025 · II квартал</span><span class="track-name">+47 000 ₽</span></div>
+</div>
 </section>
 
 <!-- PROFILE -->
 <section id="profile" class="hidden">
+<div class="card">
+<div class="section-title">Профиль артиста</div>
+<div class="artist-name">AERON</div>
+</div>
 
-  <!-- ARTIST INFO -->
-  <div class="card">
-    <div class="section-title">Профиль артиста</div>
+<div class="card">
+<div class="section-title">Баланс</div>
+<div class="value">128 450 ₽</div>
+<div class="btn-row">
+<button class="btn">Снять</button>
+<button class="btn">Пополнить</button>
+</div>
+</div>
 
-    <!-- Avatar -->
-    <div style="display:flex;align-items:center;gap:14px;">
-      <label style="
-        width:64px;height:64px;border-radius:50%;
-        border:1px dashed var(--line);
-        display:flex;align-items:center;justify-content:center;
-        cursor:pointer;overflow:hidden;
-      ">
-        <span style="font-size:10px;color:var(--muted);text-align:center;">
-          Добавить<br>фото
-        </span>
-        <input type="file" accept="image/*" style="display:none">
-      </label>
-
-      <div>
-        <div class="artist-name">AERON</div>
-        <div class="track-name">Артист лейбла</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- BALANCE -->
-  <div class="card">
-    <div class="section-title">Баланс</div>
-    <div class="value">128 450 ₽</div>
-
-    <div class="btn-row">
-      <button class="btn">Снять</button>
-      <button class="btn">Пополнить</button>
-    </div>
-  </div>
-
-  <!-- PAYMENT -->
-  <div class="card">
-    <div class="section-title">Платёжные данные</div>
-
-    <div class="track-name">Привязанная карта</div>
-    <div class="track-name">•••• 4821</div>
-
-    <button class="btn" style="margin-top:14px;">
-      Привязать карту
-    </button>
-  </div>
-
-  <!-- WALLET -->
-  <div class="card">
-    <div class="section-title">Кошелёк</div>
-    <div class="track-name">0xA3F9…91C4</div>
-  </div>
-
-  <!-- RELEASES -->
-  <div class="card">
-    <div class="section-title">Последние релизы</div>
-
-    <div class="release-row">
-      <span>No Signal</span>
-      <span class="track-name">Активен</span>
-    </div>
-
-    <div class="release-row">
-      <span>Echo City</span>
-      <span class="track-name">Активен</span>
-    </div>
-  </div>
-
-  <!-- PITCHING -->
-  <div class="card">
-    <div class="section-title">Питчинг</div>
-    <button class="btn">
-      Отправить релиз на питчинг
-    </button>
-  </div>
-
+<div class="card">
+<div class="section-title">Последние релизы</div>
+<div class="release-row"><span>No Signal</span><span class="track-name">Активен</span></div>
+<div class="release-row"><span>Echo City</span><span class="track-name">Активен</span></div>
+</div>
 </section>
 
+</div>
 
+<!-- NAV -->
+<div class="nav">
+<div class="nav-item active" onclick="openTab('dashboard',0)">Главная</div>
+<div class="nav-item" onclick="openTab('upload',1)">Отгрузка</div>
+<div class="nav-item" onclick="openTab('royalties',2)">Роялти</div>
+<div class="nav-item" onclick="openTab('profile',3)">Профиль</div>
+</div>
+
+<script>
+const tabs=['dashboard','upload','royalties','profile'];
+const navItems=document.querySelectorAll('.nav-item');
+
+function openTab(id,index){
+tabs.forEach(t=>{
+const el=document.getElementById(t);
+if(el) el.classList.add('hidden');
+});
+document.getElementById(id).classList.remove('hidden');
+navItems.forEach(n=>n.classList.remove('active'));
+navItems[index].classList.add('active');
+}
+
+if(window.Telegram && window.Telegram.WebApp){
+Telegram.WebApp.ready();
+Telegram.WebApp.expand();
+}
+</script>
+</body>
+</html>
