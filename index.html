@@ -22,31 +22,16 @@
     body{margin:0;background:var(--bg);color:var(--text)}
     .app{max-width:420px;margin:0 auto;padding-bottom:100px}
 
-    header{
-      padding:22px 20px 14px;
-      border-bottom:1px solid var(--line)
-    }
+    header{padding:22px 20px 14px;border-bottom:1px solid var(--line)}
     header h1{margin:0;font-size:20px;font-weight:500}
-    header span{
-      font-size:11px;color:var(--muted);
-      letter-spacing:.14em;text-transform:uppercase
-    }
-
-    .hero{
-      margin:20px;height:220px;border-radius:var(--radius);
-      display:flex;align-items:center;justify-content:center;
-      background:
-        radial-gradient(600px 300px at 30% 20%, rgba(184,155,94,.18), transparent),
-        linear-gradient(160deg,#15151c,#0b0b10);
-      box-shadow:0 40px 90px rgba(0,0,0,.6)
-    }
-
-    .logo svg{width:96px;height:96px}
+    header span{font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
 
     .section-title{
       margin:24px 20px 8px;
-      font-size:11px;letter-spacing:.16em;
-      text-transform:uppercase;color:var(--muted)
+      font-size:11px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:var(--muted)
     }
 
     .card{
@@ -57,35 +42,9 @@
       padding:16px
     }
 
-    .artist-name{font-size:16px;font-weight:500}
-    .track-name{font-size:14px;color:var(--muted)}
-
-    .news-title{font-size:14px;line-height:1.4}
-    .news-meta{font-size:12px;color:var(--muted);margin-top:6px}
-
-    .value{font-size:28px;color:var(--accent)}
-
-    /* ПРЕМИАЛЬНАЯ КНОПКА */
-    .btn{
-      margin-top:14px;
-      padding:14px;
-      width:100%;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background:transparent;
-      color:var(--text);
-      font-size:13px;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-      cursor:pointer;
-    }
-    .btn:hover{
-      border-color:var(--accent);
-      color:var(--accent);
-    }
-
     .input,.textarea{
-      width:100%;margin-top:10px;
+      width:100%;
+      margin-top:10px;
       padding:12px 14px;
       border-radius:12px;
       background:#0f0f14;
@@ -100,8 +59,56 @@
       letter-spacing:.12em;
       text-transform:uppercase;
       color:var(--muted);
-      margin-top:16px
+      margin-top:18px
     }
+
+    /* ===== КАСТОМНАЯ ЗАГРУЗКА ФАЙЛА ===== */
+    .file-upload {
+      margin-top:8px;
+      border:1px dashed var(--line);
+      border-radius:12px;
+      padding:14px;
+      cursor:pointer;
+      transition:.2s;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:#0f0f14;
+    }
+
+    .file-upload:hover {
+      border-color:var(--accent);
+    }
+
+    .file-upload span {
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .file-upload strong {
+      font-weight:400;
+      color:var(--text);
+      font-size:13px;
+    }
+
+    .file-upload input {
+      display:none;
+    }
+
+    .btn{
+      margin-top:18px;
+      padding:14px;
+      width:100%;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:transparent;
+      color:var(--text);
+      font-size:13px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      cursor:pointer;
+    }
+    .btn:hover{border-color:var(--accent);color:var(--accent)}
 
     .hidden{display:none}
 
@@ -130,40 +137,7 @@
   <span>Частный музыкальный лейбл</span>
 </header>
 
-<!-- DASHBOARD -->
-<section id="dashboard">
-  <div class="hero">
-    <div class="logo">
-      <svg viewBox="0 0 100 100" fill="none">
-        <circle cx="50" cy="50" r="44" stroke="#b89b5e" stroke-width="2"/>
-        <path d="M35 60 L50 32 L65 60" stroke="#b89b5e" stroke-width="3"
-          stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-  </div>
-
-  <div class="section-title">Последний релиз</div>
-  <div class="card">
-    <div class="artist-name">AERON</div>
-    <div class="track-name">No Signal · Электроника / Альтернатива</div>
-  </div>
-
-  <div class="section-title">Новости индустрии</div>
-  <div class="card">
-    <div class="news-title">
-      Независимые лейблы увеличили долю стриминга в 2025 году благодаря прямой работе с артистами.
-    </div>
-    <div class="news-meta">Источник: индустриальный обзор</div>
-  </div>
-
-  <div class="section-title">Баланс</div>
-  <div class="card">
-    <div class="value">128 450 ₽</div>
-  </div>
-</section>
-
-<!-- UPLOAD -->
-<section id="upload" class="hidden">
+<section id="upload">
   <div class="card">
     <div class="section-title">Отгрузка релиза</div>
 
@@ -177,16 +151,32 @@
     <input class="input" type="time">
 
     <div class="file-label">Аудиофайл трека (WAV / MP3)</div>
-    <input class="input" type="file">
+    <label class="file-upload">
+      <span>Нажмите для загрузки</span>
+      <strong data-name>Файл не выбран</strong>
+      <input type="file" onchange="this.parentElement.querySelector('[data-name]').innerText=this.files[0]?.name||'Файл не выбран'">
+    </label>
 
     <div class="file-label">Обложка релиза</div>
-    <input class="input" type="file">
+    <label class="file-upload">
+      <span>Нажмите для загрузки</span>
+      <strong data-name>Файл не выбран</strong>
+      <input type="file" onchange="this.parentElement.querySelector('[data-name]').innerText=this.files[0]?.name||'Файл не выбран'">
+    </label>
 
     <div class="file-label">Скан паспорта</div>
-    <input class="input" type="file">
+    <label class="file-upload">
+      <span>Нажмите для загрузки</span>
+      <strong data-name>Файл не выбран</strong>
+      <input type="file" onchange="this.parentElement.querySelector('[data-name]').innerText=this.files[0]?.name||'Файл не выбран'">
+    </label>
 
     <div class="file-label">Скан подписанного договора</div>
-    <input class="input" type="file">
+    <label class="file-upload">
+      <span>Нажмите для загрузки</span>
+      <strong data-name>Файл не выбран</strong>
+      <input type="file" onchange="this.parentElement.querySelector('[data-name]').innerText=this.files[0]?.name||'Файл не выбран'">
+    </label>
 
     <button class="btn" onclick="alert('Релиз отправлен на модерацию')">
       Отправить релиз
@@ -194,43 +184,9 @@
   </div>
 </section>
 
-<!-- ROYALTIES -->
-<section id="royalties" class="hidden">
-  <div class="card">
-    <div class="section-title">Роялти</div>
-    <div class="value">В разработке</div>
-  </div>
-</section>
-
-<!-- PROFILE -->
-<section id="profile" class="hidden">
-  <div class="card">
-    <div class="section-title">Профиль артиста</div>
-    <div class="artist-name">AERON</div>
-    <div class="track-name">Статус: активный артист лейбла</div>
-  </div>
-</section>
-
-</div>
-
-<div class="nav">
-  <div class="nav-item active" onclick="openTab('dashboard',0)">Главная</div>
-  <div class="nav-item" onclick="openTab('upload',1)">Отгрузка</div>
-  <div class="nav-item" onclick="openTab('royalties',2)">Роялти</div>
-  <div class="nav-item" onclick="openTab('profile',3)">Профиль</div>
 </div>
 
 <script>
-  const tabs=['dashboard','upload','royalties','profile'];
-  const nav=document.querySelectorAll('.nav-item');
-
-  function openTab(id,i){
-    tabs.forEach(t=>document.getElementById(t).classList.add('hidden'));
-    document.getElementById(id).classList.remove('hidden');
-    nav.forEach(n=>n.classList.remove('active'));
-    nav[i].classList.add('active');
-  }
-
   if(window.Telegram?.WebApp){
     Telegram.WebApp.ready();
     Telegram.WebApp.expand();
