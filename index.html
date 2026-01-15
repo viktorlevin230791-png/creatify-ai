@@ -228,15 +228,31 @@ fill="none" stroke="#b89b5e" stroke-width="2"/>
     </div>
   </div>
 
-  <div class="release-row">
-    <div>
-      <div class="artist-name">Echo City</div>
-      <div class="track-name">Активен</div>
-    </div>
-    <div class="value" style="font-size:16px;">
-      34 150 ₽
-    </div>
+  <div class="release-row" style="align-items:center;gap:12px;">
+
+  <!-- INFO -->
+  <div style="flex:1;">
+    <div class="artist-name">No Signal</div>
+    <div class="track-name">Активен</div>
   </div>
+
+  <!-- EDIT -->
+  <button class="btn" style="
+    margin-top:0;
+    padding:8px 12px;
+    font-size:11px;
+    letter-spacing:.1em;
+    width:auto;
+  " onclick="openEdit(this)">
+    Редактировать
+  </button>
+
+  <!-- AMOUNT -->
+  <div class="value" style="font-size:16px;white-space:nowrap;">
+    62 300 ₽
+  </div>
+
+</div>
 
 </div>
 </div>
@@ -273,4 +289,5 @@ Telegram.WebApp.expand();
 </script>
 </body>
 </html>
+
 
