@@ -53,24 +53,34 @@
 
     .artist-name{font-size:16px;font-weight:500}
     .track-name{font-size:14px;color:var(--muted)}
+
     .news-title{font-size:14px;line-height:1.4}
     .news-meta{font-size:12px;color:var(--muted);margin-top:6px}
+
     .value{font-size:28px;color:var(--accent)}
 
     .btn{
-      margin-top:18px;
-      padding:14px;
+      margin-top:14px;
+      padding:12px;
       width:100%;
       border-radius:14px;
       border:1px solid var(--line);
       background:transparent;
       color:var(--text);
-      font-size:13px;
-      letter-spacing:.06em;
+      font-size:12px;
+      letter-spacing:.08em;
       text-transform:uppercase;
       cursor:pointer;
     }
     .btn:hover{border-color:var(--accent);color:var(--accent)}
+
+    .btn-row{
+      display:flex;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .btn-row .btn{margin-top:0}
 
     .input,.textarea{
       width:100%;margin-top:10px;
@@ -91,7 +101,6 @@
       margin-top:16px
     }
 
-    /* === КАСТОМНЫЕ FILE UPLOAD (ТОЛЬКО ОНИ) === */
     .file-upload{
       margin-top:8px;
       padding:14px;
@@ -102,7 +111,6 @@
       justify-content:space-between;
       align-items:center;
       cursor:pointer;
-      transition:.2s;
     }
     .file-upload:hover{border-color:var(--accent)}
     .file-upload .hint{font-size:13px;color:var(--muted)}
@@ -118,6 +126,26 @@
     .file-upload input{display:none}
 
     .hidden{display:none}
+
+    .status{
+      font-size:12px;
+      color:#7dd3a8;
+      margin-top:4px;
+    }
+
+    .release-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:10px 0;
+      border-bottom:1px solid var(--line);
+    }
+    .release-row:last-child{border-bottom:none}
+
+    .release-status{
+      font-size:11px;
+      color:#7dd3a8;
+    }
 
     .nav{
       position:fixed;bottom:0;left:0;right:0;
@@ -159,15 +187,7 @@
   <div class="section-title">Последний релиз</div>
   <div class="card">
     <div class="artist-name">AERON</div>
-    <div class="track-name">No Signal · Электроника / Альтернатива</div>
-  </div>
-
-  <div class="section-title">Новости индустрии</div>
-  <div class="card">
-    <div class="news-title">
-      Независимые лейблы увеличили долю стриминга в 2025 году благодаря прямой работе с артистами.
-    </div>
-    <div class="news-meta">Источник: индустриальный обзор</div>
+    <div class="track-name">No Signal · Электроника</div>
   </div>
 
   <div class="section-title">Баланс</div>
@@ -180,47 +200,10 @@
 <section id="upload" class="hidden">
   <div class="card">
     <div class="section-title">Отгрузка релиза</div>
-
-    <input class="input" value="AERON" placeholder="Имя артиста">
-    <input class="input" value="No Signal" placeholder="Название трека">
-    <input class="input" placeholder="Автор текста">
-    <input class="input" placeholder="Автор музыки">
+    <input class="input" value="AERON">
+    <input class="input" value="No Signal">
     <textarea class="textarea" placeholder="Текст песни"></textarea>
-
-    <div class="file-label">Время начала предпрослушивания</div>
-    <input class="input" type="time">
-
-    <div class="file-label">Аудиофайл трека (WAV / MP3)</div>
-    <label class="file-upload">
-      <span class="hint">Выбрать файл</span>
-      <span class="filename">Файл не выбран</span>
-      <input type="file" onchange="this.parentElement.querySelector('.filename').innerText=this.files[0]?.name||'Файл не выбран'">
-    </label>
-
-    <div class="file-label">Обложка релиза</div>
-    <label class="file-upload">
-      <span class="hint">Выбрать файл</span>
-      <span class="filename">Файл не выбран</span>
-      <input type="file" onchange="this.parentElement.querySelector('.filename').innerText=this.files[0]?.name||'Файл не выбран'">
-    </label>
-
-    <div class="file-label">Скан паспорта</div>
-    <label class="file-upload">
-      <span class="hint">Выбрать файл</span>
-      <span class="filename">Файл не выбран</span>
-      <input type="file" onchange="this.parentElement.querySelector('.filename').innerText=this.files[0]?.name||'Файл не выбран'">
-    </label>
-
-    <div class="file-label">Скан подписанного договора</div>
-    <label class="file-upload">
-      <span class="hint">Выбрать файл</span>
-      <span class="filename">Файл не выбран</span>
-      <input type="file" onchange="this.parentElement.querySelector('.filename').innerText=this.files[0]?.name||'Файл не выбран'">
-    </label>
-
-    <button class="btn" onclick="alert('Релиз отправлен на модерацию')">
-      Отправить релиз
-    </button>
+    <button class="btn">Отправить релиз</button>
   </div>
 </section>
 
@@ -228,16 +211,51 @@
 <section id="royalties" class="hidden">
   <div class="card">
     <div class="section-title">Роялти</div>
-    <div class="value">В разработке</div>
+    <div class="value">128 450 ₽</div>
   </div>
 </section>
 
 <!-- PROFILE -->
 <section id="profile" class="hidden">
   <div class="card">
-    <div class="section-title">Профиль артиста</div>
+    <div class="section-title">Артист</div>
     <div class="artist-name">AERON</div>
-    <div class="track-name">Статус: активный артист лейбла</div>
+    <div class="status">Активный артист · Контракт подписан</div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">Баланс роялти</div>
+    <div class="value">128 450 ₽</div>
+
+    <div class="btn-row">
+      <button class="btn" onclick="alert('Вывод средств (demo)')">Снять</button>
+      <button class="btn" onclick="alert('Пополнение (demo)')">Пополнить</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">Кошелёк</div>
+    <div class="track-name">0xA3F9...91C4</div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">Релизы на лейбле</div>
+
+    <div class="release-row">
+      <div>
+        <div class="artist-name">No Signal</div>
+        <div class="track-name">2024</div>
+      </div>
+      <div class="release-status">Активен</div>
+    </div>
+
+    <div class="release-row">
+      <div>
+        <div class="artist-name">Echo City</div>
+        <div class="track-name">2023</div>
+      </div>
+      <div class="release-status">Активен</div>
+    </div>
   </div>
 </section>
 
