@@ -6,12 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-  <!-- Премиальный шрифт (спокойный, не кричащий) -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    :root {
+    :root{
       --bg:#0a0a0c;
       --surface:#121216;
       --line:#1e1e26;
@@ -20,144 +18,98 @@
       --accent:#b89b5e;
       --radius:20px;
     }
+    *{box-sizing:border-box;font-family:'Inter',system-ui}
+    body{margin:0;background:var(--bg);color:var(--text)}
+    .app{max-width:420px;margin:0 auto;padding-bottom:100px}
 
-    * {
-      box-sizing:border-box;
-      font-family:'Inter', system-ui, -apple-system;
-    }
-
-    body {
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
-    }
-
-    .app {
-      max-width:420px;
-      margin:0 auto;
-      padding-bottom:96px;
-    }
-
-    header {
+    header{
       padding:22px 20px 14px;
-      border-bottom:1px solid var(--line);
+      border-bottom:1px solid var(--line)
+    }
+    header h1{margin:0;font-size:20px;font-weight:500}
+    header span{
+      font-size:11px;color:var(--muted);
+      letter-spacing:.14em;text-transform:uppercase
     }
 
-    header h1 {
-      margin:0;
-      font-size:20px;
-      font-weight:500;
-      letter-spacing:.2px;
-    }
-
-    header span {
-      display:block;
-      margin-top:4px;
-      font-size:11px;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:var(--muted);
-    }
-
-    .hero {
-      margin:20px;
-      height:220px;
-      border-radius:var(--radius);
-      display:flex;
-      align-items:center;
-      justify-content:center;
+    .hero{
+      margin:20px;height:220px;border-radius:var(--radius);
+      display:flex;align-items:center;justify-content:center;
       background:
         radial-gradient(600px 300px at 30% 20%, rgba(184,155,94,.18), transparent),
         linear-gradient(160deg,#15151c,#0b0b10);
-      box-shadow:0 40px 90px rgba(0,0,0,.6);
+      box-shadow:0 40px 90px rgba(0,0,0,.6)
     }
 
-    .logo svg {
-      width:96px;
-      height:96px;
-      opacity:.95;
+    .logo svg{width:96px;height:96px}
+
+    .section-title{
+      margin:24px 20px 8px;
+      font-size:11px;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--muted)
     }
 
-    .card {
+    .card{
       background:var(--surface);
       border:1px solid var(--line);
       border-radius:var(--radius);
-      margin:16px 20px;
-      padding:18px;
+      margin:12px 20px;
+      padding:16px
     }
 
-    .label {
-      font-size:11px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color:var(--muted);
-      margin-bottom:8px;
-    }
+    .artist-name{font-size:16px;font-weight:500}
+    .track-name{font-size:14px;color:var(--muted)}
 
-    .value {
-      font-size:30px;
-      font-weight:500;
-      color:var(--accent);
-    }
+    .news-title{font-size:14px}
+    .news-meta{font-size:12px;color:var(--muted);margin-top:6px}
 
-    .button {
-      margin-top:14px;
-      padding:14px;
+    .value{font-size:28px;color:var(--accent)}
+
+    .btn{
+      margin-top:12px;
+      padding:12px 14px;
       width:100%;
       border-radius:14px;
       border:1px solid var(--line);
-      background:linear-gradient(180deg,#1a1a20,#121216);
+      background:#0f0f14;
       color:var(--text);
-      font-size:14px;
+      font-size:13px;
       cursor:pointer;
     }
+    .btn:hover{border-color:var(--accent)}
 
-    .button:hover {
-      border-color:var(--accent);
-    }
-
-    .input, .textarea {
-      width:100%;
-      margin-top:10px;
+    .input,.textarea{
+      width:100%;margin-top:10px;
       padding:12px 14px;
       border-radius:12px;
       background:#0f0f14;
       border:1px solid var(--line);
       color:var(--text);
-      font-size:14px;
+      font-size:13px;
+    }
+    .textarea{min-height:100px;resize:vertical}
+
+    .file-label{
+      font-size:12px;color:var(--muted);
+      margin-top:14px
     }
 
-    .textarea {
-      min-height:110px;
-      resize:vertical;
-    }
+    .hidden{display:none}
 
-    .nav {
-      position:fixed;
-      bottom:0;
-      left:0;
-      right:0;
+    .nav{
+      position:fixed;bottom:0;left:0;right:0;
       background:rgba(10,10,12,.9);
       backdrop-filter:blur(22px);
       border-top:1px solid var(--line);
-      display:flex;
-      justify-content:space-around;
-      padding:14px 0 18px;
+      display:flex;justify-content:space-around;
+      padding:14px 0 18px
     }
-
-    .nav-item {
-      font-size:10px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color:var(--muted);
-      cursor:pointer;
+    .nav-item{
+      font-size:10px;letter-spacing:.14em;
+      text-transform:uppercase;color:var(--muted);
+      cursor:pointer
     }
-
-    .nav-item.active {
-      color:var(--accent);
-    }
-
-    .hidden { display:none; }
+    .nav-item.active{color:var(--accent)}
   </style>
 </head>
 
@@ -166,7 +118,7 @@
 
 <header>
   <h1>Взлетай Music</h1>
-  <span>Private Music Label · Demo Mode</span>
+  <span>Private Music Label</span>
 </header>
 
 <!-- DASHBOARD -->
@@ -181,8 +133,22 @@
     </div>
   </div>
 
+  <div class="section-title">Latest Release</div>
   <div class="card">
-    <div class="label">Current Balance</div>
+    <div class="artist-name">AERON</div>
+    <div class="track-name">No Signal · Electronic / Alt</div>
+  </div>
+
+  <div class="section-title">Industry Update</div>
+  <div class="card">
+    <div class="news-title">
+      Global streaming revenue grew by 9.8% in 2025, driven by independent labels.
+    </div>
+    <div class="news-meta">Music Business Worldwide</div>
+  </div>
+
+  <div class="section-title">Balance</div>
+  <div class="card">
     <div class="value">128 450 ₽</div>
   </div>
 </section>
@@ -190,20 +156,30 @@
 <!-- UPLOAD -->
 <section id="upload" class="hidden">
   <div class="card">
-    <div class="label">Release Upload</div>
+    <div class="section-title">Release Upload</div>
 
-    <input class="input" placeholder="Artist name">
-    <input class="input" placeholder="Track title">
+    <input class="input" value="AERON" placeholder="Artist name">
+    <input class="input" value="No Signal" placeholder="Track title">
     <input class="input" placeholder="Lyrics author">
     <input class="input" placeholder="Music author">
     <textarea class="textarea" placeholder="Lyrics text"></textarea>
+
+    <div class="file-label">Preview start time</div>
     <input class="input" type="time">
-    <input class="input" type="file">
-    <input class="input" type="file">
-    <input class="input" type="file">
+
+    <div class="file-label">Track file (WAV / MP3)</div>
     <input class="input" type="file">
 
-    <button class="button" onclick="alert('Demo: release submitted')">
+    <div class="file-label">Cover artwork</div>
+    <input class="input" type="file">
+
+    <div class="file-label">Passport scan</div>
+    <input class="input" type="file">
+
+    <div class="file-label">Signed contract scan</div>
+    <input class="input" type="file">
+
+    <button class="btn" onclick="alert('Release submitted for moderation')">
       Submit Release
     </button>
   </div>
@@ -212,24 +188,22 @@
 <!-- ROYALTIES -->
 <section id="royalties" class="hidden">
   <div class="card">
-    <div class="label">Royalties</div>
-    <div class="value">Coming soon</div>
+    <div class="section-title">Royalties</div>
+    <div class="value">Coming Soon</div>
   </div>
 </section>
 
 <!-- PROFILE -->
 <section id="profile" class="hidden">
   <div class="card">
-    <div class="label">Artist Profile</div>
-    <div class="value">Demo Artist</div>
-    <div class="label" style="margin-top:12px">Status</div>
-    <div class="value">Active · Demo Access</div>
+    <div class="section-title">Artist Profile</div>
+    <div class="artist-name">AERON</div>
+    <div class="track-name">Status: Active Artist</div>
   </div>
 </section>
 
 </div>
 
-<!-- NAV -->
 <div class="nav">
   <div class="nav-item active" onclick="openTab('dashboard',0)">Dashboard</div>
   <div class="nav-item" onclick="openTab('upload',1)">Upload</div>
@@ -238,8 +212,8 @@
 </div>
 
 <script>
-  const tabs = ['dashboard','upload','royalties','profile'];
-  const nav = document.querySelectorAll('.nav-item');
+  const tabs=['dashboard','upload','royalties','profile'];
+  const nav=document.querySelectorAll('.nav-item');
 
   function openTab(id,i){
     tabs.forEach(t=>document.getElementById(t).classList.add('hidden'));
