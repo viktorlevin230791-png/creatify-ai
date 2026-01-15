@@ -263,29 +263,7 @@ fill="none" stroke="#b89b5e" stroke-width="2"/>
   </div>
 
 
-  <!-- INFO -->
-  <div style="flex:1;">
-    <div class="artist-name">No Signal</div>
-    <div class="track-name">Активен</div>
-  </div>
-
-  <!-- EDIT -->
-  <button class="btn" style="
-    margin-top:0;
-    padding:8px 12px;
-    font-size:11px;
-    letter-spacing:.1em;
-    width:auto;
-  " onclick="openEdit(this)">
-    Редактировать
-  </button>
-
-  <!-- AMOUNT -->
-  <div class="value" style="font-size:16px;white-space:nowrap;">
-    62 300 ₽
-  </div>
-
-</div>
+  
 
 </div>
 </div>
@@ -303,15 +281,7 @@ fill="none" stroke="#b89b5e" stroke-width="2"/>
 
 <script>
 const tabs=['dashboard','upload','royalties','profile'];
-const navItems=document.querySelectorAll('.nav-item');
-
-function openTab(id,index){
-tabs.forEach(t=>{
-const el=document.getElementById(t);
-if(el) el.classList.add('hidden');
-});
-document.getElementById(id).classList.remove('hidden');
-navItems.forEach(n=>n.classList.remove('active'));
+vItems.forEach(n=>n.classList.remove('active'));
 navItems[index].classList.add('active');
 }
 
@@ -322,6 +292,7 @@ Telegram.WebApp.expand();
 </script>
 </body>
 </html>
+
 
 
 
