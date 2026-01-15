@@ -28,10 +28,8 @@
 
     .section-title{
       margin:24px 20px 8px;
-      font-size:11px;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      color:var(--muted)
+      font-size:11px;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--muted)
     }
 
     .card{
@@ -43,8 +41,7 @@
     }
 
     .input,.textarea{
-      width:100%;
-      margin-top:10px;
+      width:100%;margin-top:10px;
       padding:12px 14px;
       border-radius:12px;
       background:#0f0f14;
@@ -59,39 +56,44 @@
       letter-spacing:.12em;
       text-transform:uppercase;
       color:var(--muted);
-      margin-top:18px
+      margin-top:16px
     }
 
-    /* ===== КАСТОМНАЯ ЗАГРУЗКА ФАЙЛА ===== */
-    .file-upload {
+    /* ===== КРАСИВЫЕ FILE UPLOAD ===== */
+    .file-upload{
       margin-top:8px;
-      border:1px dashed var(--line);
-      border-radius:12px;
       padding:14px;
-      cursor:pointer;
-      transition:.2s;
+      border-radius:12px;
+      border:1px dashed var(--line);
+      background:#0f0f14;
       display:flex;
       justify-content:space-between;
       align-items:center;
-      background:#0f0f14;
+      cursor:pointer;
+      transition:.2s;
     }
 
-    .file-upload:hover {
+    .file-upload:hover{
       border-color:var(--accent);
     }
 
-    .file-upload span {
+    .file-upload .hint{
       font-size:13px;
       color:var(--muted);
     }
 
-    .file-upload strong {
-      font-weight:400;
-      color:var(--text);
+    .file-upload .filename{
       font-size:13px;
+      color:var(--text);
+      font-weight:400;
+      max-width:50%;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      text-align:right;
     }
 
-    .file-upload input {
+    .file-upload input{
       display:none;
     }
 
@@ -137,6 +139,7 @@
   <span>Частный музыкальный лейбл</span>
 </header>
 
+<!-- UPLOAD -->
 <section id="upload">
   <div class="card">
     <div class="section-title">Отгрузка релиза</div>
@@ -152,30 +155,30 @@
 
     <div class="file-label">Аудиофайл трека (WAV / MP3)</div>
     <label class="file-upload">
-      <span>Нажмите для загрузки</span>
-      <strong data-name>Файл не выбран</strong>
-      <input type="file" onchange="this.parentElement.querySelector('[data-name]').innerText=this.files[0]?.name||'Файл не выбран'">
+      <span class="hint">Нажмите для выбора файла</span>
+      <span class="filename">Файл не выбран</span>
+      <input type="file" onchange="this.parentElement.querySelector('.filename').innerText=this.files[0]?.name||'Файл не выбран'">
     </label>
 
     <div class="file-label">Обложка релиза</div>
     <label class="file-upload">
-      <span>Нажмите для загрузки</span>
-      <strong data-name>Файл не выбран</strong>
-      <input type="file" onchange="this.parentElement.querySelector('[data-name]').innerText=this.files[0]?.name||'Файл не выбран'">
+      <span class="hint">Нажмите для выбора файла</span>
+      <span class="filename">Файл не выбран</span>
+      <input type="file" onchange="this.parentElement.querySelector('.filename').innerText=this.files[0]?.name||'Файл не выбран'">
     </label>
 
     <div class="file-label">Скан паспорта</div>
     <label class="file-upload">
-      <span>Нажмите для загрузки</span>
-      <strong data-name>Файл не выбран</strong>
-      <input type="file" onchange="this.parentElement.querySelector('[data-name]').innerText=this.files[0]?.name||'Файл не выбран'">
+      <span class="hint">Нажмите для выбора файла</span>
+      <span class="filename">Файл не выбран</span>
+      <input type="file" onchange="this.parentElement.querySelector('.filename').innerText=this.files[0]?.name||'Файл не выбран'">
     </label>
 
     <div class="file-label">Скан подписанного договора</div>
     <label class="file-upload">
-      <span>Нажмите для загрузки</span>
-      <strong data-name>Файл не выбран</strong>
-      <input type="file" onchange="this.parentElement.querySelector('[data-name]').innerText=this.files[0]?.name||'Файл не выбран'">
+      <span class="hint">Нажмите для выбора файла</span>
+      <span class="filename">Файл не выбран</span>
+      <input type="file" onchange="this.parentElement.querySelector('.filename').innerText=this.files[0]?.name||'Файл не выбран'">
     </label>
 
     <button class="btn" onclick="alert('Релиз отправлен на модерацию')">
