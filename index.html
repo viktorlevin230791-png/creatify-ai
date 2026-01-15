@@ -150,7 +150,36 @@ stroke-linecap="round" stroke-linejoin="round"/>
 <div class="file-label">Аудиофайл трека</div>  
 <label class="file-upload">Добавить файл<input type="file"></label>  <div class="file-label">Обложка релиза</div>  
 <label class="file-upload">Добавить файл<input type="file"></label>  <div class="file-label">Скан паспорта</div>  
-<label class="file-upload">Добавить файл<input type="file"></label>  <div class="file-label">Скан подписанного договора</div>  
+<label class="file-upload">Добавить файл<input type="file"></label>  <!-- CONTRACT DOWNLOAD -->
+<div class="file-label">Договор с лейблом</div>
+
+<div class="card" style="
+  margin:12px 0;
+  padding:14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+">
+  <div>
+    <div class="artist-name" style="font-size:14px;">
+      Договор на дистрибуцию
+    </div>
+    <div class="track-name">
+      Скачайте, подпишите и загрузите ниже
+    </div>
+  </div>
+
+  <a href="contract.pdf" download class="btn" style="
+    margin-top:0;
+    padding:8px 14px;
+    font-size:11px;
+    width:auto;
+    white-space:nowrap;
+  ">
+    Скачать
+  </a>
+</div><div class="file-label">Скан подписанного договора</div>  
 <label class="file-upload">Добавить файл<input type="file"></label>  <button class="btn">Отправить релиз</button>
 
 </div>  
@@ -278,6 +307,7 @@ Telegram.WebApp.expand();
 }  
 </script>  </body>  
 </html> 
+
 
 
 
