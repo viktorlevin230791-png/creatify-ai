@@ -221,49 +221,84 @@ stroke-linecap="round" stroke-linejoin="round"/>
 
 <!-- PROFILE -->
 <section id="profile" class="hidden">
-<div class="card">
-<div class="section-title">Баланс</div>
-<div class="value">128 450 ₽</div>
-<div class="btn-row">
-<button class="btn">Снять</button>
-<button class="btn">Пополнить</button>
-</div>
-</div>
 
-<div class="card">
-<div class="section-title">Кошелёк</div>
-<div class="track-name">0xA3F9…91C4</div>
-</div>
+  <!-- ARTIST INFO -->
+  <div class="card">
+    <div class="section-title">Профиль артиста</div>
 
-<div class="card">
-<div class="section-title">Последние релизы</div>
-<div class="release-row"><span>No Signal</span><span class="track-name">Активен</span></div>
-<div class="release-row"><span>Echo City</span><span class="track-name">Активен</span></div>
-</div>
+    <!-- Avatar -->
+    <div style="display:flex;align-items:center;gap:14px;">
+      <label style="
+        width:64px;height:64px;border-radius:50%;
+        border:1px dashed var(--line);
+        display:flex;align-items:center;justify-content:center;
+        cursor:pointer;overflow:hidden;
+      ">
+        <span style="font-size:10px;color:var(--muted);text-align:center;">
+          Добавить<br>фото
+        </span>
+        <input type="file" accept="image/*" style="display:none">
+      </label>
+
+      <div>
+        <div class="artist-name">AERON</div>
+        <div class="track-name">Артист лейбла</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BALANCE -->
+  <div class="card">
+    <div class="section-title">Баланс</div>
+    <div class="value">128 450 ₽</div>
+
+    <div class="btn-row">
+      <button class="btn">Снять</button>
+      <button class="btn">Пополнить</button>
+    </div>
+  </div>
+
+  <!-- PAYMENT -->
+  <div class="card">
+    <div class="section-title">Платёжные данные</div>
+
+    <div class="track-name">Привязанная карта</div>
+    <div class="track-name">•••• 4821</div>
+
+    <button class="btn" style="margin-top:14px;">
+      Привязать карту
+    </button>
+  </div>
+
+  <!-- WALLET -->
+  <div class="card">
+    <div class="section-title">Кошелёк</div>
+    <div class="track-name">0xA3F9…91C4</div>
+  </div>
+
+  <!-- RELEASES -->
+  <div class="card">
+    <div class="section-title">Последние релизы</div>
+
+    <div class="release-row">
+      <span>No Signal</span>
+      <span class="track-name">Активен</span>
+    </div>
+
+    <div class="release-row">
+      <span>Echo City</span>
+      <span class="track-name">Активен</span>
+    </div>
+  </div>
+
+  <!-- PITCHING -->
+  <div class="card">
+    <div class="section-title">Питчинг</div>
+    <button class="btn">
+      Отправить релиз на питчинг
+    </button>
+  </div>
+
 </section>
 
-</div>
-
-<div class="nav">
-<div class="nav-item active" onclick="openTab('dashboard',0)">Главная</div>
-<div class="nav-item" onclick="openTab('upload',1)">Отгрузка</div>
-<div class="nav-item" onclick="openTab('royalties',2)">Роялти</div>
-<div class="nav-item" onclick="openTab('profile',3)">Профиль</div>
-</div>
-
-<script>
-const tabs=['dashboard','upload','royalties','profile'];
-const nav=document.querySelectorAll('.nav-item');
-
-function openTab(id,i){
-tabs.forEach(t=>document.getElementById(t).classList.add('hidden'));
-document.getElementById(id).classList.remove('hidden');
-nav.forEach(n=>n.classList.remove('active'));
-nav[i].classList.add('active');
-}
-Telegram?.WebApp?.ready();
-Telegram?.WebApp?.expand();
-</script>
-</body>
-</html>
 
