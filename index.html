@@ -5,223 +5,149 @@
   <title>Взлетай Music</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Telegram WebApp SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-  <!-- Premium font -->
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #0a0a0c;
-      --surface: #121216;
-      --line: #1e1e26;
-      --text: #f5f5f7;
-      --muted: #8c8c98;
-      --accent: #b89b5e;
-      --radius: 20px;
+      --bg:#0a0a0c;--surface:#121216;--line:#1e1e26;
+      --text:#f5f5f7;--muted:#8c8c98;--accent:#b89b5e;
+      --radius:20px;
+    }
+    *{box-sizing:border-box;font-family:'Manrope',system-ui}
+    body{margin:0;background:var(--bg);color:var(--text)}
+    .app{max-width:420px;margin:0 auto;padding-bottom:96px}
+    header{padding:24px 20px 16px;border-bottom:1px solid var(--line)}
+    header h1{margin:0;font-size:22px;font-weight:600}
+    header span{font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
+
+    .hero{margin:20px;height:240px;border-radius:var(--radius);
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(160deg,#15151c,#0b0b10);
+      box-shadow:0 40px 90px rgba(0,0,0,.6)
     }
 
-    * {
-      box-sizing: border-box;
-      font-family: 'Manrope', system-ui, -apple-system;
-    }
+    .logo svg{width:100px;height:100px;opacity:.95}
 
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-    }
+    .card{background:var(--surface);border:1px solid var(--line);
+      border-radius:var(--radius);margin:16px 20px;padding:18px}
 
-    .app {
-      max-width: 420px;
-      margin: 0 auto;
-      padding-bottom: 96px;
-    }
+    .label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+      color:var(--muted);margin-bottom:8px}
 
-    header {
-      padding: 24px 20px 16px;
-      border-bottom: 1px solid var(--line);
-    }
+    .value{font-size:32px;font-weight:600;color:var(--accent)}
 
-    header h1 {
-      margin: 0;
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-    }
+    .button{margin-top:14px;padding:14px;width:100%;
+      border-radius:14px;border:1px solid var(--line);
+      background:linear-gradient(180deg,#1a1a20,#121216);
+      color:var(--text);font-size:14px;cursor:pointer}
 
-    header span {
-      display: block;
-      margin-top: 4px;
-      font-size: 11px;
-      color: var(--muted);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
+    .button:hover{border-color:var(--accent)}
 
-    /* HERO */
-    .hero {
-      margin: 20px;
-      height: 260px;
-      border-radius: var(--radius);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .input{width:100%;padding:12px 14px;border-radius:12px;
+      background:#0f0f14;border:1px solid var(--line);
+      color:var(--text);margin-top:10px}
 
-      background:
-        radial-gradient(600px 300px at 30% 20%, rgba(184,155,94,0.18), transparent),
-        radial-gradient(400px 200px at 80% 80%, rgba(255,255,255,0.06), transparent),
-        linear-gradient(160deg, #15151c, #0b0b10);
+    .nav{position:fixed;bottom:0;left:0;right:0;
+      background:rgba(10,10,12,.88);
+      backdrop-filter:blur(22px);
+      border-top:1px solid var(--line);
+      display:flex;justify-content:space-around;
+      padding:14px 0 18px}
 
-      box-shadow: 0 40px 90px rgba(0,0,0,0.65);
-    }
+    .nav-item{font-size:10px;letter-spacing:.14em;
+      text-transform:uppercase;color:var(--muted);cursor:pointer}
 
-    /* LOGO */
-    .logo {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .logo svg {
-      width: 110px;
-      height: 110px;
-      opacity: 0.95;
-      animation: float 6s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
-      100% { transform: translateY(0); }
-    }
-
-    .logo-subtitle {
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .card {
-      background: var(--surface);
-      border-radius: var(--radius);
-      margin: 16px 20px;
-      padding: 18px;
-      border: 1px solid var(--line);
-    }
-
-    .label {
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
-
-    .value {
-      font-size: 32px;
-      font-weight: 600;
-      color: var(--accent);
-    }
-
-    .button {
-      margin-top: 14px;
-      padding: 14px;
-      width: 100%;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, #1a1a20, #121216);
-      color: var(--text);
-      font-size: 14px;
-      cursor: pointer;
-    }
-
-    .button:hover {
-      border-color: var(--accent);
-    }
-
-    .nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(10,10,12,0.88);
-      backdrop-filter: blur(22px);
-      border-top: 1px solid var(--line);
-      display: flex;
-      justify-content: space-around;
-      padding: 14px 0 18px;
-    }
-
-    .nav-item {
-      font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .nav-item.active {
-      color: var(--accent);
-    }
+    .nav-item.active{color:var(--accent)}
+    .hidden{display:none}
   </style>
 </head>
 
 <body>
-  <div class="app">
+<div class="app">
 
-    <header>
-      <h1>Взлетай Music</h1>
-      <span>Private Music Label</span>
-    </header>
+<header>
+  <h1>Взлетай Music</h1>
+  <span>Private Music Label</span>
+</header>
 
-    <!-- HERO WITH ABSTRACT LOGO -->
-    <div class="hero">
-      <div class="logo">
-        <!-- MODERN ABSTRACT MUSIC LOGO -->
-        <svg viewBox="0 0 100 100" fill="none">
-          <circle cx="50" cy="50" r="46" stroke="url(#g)" stroke-width="2"/>
-          <path d="M35 60 L50 30 L65 60" stroke="url(#g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          <defs>
-            <linearGradient id="g" x1="0" y1="0" x2="100" y2="100">
-              <stop offset="0%" stop-color="#b89b5e"/>
-              <stop offset="100%" stop-color="#ffffff"/>
-            </linearGradient>
-          </defs>
-        </svg>
-
-        <div class="logo-subtitle">Private Music Label</div>
-      </div>
+<!-- DASHBOARD -->
+<section id="dashboard">
+  <div class="hero">
+    <div class="logo">
+      <svg viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="46" stroke="#b89b5e" stroke-width="2"/>
+        <path d="M35 60 L50 30 L65 60" stroke="#b89b5e" stroke-width="3"
+          stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </div>
-
-    <div class="card">
-      <div class="label">Current Balance</div>
-      <div class="value">128 450 ₽</div>
-    </div>
-
-    <div class="card">
-      <div class="label">Artist Access</div>
-      <button class="button">Submit Application</button>
-      <button class="button">Upload Release</button>
-    </div>
-
   </div>
 
-  <div class="nav">
-    <div class="nav-item active">Dashboard</div>
-    <div class="nav-item">Releases</div>
-    <div class="nav-item">Royalties</div>
-    <div class="nav-item">Profile</div>
+  <div class="card">
+    <div class="label">Current Balance</div>
+    <div class="value">128 450 ₽</div>
   </div>
 
-  <script>
-    if (window.Telegram && window.Telegram.WebApp) {
-      const tg = window.Telegram.WebApp;
-      tg.ready();
-      tg.expand();
-    }
-  </script>
+  <div class="card">
+    <button class="button" onclick="openUpload()">Upload Release</button>
+  </div>
+</section>
+
+<!-- UPLOAD FORM -->
+<section id="upload" class="hidden">
+  <div class="card">
+    <div class="label">Upload Track</div>
+
+    <input class="input" placeholder="Track title" />
+    <input class="input" placeholder="Artist name" />
+    <input class="input" placeholder="Genre" />
+    <input class="input" type="file" />
+
+    <button class="button" onclick="submitTrack()">Submit Release</button>
+  </div>
+</section>
+
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="nav-item active" onclick="openDashboard()">Dashboard</div>
+  <div class="nav-item" onclick="openUpload()">Upload</div>
+  <div class="nav-item">Royalties</div>
+  <div class="nav-item">Profile</div>
+</div>
+
+<script>
+  const dashboard = document.getElementById('dashboard');
+  const upload = document.getElementById('upload');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  function setActive(i){
+    navItems.forEach(n=>n.classList.remove('active'));
+    navItems[i].classList.add('active');
+  }
+
+  function openDashboard(){
+    dashboard.classList.remove('hidden');
+    upload.classList.add('hidden');
+    setActive(0);
+  }
+
+  function openUpload(){
+    dashboard.classList.add('hidden');
+    upload.classList.remove('hidden');
+    setActive(1);
+  }
+
+  function submitTrack(){
+    alert('Release submitted (demo)');
+    openDashboard();
+  }
+
+  if(window.Telegram?.WebApp){
+    Telegram.WebApp.ready();
+    Telegram.WebApp.expand();
+  }
+</script>
 </body>
 </html>
