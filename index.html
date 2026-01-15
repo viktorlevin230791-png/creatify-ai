@@ -21,32 +21,28 @@
     header h1{margin:0;font-size:22px;font-weight:600}
     header span{font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
 
-    .hero{margin:20px;height:240px;border-radius:var(--radius);
-      display:flex;align-items:center;justify-content:center;
-      background:linear-gradient(160deg,#15151c,#0b0b10);
-      box-shadow:0 40px 90px rgba(0,0,0,.6)
-    }
-
-    .logo svg{width:100px;height:100px;opacity:.95}
-
     .card{background:var(--surface);border:1px solid var(--line);
       border-radius:var(--radius);margin:16px 20px;padding:18px}
 
     .label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;
       color:var(--muted);margin-bottom:8px}
 
-    .value{font-size:32px;font-weight:600;color:var(--accent)}
+    .value{font-size:14px}
 
     .button{margin-top:14px;padding:14px;width:100%;
       border-radius:14px;border:1px solid var(--line);
       background:linear-gradient(180deg,#1a1a20,#121216);
       color:var(--text);font-size:14px;cursor:pointer}
 
-    .button:hover{border-color:var(--accent)}
+    .button[disabled]{opacity:.4;cursor:not-allowed}
 
-    .input{width:100%;padding:12px 14px;border-radius:12px;
+    .input, .textarea{
+      width:100%;padding:12px 14px;border-radius:12px;
       background:#0f0f14;border:1px solid var(--line);
-      color:var(--text);margin-top:10px}
+      color:var(--text);margin-top:10px;font-size:14px
+    }
+
+    .textarea{min-height:120px;resize:vertical}
 
     .nav{position:fixed;bottom:0;left:0;right:0;
       background:rgba(10,10,12,.88);
@@ -60,6 +56,8 @@
 
     .nav-item.active{color:var(--accent)}
     .hidden{display:none}
+    .status-ok{color:#7dd3a8}
+    .status-wait{color:#facc15}
   </style>
 </head>
 
@@ -68,42 +66,52 @@
 
 <header>
   <h1>Взлетай Music</h1>
-  <span>Private Music Label</span>
+  <span>Private Artist Cabinet</span>
 </header>
 
-<!-- DASHBOARD -->
-<section id="dashboard">
-  <div class="hero">
-    <div class="logo">
-      <svg viewBox="0 0 100 100" fill="none">
-        <circle cx="50" cy="50" r="46" stroke="#b89b5e" stroke-width="2"/>
-        <path d="M35 60 L50 30 L65 60" stroke="#b89b5e" stroke-width="3"
-          stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+<!-- PROFILE -->
+<section id="profile">
+  <div class="card">
+    <div class="label">Artist Profile</div>
+    <div class="value">Имя артиста: <strong>Demo Artist</strong></div>
+    <div class="value">Статус договора:
+      <strong class="status-ok">Подписан</strong>
     </div>
+
+    <input class="input" type="file" />
+    <button class="button" onclick="confirmContract()">
+      Attach Contract Scan
+    </button>
   </div>
 
   <div class="card">
-    <div class="label">Current Balance</div>
-    <div class="value">128 450 ₽</div>
-  </div>
-
-  <div class="card">
-    <button class="button" onclick="openUpload()">Upload Release</button>
+    <button class="button" onclick="openUpload()">
+      Upload Release
+    </button>
   </div>
 </section>
 
-<!-- UPLOAD FORM -->
+<!-- UPLOAD -->
 <section id="upload" class="hidden">
   <div class="card">
-    <div class="label">Upload Track</div>
+    <div class="label">Release Upload</div>
 
-    <input class="input" placeholder="Track title" />
     <input class="input" placeholder="Artist name" />
-    <input class="input" placeholder="Genre" />
+    <input class="input" placeholder="Track title" />
+    <input class="input" placeholder="Lyrics author" />
+    <input class="input" placeholder="Music author" />
+
+    <textarea class="textarea" placeholder="Lyrics text"></textarea>
+
+    <input class="input" type="time" />
+    <input class="input" type="file" />
+    <input class="input" type="file" />
+    <input class="input" type="file" />
     <input class="input" type="file" />
 
-    <button class="button" onclick="submitTrack()">Submit Release</button>
+    <button class="button" onclick="submitTrack()">
+      Submit Release
+    </button>
   </div>
 </section>
 
@@ -111,14 +119,14 @@
 
 <!-- NAV -->
 <div class="nav">
-  <div class="nav-item active" onclick="openDashboard()">Dashboard</div>
+  <div class="nav-item active" onclick="openProfile()">Profile</div>
   <div class="nav-item" onclick="openUpload()">Upload</div>
   <div class="nav-item">Royalties</div>
-  <div class="nav-item">Profile</div>
+  <div class="nav-item">Account</div>
 </div>
 
 <script>
-  const dashboard = document.getElementById('dashboard');
+  const profile = document.getElementById('profile');
   const upload = document.getElementById('upload');
   const navItems = document.querySelectorAll('.nav-item');
 
@@ -127,21 +135,25 @@
     navItems[i].classList.add('active');
   }
 
-  function openDashboard(){
-    dashboard.classList.remove('hidden');
+  function openProfile(){
+    profile.classList.remove('hidden');
     upload.classList.add('hidden');
     setActive(0);
   }
 
   function openUpload(){
-    dashboard.classList.add('hidden');
+    profile.classList.add('hidden');
     upload.classList.remove('hidden');
     setActive(1);
   }
 
+  function confirmContract(){
+    alert('Contract attached (demo)');
+  }
+
   function submitTrack(){
-    alert('Release submitted (demo)');
-    openDashboard();
+    alert('Release submitted for moderation');
+    openProfile();
   }
 
   if(window.Telegram?.WebApp){
