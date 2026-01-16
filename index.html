@@ -21,44 +21,52 @@ min-height:100vh
 .hidden{display:none}
 
 /* BRAND */
-.brand{display:flex;flex-direction:column;align-items:center;margin-bottom:36px}
+.brand{display:flex;justify-content:center;margin-bottom:36px}
 .brand-card{background:#fff;border-radius:28px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.08)}
-.brand-card img{width:120px;display:block}
+.brand-card img{width:120px}
 
+/* TITLES */
 h1{margin:20px 0 6px;font-size:26px;font-weight:600;text-align:center}
 .subtitle{font-size:14px;color:#6c708b;text-align:center}
 
 /* CARDS */
-.card{background:#fff;border-radius:28px;padding:26px;margin-top:22px;box-shadow:0 18px 50px rgba(0,0,0,.07)}
+.card{
+background:#fff;border-radius:28px;padding:26px;
+margin-top:22px;box-shadow:0 18px 50px rgba(0,0,0,.07)
+}
 .card h2{margin:0 0 12px;font-size:17px;font-weight:600}
 .card p{font-size:14px;line-height:1.6;color:#4a4f6a}
 
 /* FORM */
 select,textarea,input{
-width:100%;padding:16px;border-radius:16px;border:1px solid #e5e7f0;
-margin-top:14px;font-family:Inter,sans-serif;font-size:14px;background:#fff
+width:100%;padding:16px;border-radius:16px;
+border:1px solid #e5e7f0;margin-top:14px;
+font-family:Inter,sans-serif;font-size:14px
 }
 .price{margin-top:14px;font-size:14px;font-weight:500}
 
 button{
-width:100%;padding:16px;border-radius:18px;border:none;
-font-size:15px;font-weight:600;cursor:pointer;margin-top:18px
+width:100%;padding:16px;border-radius:18px;
+border:none;font-size:15px;font-weight:600;
+cursor:pointer;margin-top:18px
 }
 .primary{background:#0f1222;color:#fff}
 .secondary{background:#f0f2f8;color:#0f1222}
 
 /* NAV */
 .bottom-nav{
-position:fixed;bottom:0;left:0;right:0;background:#ffffffee;
-backdrop-filter:blur(10px);border-top:1px solid #e6e8f0
+position:fixed;bottom:0;left:0;right:0;
+background:#ffffffee;border-top:1px solid #e6e8f0
 }
 .bottom-inner{
-max-width:430px;margin:0 auto;display:grid;
-grid-template-columns:repeat(3,1fr);gap:8px;padding:10px
+max-width:430px;margin:0 auto;
+display:grid;grid-template-columns:repeat(3,1fr);
+gap:8px;padding:10px
 }
 .nav-btn{
-background:#f0f2f8;border-radius:14px;padding:12px 6px;
-font-size:12px;text-align:center;cursor:pointer;color:#5c617a
+background:#f0f2f8;border-radius:14px;
+padding:12px 6px;font-size:12px;
+text-align:center;cursor:pointer;color:#5c617a
 }
 .nav-btn.active{background:#0f1222;color:#fff}
 </style>
@@ -80,9 +88,7 @@ font-size:12px;text-align:center;cursor:pointer;color:#5c617a
 
   <div class="card">
     <h2>О студии</h2>
-    <p>
-      Creatify AI — закрытая студия AI-продакшена для брендов и private-клиентов.
-    </p>
+    <p>Закрытая студия AI-продакшена для брендов и private-клиентов.</p>
   </div>
 
   <div class="card">
@@ -90,8 +96,8 @@ font-size:12px;text-align:center;cursor:pointer;color:#5c617a
     <p>
       1. Формируете запрос<br>
       2. Подтверждаем стоимость<br>
-      3. Оплата внутри сервиса (crypto)<br>
-      4. Результат в течение 24 часов
+      3. Оплата в криптовалюте<br>
+      4. Результат за 24 часа
     </p>
   </div>
 </div>
@@ -118,30 +124,23 @@ font-size:12px;text-align:center;cursor:pointer;color:#5c617a
 
     <textarea id="desc" rows="4" placeholder="Опишите задачу"></textarea>
 
-    <button class="primary" onclick="submitOrder()">Оформить и оплатить</button>
+    <input type="file" id="files" multiple>
+
+    <button class="primary" onclick="submitOrder()">Оформить заказ</button>
   </div>
 </div>
 
 <!-- PROFILE -->
 <div id="profile" class="hidden">
   <div class="card">
-    <h2>Профиль</h2>
+    <h2>Кошелёк</h2>
     <p><b>Баланс:</b> 0 USDT</p>
-    <button class="secondary" onclick="requestFiles()">Загрузить файлы</button>
+    <button class="secondary" onclick="confirmPayment()">Я пополнил</button>
   </div>
 
   <div class="card">
     <h2>Мои заказы</h2>
-    <p>История заказов будет доступна после первого заказа.</p>
-  </div>
-
-  <div class="card">
-    <h2>Оплата</h2>
-    <p>
-      Мы принимаем оплату в криптовалюте.<br>
-      Инвойс и адрес высылаются в чате после оформления заказа.
-    </p>
-    <button class="primary" onclick="confirmPayment()">Я оплатил</button>
+    <p>После выполнения здесь появятся материалы для скачивания.</p>
   </div>
 </div>
 
@@ -185,13 +184,10 @@ action:'create_order',
 type:type.value,
 level:level.value,
 price:prices[type.value][level.value]+' USDT',
-description:desc.value
+description:desc.value,
+files_count:files.files.length
 }));
 nav('profile');
-}
-
-function requestFiles(){
-tg.sendData(JSON.stringify({action:'request_files'}));
 }
 
 function confirmPayment(){
