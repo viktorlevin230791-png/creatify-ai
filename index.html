@@ -95,8 +95,8 @@ text-align:center;cursor:pointer;color:#5c617a
     <h2>Как мы работаем</h2>
     <p>
       1. Формируете запрос<br>
-      2. Подтверждаем стоимость<br>
-      3. Оплата в криптовалюте<br>
+      2. Пополняете баланс<br>
+      3. Оплачиваете работу из кошелька<br>
       4. Результат за 24 часа
     </p>
   </div>
@@ -134,8 +134,9 @@ text-align:center;cursor:pointer;color:#5c617a
 <div id="profile" class="hidden">
   <div class="card">
     <h2>Кошелёк</h2>
-    <p><b>Баланс:</b> 0 USDT</p>
-    <button class="secondary" onclick="confirmPayment()">Я пополнил</button>
+    <p><b>Баланс:</b> <span id="balance">0</span> USDT</p>
+    <button class="secondary" onclick="topUp()">Пополнить баланс</button>
+    <button class="primary" onclick="confirmTopUp()">Я пополнил</button>
   </div>
 
   <div class="card">
@@ -159,11 +160,17 @@ text-align:center;cursor:pointer;color:#5c617a
 const tg = Telegram.WebApp;
 tg.ready(); tg.expand();
 
+/* ===== BALANCE (MVP) ===== */
+let balance = Number(localStorage.getItem('balance') || 0);
+document.getElementById('balance').innerText = balance;
+
+/* ===== PRICES ===== */
 const prices={
 photo:{easy:50,medium:150,hard:300},
 video:{easy:150,medium:300,hard:600}
 };
 
+/* ===== NAV ===== */
 function nav(id,el){
 document.querySelectorAll('.app > div').forEach(d=>d.classList.add('hidden'));
 document.getElementById(id).classList.remove('hidden');
@@ -171,6 +178,7 @@ document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
 el.classList.add('active');
 }
 
+/* ===== PRICE ===== */
 function updatePrice(){
 const t=type.value,l=level.value;
 price.innerText = t&&l
@@ -178,20 +186,47 @@ price.innerText = t&&l
 : 'Стоимость: —';
 }
 
+/* ===== ORDER ===== */
 function submitOrder(){
+const cost = prices[type.value]?.[level.value];
+if(!cost){ tg.showAlert('Заполните все поля'); return; }
+
+if(balance < cost){
+tg.showAlert('Недостаточно средств. Пополните баланс.');
+nav('profile',document.querySelectorAll('.nav-btn')[2]);
+return;
+}
+
+balance -= cost;
+localStorage.setItem('balance', balance);
+document.getElementById('balance').innerText = balance;
+
 tg.sendData(JSON.stringify({
 action:'create_order',
 type:type.value,
 level:level.value,
-price:prices[type.value][level.value]+' USDT',
+price:cost+' USDT',
 description:desc.value,
 files_count:files.files.length
 }));
-nav('profile');
+
+tg.showAlert('Заказ принят. Средства списаны.');
+nav('profile',document.querySelectorAll('.nav-btn')[2]);
 }
 
-function confirmPayment(){
-tg.sendData(JSON.stringify({action:'payment_confirmed'}));
+/* ===== TOP UP ===== */
+function topUp(){
+tg.sendData(JSON.stringify({action:'topup_request'}));
+tg.showAlert('Инструкция для пополнения отправлена в чат');
+}
+
+function confirmTopUp(){
+balance += 100; // MVP
+localStorage.setItem('balance', balance);
+document.getElementById('balance').innerText = balance;
+
+tg.sendData(JSON.stringify({action:'topup_confirmed'}));
+tg.showAlert('Баланс обновлён');
 }
 </script>
 </body>
