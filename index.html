@@ -6,21 +6,21 @@
 <title>Creatify AI Studio</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 *{box-sizing:border-box}
 body{
 margin:0;
 font-family:Inter,sans-serif;
-background:radial-gradient(1200px 600px at top,#181833,#07070f);
-color:#fff;
+background:#f6f7fb;
+color:#0f1222;
 min-height:100vh
 }
 .app{
 max-width:430px;
 margin:0 auto;
-padding:28px 20px 130px
+padding:36px 20px 120px
 }
 .hidden{display:none}
 
@@ -29,63 +29,67 @@ padding:28px 20px 130px
 display:flex;
 flex-direction:column;
 align-items:center;
-margin-bottom:26px
+margin-bottom:36px
 }
-.brand-box{
+.brand-card{
 background:#fff;
 border-radius:28px;
-padding:22px;
-box-shadow:0 30px 80px rgba(0,0,0,.6)
+padding:24px;
+box-shadow:0 20px 60px rgba(0,0,0,.08)
 }
-.brand-box img{
+.brand-card img{
 width:120px;
 display:block
 }
 
 h1{
-margin:18px 0 6px;
+margin:20px 0 6px;
 font-size:26px;
 font-weight:600;
-text-align:center
+text-align:center;
+letter-spacing:-.02em
 }
 .subtitle{
 font-size:14px;
-opacity:.7;
+color:#6c708b;
 text-align:center
 }
 
 /* CARDS */
 .card{
 background:#fff;
-color:#0b0b18;
-border-radius:26px;
-padding:24px;
-margin-bottom:20px;
-box-shadow:0 25px 70px rgba(0,0,0,.55)
-}
-.card.dark{
-background:rgba(255,255,255,.08);
-color:#fff
+border-radius:28px;
+padding:26px;
+margin-top:22px;
+box-shadow:0 18px 50px rgba(0,0,0,.07)
 }
 .card h2{
-margin:0 0 10px;
+margin:0 0 12px;
 font-size:17px;
 font-weight:600
 }
 .card p{
 font-size:14px;
-line-height:1.55;
-opacity:.9
+line-height:1.6;
+color:#4a4f6a
 }
 
-/* FORMS */
+/* FORM */
 select,textarea,input{
 width:100%;
 padding:16px;
 border-radius:16px;
-border:1px solid rgba(0,0,0,.08);
-margin-top:12px;
-font-family:Inter,sans-serif
+border:1px solid #e5e7f0;
+margin-top:14px;
+font-family:Inter,sans-serif;
+font-size:14px;
+background:#fff
+}
+
+.price{
+margin-top:14px;
+font-size:14px;
+font-weight:500
 }
 
 button{
@@ -99,7 +103,7 @@ cursor:pointer;
 margin-top:18px
 }
 .primary{
-background:#0b0b18;
+background:#0f1222;
 color:#fff
 }
 
@@ -109,9 +113,9 @@ position:fixed;
 bottom:0;
 left:0;
 right:0;
-background:rgba(10,10,25,.95);
-backdrop-filter:blur(14px);
-border-top:1px solid rgba(255,255,255,.08)
+background:#ffffffee;
+backdrop-filter:blur(10px);
+border-top:1px solid #e6e8f0
 }
 .bottom-inner{
 max-width:430px;
@@ -122,18 +126,17 @@ gap:8px;
 padding:10px
 }
 .nav-btn{
-background:rgba(255,255,255,.08);
+background:#f0f2f8;
 border-radius:14px;
 padding:12px 6px;
 font-size:11px;
 text-align:center;
 cursor:pointer;
-opacity:.7
+color:#5c617a
 }
 .nav-btn.active{
-background:#fff;
-color:#0b0b18;
-opacity:1
+background:#0f1222;
+color:#fff
 }
 </style>
 </head>
@@ -144,7 +147,7 @@ opacity:1
 <!-- HOME -->
 <div id="home">
 <div class="brand">
-<div class="brand-box">
+<div class="brand-card">
 <img src="hero.png" alt="Creatify AI">
 </div>
 </div>
@@ -155,18 +158,18 @@ opacity:1
 <div class="card">
 <h2>О студии</h2>
 <p>
-Закрытая AI-студия визуального продакшена.<br>
-Работаем с брендами, продуктами и private-клиентами.
+Creatify AI — закрытая студия AI-продакшена.<br>
+Мы создаём визуальный контент для брендов, продуктов и private-клиентов.
 </p>
 </div>
 
 <div class="card">
 <h2>Как мы работаем</h2>
 <p>
-1. Вы формируете запрос<br>
-2. Мы подтверждаем стоимость<br>
+1. Формирование запроса<br>
+2. Подтверждение стоимости<br>
 3. Оплата внутри сервиса (crypto)<br>
-4. Результат в течение 24 часов
+4. Готовый результат в течение 24 часов
 </p>
 </div>
 </div>
@@ -189,7 +192,7 @@ opacity:1
 <option value="hard">Сложная</option>
 </select>
 
-<div id="price" style="margin-top:12px;font-weight:500">Стоимость: —</div>
+<div class="price" id="price">Стоимость: —</div>
 
 <textarea id="desc" rows="4" placeholder="Опишите задачу"></textarea>
 
@@ -204,8 +207,7 @@ opacity:1
 <p>
 Сумма: <b><span id="payAmount">—</span></b><br><br>
 USDT (TRC20)<br>
-Адрес:<br>
-<code>TXx9...PLACEHOLDER</code>
+Адрес будет выдан после подтверждения заказа.
 </p>
 
 <button class="primary" onclick="sendOrder()">Я оплатил</button>
@@ -220,8 +222,8 @@ USDT (TRC20)<br>
 <div class="nav-btn active" onclick="nav('home',this)">Главная</div>
 <div class="nav-btn" onclick="nav('order',this)">Заказать</div>
 <div class="nav-btn" onclick="nav('payment',this)">Оплата</div>
-<div class="nav-btn" onclick="nav('examples',this)">Концепты</div>
 <div class="nav-btn" onclick="nav('home',this)">Профиль</div>
+<div class="nav-btn" onclick="nav('home',this)">Инфо</div>
 </div>
 </div>
 
@@ -244,8 +246,8 @@ if(el) el.classList.add('active');
 function updatePrice(){
 const t=type.value,l=level.value;
 const val=t&&l?prices[t][l]+' USDT':'—';
-document.getElementById('price').innerText='Стоимость: '+val;
-document.getElementById('payAmount').innerText=val;
+price.innerText='Стоимость: '+val;
+payAmount.innerText=val;
 }
 
 function sendOrder(){
