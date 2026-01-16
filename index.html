@@ -3,102 +3,100 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Creatify AI</title>
+<title>Creatify AI Studio</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 *{box-sizing:border-box}
 body{
 margin:0;
 font-family:Inter,sans-serif;
-background:radial-gradient(circle at top,#6a5cff,#3b2fa3);
+background:linear-gradient(180deg,#0c0c1a,#15153a);
 color:#fff;
 min-height:100vh
 }
 .app{
 max-width:430px;
 margin:0 auto;
-padding:24px 20px 120px
+padding:28px 22px 120px
 }
 .hidden{display:none}
 
 h1{
-font-size:28px;
+font-size:30px;
 font-weight:700;
-margin:12px 0 6px;
-text-align:center
+text-align:center;
+margin:18px 0 6px
 }
 .subtitle{
 text-align:center;
 font-size:15px;
-opacity:.9;
-margin-bottom:22px
-}
-
-.hero{
-width:100%;
-border-radius:22px;
-margin-bottom:22px;
-box-shadow:0 20px 40px rgba(0,0,0,.35)
+opacity:.8;
+margin-bottom:26px
 }
 
 .card{
-background:rgba(255,255,255,.12);
-border-radius:18px;
-padding:18px;
-margin-bottom:16px;
-backdrop-filter:blur(10px)
+background:rgba(255,255,255,.08);
+border-radius:22px;
+padding:22px;
+margin-bottom:18px;
+backdrop-filter:blur(14px);
+box-shadow:0 20px 50px rgba(0,0,0,.4)
 }
 .card h2{
 font-size:18px;
-margin-bottom:10px
+margin-bottom:10px;
+font-weight:600
 }
 .card p{
 font-size:14px;
-line-height:1.45;
-opacity:.92
+line-height:1.5;
+opacity:.9
+}
+
+select,textarea{
+width:100%;
+padding:16px;
+border-radius:14px;
+border:none;
+margin-top:12px;
+background:rgba(255,255,255,.12);
+color:#fff;
+font-size:14px
+}
+
+.price{
+margin-top:12px;
+font-size:14px;
+opacity:.85
 }
 
 button{
 width:100%;
 padding:16px;
-border-radius:14px;
+border-radius:16px;
 border:none;
 font-size:15px;
 font-weight:600;
 cursor:pointer;
-margin-top:14px
+margin-top:16px
 }
 .primary{
-background:#fff;
-color:#3b2fa3
+background:linear-gradient(135deg,#c9b6ff,#8a6cff);
+color:#0c0c1a
 }
 
-select,textarea,input{
-width:100%;
-padding:14px;
-border-radius:12px;
-border:none;
-margin-top:10px;
-font-family:Inter,sans-serif
-}
-
-.price{
-margin-top:8px;
-font-size:14px;
-opacity:.9
-}
-
+/* NAV */
 .bottom-nav{
 position:fixed;
 bottom:0;
 left:0;
 right:0;
-background:rgba(30,25,90,.95);
-backdrop-filter:blur(10px);
-border-top:1px solid rgba(255,255,255,.15)
+background:rgba(10,10,30,.95);
+backdrop-filter:blur(12px);
+border-top:1px solid rgba(255,255,255,.08)
 }
 .bottom-inner{
 max-width:430px;
@@ -109,17 +107,19 @@ gap:8px;
 padding:10px
 }
 .nav-btn{
-background:rgba(255,255,255,.14);
+background:rgba(255,255,255,.08);
 border-radius:14px;
 padding:12px 6px;
 font-size:12px;
 text-align:center;
-cursor:pointer
+cursor:pointer;
+opacity:.85
 }
 .nav-btn.active{
 background:#fff;
-color:#3b2fa3;
-font-weight:600
+color:#15153a;
+font-weight:600;
+opacity:1
 }
 </style>
 </head>
@@ -129,337 +129,23 @@ font-weight:600
 
 <!-- HOME -->
 <div id="home">
-<img src="hero.png" alt="Creatify AI" class="hero">
-
 <h1>Creatify AI</h1>
-<div class="subtitle">
-AI-фото и видео под заказ<br>
-Оплата через Telegram Stars ⭐
-</div>
+<div class="subtitle">AI-контент премиум-уровня под заказ</div>
 
 <div class="card">
-<h2>О проекте</h2>
+<h2>О студии</h2>
 <p>
-Creatify AI — студия визуального контента.
-Вы заказываете фото или видео, мы выполняем работу в течение 24 часов.
-Оплата — через Telegram Stars прямо в Telegram.
+Creatify AI — закрытая студия визуального продакшена.<br>
+Мы создаём фото и видео для брендов, экспертов и премиальных продуктов.
 </p>
 </div>
 
 <div class="card">
-<h2>Как это работает</h2>
+<h2>Как мы работаем</h2>
 <p>
-1. Выбираете формат и сложность<br>
-2. Описываете задачу и прикрепляете материалы<br>
-3. Оплачиваете заказ ⭐<br>
-4. Получаете готовый результат
-</p>
-</div>
-</div>
-
-<!-- ORDER -->
-<div id="order" class="hidden">
-<div class="card">
-<h2>Новый заказ</h2>
-
-<select id="type" onchange="updatePrice()">
-<option value="">Формат</option>
-<option value="photo">Фото</option>
-<option value="video">Видео</option>
-</select>
-
-<select id="level" onchange="updatePrice()">
-<option value="">Сложность</option>
-<option value="easy">Лёгкая</option>
-<option value="medium">Средняя</option>
-<option value="hard">Сложная</option>
-</select>
-
-<div class="price" id="price">Стоимость: —</div>
-
-<textarea id="desc" rows="4" placeholder="Опишите задачу"></textarea>
-<input type="file" multiple>
-
-<button class="primary" onclick="sendOrder()">Перейти к оплате</button>
-</div>
-</div>
-
-<!-- ORDERS -->
-<div id="orders" class="hidden">
-<div class="card">
-<h2>Мои заказы</h2>
-<p>Здесь будут отображаться ваши заказы и их текущий статус.</p>
-</div>
-</div>
-
-<!-- WALLET -->
-<div id="wallet" class="hidden">
-<div class="card">
-<h2>Кошелёк</h2>
-<p>Баланс: 0 ⭐</p>
-<button class="primary">Пополнить через Telegram Stars</button>
-</div>
-</div>
-
-<!-- EXAMPLES -->
-<div id="examples" class="hidden">
-<div class="card">
-<h2>Примеры работ</h2>
-<p>
-Лёгкий уровень — базовые фото и клипы<br>
-Средний уровень — рекламные материалы<br>
-Сложный уровень — брендовые и концептуальные проекты
-</p>
-</div>
-</div>
-
-</div>
-<!-- BOTTOM NAV -->
-<div class="bottom-nav">
-<div class="bottom-inner">
-<div class="nav-btn active" onclick="nav('home',this)">Главная</div>
-<div class="nav-btn" onclick="nav('order',this)">Заказать</div>
-<div class="nav-btn" onclick="nav('orders',this)">Заказы</div>
-<div class="nav-btn" onclick="nav('wallet',this)">Кошелёк</div>
-<div class="nav-btn" onclick="nav('examples',this)">Примеры</div>
-</div>
-</div>
-
-<script>
-const tg = window.Telegram.WebApp;
-tg.expand();
-
-const prices = {
-photo:{easy:5,medium:15,hard:25},
-video:{easy:15,medium:25,hard:50}
-};
-
-function nav(id,el){
-document.querySelectorAll('.app > div').forEach(d=>d.classList.add('hidden'));
-document.getElementById(id).classList.remove('hidden');
-document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-el.classList.add('active');
-}
-
-function updatePrice(){
-const type=document.getElementById('type').value;
-const level=document.getElementById('level').value;
-const priceEl=document.getElementById('price');
-if(type && level){
-priceEl.innerText=Стоимость: ${prices[type][level]} ⭐;
-}else{
-priceEl.innerText='Стоимость: —';
-}
-}
-
-function sendOrder(){
-const type=document.getElementById('type').value;
-const level=document.getElementById('level').value;
-const description=document.getElementById('desc').value;
-if(!type!level!description)return;
-
-tg.sendData(JSON.stringify({
-action:'create_order',
-type:type,
-level:level,
-price:prices[type][level],
-description:description
-}));
-}
-</script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Creatify AI</title>
-
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-*{box-sizing:border-box}
-body{
-margin:0;
-font-family:Inter,sans-serif;
-background:radial-gradient(circle at top,#6a5cff,#3b2fa3);
-color:#fff;
-min-height:100vh
-}
-.app{
-max-width:430px;
-margin:0 auto;
-padding:24px 20px 120px
-}
-.hidden{display:none}
-
-h1{
-font-size:28px;
-font-weight:700;
-margin:12px 0 6px;
-text-align:center
-}
-.subtitle{
-text-align:center;
-font-size:15px;
-opacity:.9;
-margin-bottom:22px
-}
-
-.hero{
-width:100%;
-border-radius:22px;
-margin-bottom:22px;
-box-shadow:0 20px 40px rgba(0,0,0,.35)
-}
-
-.card{
-background:rgba(255,255,255,.12);
-border-radius:18px;
-padding:18px;
-margin-bottom:16px;
-backdrop-filter:blur(10px)
-}
-.card h2{
-font-size:18px;
-margin-bottom:10px
-}
-.card p{
-font-size:14px;
-line-height:1.45;
-opacity:.92
-}
-
-button{
-width:100%;
-padding:16px;
-border-radius:14px;
-border:none;
-font-size:15px;
-font-weight:600;
-cursor:pointer;
-margin-top:14px
-}
-.primary{
-background:#fff;
-color:#3b2fa3
-}
-
-select,textarea{
-width:100%;
-padding:14px;
-border-radius:12px;
-border:none;
-margin-top:10px;
-font-family:Inter,sans-serif
-}
-
-.price{
-margin-top:8px;
-font-size:14px;
-opacity:.9
-}
-
-/* DRAG & DROP */
-.drop-zone{
-margin-top:12px;
-border:2px dashed rgba(255,255,255,.4);
-border-radius:16px;
-padding:20px;
-text-align:center;
-transition:.2s;
-cursor:pointer;
-background:rgba(255,255,255,.06)
-}
-.drop-zone.dragover{
-background:rgba(255,255,255,.18);
-border-color:#fff
-}
-.drop-title{
-font-weight:600;
-margin-bottom:6px
-}
-.drop-sub{
-font-size:13px;
-opacity:.85
-}
-.files-list{
-margin-top:10px;
-font-size:13px;
-opacity:.9
-}
-.files-list div{
-margin-top:4px;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis
-}
-
-/* NAV */
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-background:rgba(30,25,90,.95);
-backdrop-filter:blur(10px);
-border-top:1px solid rgba(255,255,255,.15)
-}
-.bottom-inner{
-max-width:430px;
-margin:0 auto;
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:8px;
-padding:10px
-}
-.nav-btn{
-background:rgba(255,255,255,.14);
-border-radius:14px;
-padding:12px 6px;
-font-size:12px;
-text-align:center;
-cursor:pointer
-}
-.nav-btn.active{
-background:#fff;
-color:#3b2fa3;
-font-weight:600
-}
-</style>
-</head>
-
-<body>
-<div class="app">
-
-<!-- HOME (ВОССТАНОВЛЕНО) -->
-<div id="home">
-<img src="hero.png" class="hero" alt="Creatify AI">
-
-<h1>Creatify AI</h1>
-<div class="subtitle">
-AI-фото и видео под заказ<br>
-Оплата через Telegram Stars ⭐
-</div>
-
-<div class="card">
-<h2>О проекте</h2>
-<p>
-Creatify AI — студия визуального контента.<br>
-Вы заказываете фото или видео, мы выполняем работу в течение 24 часов.<br>
-Оплата — через Telegram Stars прямо в Telegram.
-</p>
-</div>
-
-<div class="card">
-<h2>Как это работает</h2>
-<p>
-1. Выбираете формат и сложность<br>
-2. Описываете задачу и прикрепляете материалы<br>
-3. Оплачиваете заказ ⭐<br>
-4. Получаете готовый результат
+1. Формируете запрос<br>
+2. Оплачиваете заказ ⭐<br>
+3. Мы создаём контент в течение 24 часов
 </p>
 </div>
 </div>
@@ -486,23 +172,15 @@ Creatify AI — студия визуального контента.<br>
 
 <textarea id="desc" rows="4" placeholder="Опишите задачу"></textarea>
 
-<input type="file" id="fileInput" multiple class="hidden">
-
-<div class="drop-zone" id="dropZone">
-<div class="drop-title">📎 Перетащите файлы сюда</div>
-<div class="drop-sub">или нажмите для выбора</div>
-</div>
-
-<div class="files-list" id="filesList"></div>
-
 <button class="primary" onclick="sendOrder()">Перейти к оплате</button>
 </div>
 </div>
+
 <!-- ORDERS -->
 <div id="orders" class="hidden">
 <div class="card">
 <h2>Мои заказы</h2>
-<p>После оплаты здесь появится история заказов.</p>
+<p>История заказов будет доступна после первой оплаты.</p>
 </div>
 </div>
 
@@ -510,7 +188,7 @@ Creatify AI — студия визуального контента.<br>
 <div id="wallet" class="hidden">
 <div class="card">
 <h2>Кошелёк</h2>
-<p>Баланс определяется через Telegram Stars</p>
+<p>Оплата производится через Telegram Stars.</p>
 </div>
 </div>
 
@@ -519,9 +197,9 @@ Creatify AI — студия визуального контента.<br>
 <div class="card">
 <h2>Примеры работ</h2>
 <p>
-Лёгкий — базовые фото<br>
-Средний — рекламные материалы<br>
-Сложный — брендовые и концептуальные проекты
+• Фото для брендов<br>
+• Видео для соцсетей<br>
+• AI-концепты и визуалы
 </p>
 </div>
 </div>
@@ -541,6 +219,7 @@ Creatify AI — студия визуального контента.<br>
 
 <script>
 const tg = window.Telegram.WebApp;
+tg.ready();
 tg.expand();
 
 const prices = {
@@ -548,72 +227,38 @@ photo:{easy:5,medium:15,hard:25},
 video:{easy:15,medium:25,hard:50}
 };
 
-let selectedFiles = [];
-
 function nav(id, el){
 document.querySelectorAll('.app > div').forEach(d=>d.classList.add('hidden'));
 document.getElementById(id).classList.remove('hidden');
 document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
 el.classList.add('active');
-tg.HapticFeedback.impactOccurred('light');
 }
 
 function updatePrice(){
-const t=type.value,l=level.value;
-price.innerText=t&&l?Стоимость: ${prices[t][l]} ⭐:'Стоимость: —';
-}
-
-/* DRAG & DROP */
-const dropZone = document.getElementById('dropZone');
-const fileInput = document.getElementById('fileInput');
-const filesList = document.getElementById('filesList');
-
-dropZone.onclick = () => fileInput.click();
-
-dropZone.ondragover = e => {
-e.preventDefault();
-dropZone.classList.add('dragover');
-};
-
-dropZone.ondragleave = () => dropZone.classList.remove('dragover');
-
-dropZone.ondrop = e => {
-e.preventDefault();
-dropZone.classList.remove('dragover');
-handleFiles(e.dataTransfer.files);
-};
-
-fileInput.onchange = () => handleFiles(fileInput.files);
-
-function handleFiles(files){
-for(const file of files){
-selectedFiles.push(file);
-}
-renderFiles();
-}
-
-function renderFiles(){
-filesList.innerHTML='';
-selectedFiles.forEach(f=>{
-const div=document.createElement('div');
-div.innerText=📄 ${f.name};
-filesList.appendChild(div);
-});
+const type=document.getElementById('type').value;
+const level=document.getElementById('level').value;
+const priceEl=document.getElementById('price');
+priceEl.innerText = type && level
+  ? `Стоимость: ${prices[type][level]} ⭐`
+  : 'Стоимость: —';
 }
 
 function sendOrder(){
-if(!type.value!level.value!desc.value){
+const type=document.getElementById('type').value;
+const level=document.getElementById('level').value;
+const description=document.getElementById('desc').value;
+
+if(!type || !level || !description){
 tg.showAlert('Заполните все поля');
 return;
 }
 
 tg.sendData(JSON.stringify({
 action:'create_order',
-type:type.value,
-level:level.value,
-price:prices[type.value][level.value],
-description:desc.value,
-files_count:selectedFiles.length
+type,
+level,
+price:prices[type][level],
+description
 }));
 }
 </script>
