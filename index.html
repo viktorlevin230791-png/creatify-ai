@@ -13,52 +13,63 @@
 body{
 margin:0;
 font-family:Inter,sans-serif;
-background:radial-gradient(1200px 600px at top,#1a1a3a,#080812);
+background:radial-gradient(1200px 600px at top,#181833,#07070f);
 color:#fff;
 min-height:100vh
 }
 .app{
 max-width:430px;
 margin:0 auto;
-padding:32px 22px 130px
+padding:28px 20px 130px
 }
 .hidden{display:none}
 
-/* LOGO / HERO */
-.logo{
-text-align:center;
-margin-bottom:22px
+/* BRAND */
+.brand{
+display:flex;
+flex-direction:column;
+align-items:center;
+margin-bottom:26px
 }
-.logo img{
-width:140px;
-filter:drop-shadow(0 14px 40px rgba(170,140,255,.45));
-opacity:.95
+.brand-box{
+background:#fff;
+border-radius:28px;
+padding:22px;
+box-shadow:0 30px 80px rgba(0,0,0,.6)
+}
+.brand-box img{
+width:120px;
+display:block
 }
 
 h1{
-font-size:28px;
+margin:18px 0 6px;
+font-size:26px;
 font-weight:600;
-text-align:center;
-margin:6px 0 6px
+text-align:center
 }
 .subtitle{
-text-align:center;
 font-size:14px;
-opacity:.75;
-margin-bottom:30px
+opacity:.7;
+text-align:center
 }
 
+/* CARDS */
 .card{
-background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.04));
-border-radius:24px;
+background:#fff;
+color:#0b0b18;
+border-radius:26px;
 padding:24px;
 margin-bottom:20px;
-backdrop-filter:blur(16px);
-box-shadow:0 30px 70px rgba(0,0,0,.55)
+box-shadow:0 25px 70px rgba(0,0,0,.55)
+}
+.card.dark{
+background:rgba(255,255,255,.08);
+color:#fff
 }
 .card h2{
+margin:0 0 10px;
 font-size:17px;
-margin-bottom:10px;
 font-weight:600
 }
 .card p{
@@ -67,21 +78,14 @@ line-height:1.55;
 opacity:.9
 }
 
+/* FORMS */
 select,textarea,input{
 width:100%;
 padding:16px;
 border-radius:16px;
-border:none;
+border:1px solid rgba(0,0,0,.08);
 margin-top:12px;
-background:rgba(255,255,255,.12);
-color:#fff;
-font-size:14px
-}
-
-.price{
-margin-top:14px;
-font-size:14px;
-opacity:.85
+font-family:Inter,sans-serif
 }
 
 button{
@@ -95,14 +99,8 @@ cursor:pointer;
 margin-top:18px
 }
 .primary{
-background:linear-gradient(135deg,#e6d9ff,#9c7cff);
-color:#0b0b18
-}
-
-.files{
-margin-top:12px;
-font-size:13px;
-opacity:.85
+background:#0b0b18;
+color:#fff
 }
 
 /* NAV */
@@ -111,7 +109,7 @@ position:fixed;
 bottom:0;
 left:0;
 right:0;
-background:rgba(5,5,20,.92);
+background:rgba(10,10,25,.95);
 backdrop-filter:blur(14px);
 border-top:1px solid rgba(255,255,255,.08)
 }
@@ -130,12 +128,11 @@ padding:12px 6px;
 font-size:11px;
 text-align:center;
 cursor:pointer;
-opacity:.75
+opacity:.7
 }
 .nav-btn.active{
 background:#fff;
-color:#14142b;
-font-weight:600;
+color:#0b0b18;
 opacity:1
 }
 </style>
@@ -146,8 +143,10 @@ opacity:1
 
 <!-- HOME -->
 <div id="home">
-<div class="logo">
+<div class="brand">
+<div class="brand-box">
 <img src="hero.png" alt="Creatify AI">
+</div>
 </div>
 
 <h1>Creatify AI Studio</h1>
@@ -156,8 +155,8 @@ opacity:1
 <div class="card">
 <h2>О студии</h2>
 <p>
-Creatify AI — закрытая студия визуального продакшена.<br>
-Мы создаём премиальный AI-контент для брендов и private-клиентов.
+Закрытая AI-студия визуального продакшена.<br>
+Работаем с брендами, продуктами и private-клиентами.
 </p>
 </div>
 
@@ -166,8 +165,8 @@ Creatify AI — закрытая студия визуального прода�
 <p>
 1. Вы формируете запрос<br>
 2. Мы подтверждаем стоимость<br>
-3. Оплата по crypto-инвойсу<br>
-4. Готовый результат в течение 24 часов
+3. Оплата внутри сервиса (crypto)<br>
+4. Результат в течение 24 часов
 </p>
 </div>
 </div>
@@ -190,47 +189,26 @@ Creatify AI — закрытая студия визуального прода�
 <option value="hard">Сложная</option>
 </select>
 
-<div class="price" id="price">Стоимость: —</div>
+<div id="price" style="margin-top:12px;font-weight:500">Стоимость: —</div>
 
 <textarea id="desc" rows="4" placeholder="Опишите задачу"></textarea>
 
-<input type="file" id="files" multiple>
-<div class="files" id="filesInfo">Файлы не выбраны</div>
-
-<button class="primary" onclick="sendOrder()">Отправить заявку</button>
+<button class="primary" onclick="nav('payment',this)">Перейти к оплате</button>
 </div>
 </div>
 
-<!-- ORDERS -->
-<div id="orders" class="hidden">
-<div class="card">
-<h2>Мои заказы</h2>
-<p>История заказов появится после подтверждения менеджером.</p>
-</div>
-</div>
-
-<!-- WALLET -->
-<div id="wallet" class="hidden">
+<!-- PAYMENT -->
+<div id="payment" class="hidden">
 <div class="card">
 <h2>Оплата</h2>
 <p>
-Мы принимаем оплату в криптовалюте:<br>
-USDT · BTC · ETH<br><br>
-Менеджер пришлёт персональный инвойс.
+Сумма: <b><span id="payAmount">—</span></b><br><br>
+USDT (TRC20)<br>
+Адрес:<br>
+<code>TXx9...PLACEHOLDER</code>
 </p>
-</div>
-</div>
 
-<!-- EXAMPLES -->
-<div id="examples" class="hidden">
-<div class="card">
-<h2>Концепты</h2>
-<p>
-• AI-фото для брендов<br>
-• Видео для маркетинга<br>
-• Концептуальные визуалы<br>
-• Private-проекты
-</p>
+<button class="primary" onclick="sendOrder()">Я оплатил</button>
 </div>
 </div>
 
@@ -241,58 +219,42 @@ USDT · BTC · ETH<br><br>
 <div class="bottom-inner">
 <div class="nav-btn active" onclick="nav('home',this)">Главная</div>
 <div class="nav-btn" onclick="nav('order',this)">Заказать</div>
-<div class="nav-btn" onclick="nav('orders',this)">Заказы</div>
-<div class="nav-btn" onclick="nav('wallet',this)">Оплата</div>
+<div class="nav-btn" onclick="nav('payment',this)">Оплата</div>
 <div class="nav-btn" onclick="nav('examples',this)">Концепты</div>
+<div class="nav-btn" onclick="nav('home',this)">Профиль</div>
 </div>
 </div>
 
 <script>
 const tg = window.Telegram.WebApp;
-tg.ready();
-tg.expand();
+tg.ready(); tg.expand();
 
 const prices={
 photo:{easy:50,medium:150,hard:300},
 video:{easy:150,medium:300,hard:600}
 };
 
-const filesInput=document.getElementById('files');
-const filesInfo=document.getElementById('filesInfo');
-
-filesInput.onchange=()=>{
-filesInfo.innerText = filesInput.files.length
-? `Прикреплено файлов: ${filesInput.files.length}`
-: 'Файлы не выбраны';
-};
-
 function nav(id,el){
 document.querySelectorAll('.app > div').forEach(d=>d.classList.add('hidden'));
 document.getElementById(id).classList.remove('hidden');
 document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-el.classList.add('active');
+if(el) el.classList.add('active');
 }
 
 function updatePrice(){
 const t=type.value,l=level.value;
-price.innerText = t && l
-? `Оценка: ${prices[t][l]} USDT`
-: 'Стоимость: —';
+const val=t&&l?prices[t][l]+' USDT':'—';
+document.getElementById('price').innerText='Стоимость: '+val;
+document.getElementById('payAmount').innerText=val;
 }
 
 function sendOrder(){
-if(!type.value || !level.value || !desc.value){
-tg.showAlert('Заполните все поля');
-return;
-}
-
 tg.sendData(JSON.stringify({
 action:'create_order',
 type:type.value,
 level:level.value,
 price:prices[type.value][level.value]+' USDT',
-description:desc.value,
-files_count:filesInput.files.length
+description:desc.value
 }));
 }
 </script>
