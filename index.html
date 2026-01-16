@@ -45,6 +45,7 @@ width:100%;padding:16px;border-radius:18px;border:none;
 font-size:15px;font-weight:600;cursor:pointer;margin-top:18px
 }
 .primary{background:#0f1222;color:#fff}
+.secondary{background:#f0f2f8;color:#0f1222}
 
 /* NAV */
 .bottom-nav{
@@ -53,11 +54,11 @@ backdrop-filter:blur(10px);border-top:1px solid #e6e8f0
 }
 .bottom-inner{
 max-width:430px;margin:0 auto;display:grid;
-grid-template-columns:repeat(5,1fr);gap:8px;padding:10px
+grid-template-columns:repeat(3,1fr);gap:8px;padding:10px
 }
 .nav-btn{
 background:#f0f2f8;border-radius:14px;padding:12px 6px;
-font-size:11px;text-align:center;cursor:pointer;color:#5c617a
+font-size:12px;text-align:center;cursor:pointer;color:#5c617a
 }
 .nav-btn.active{background:#0f1222;color:#fff}
 </style>
@@ -68,91 +69,91 @@ font-size:11px;text-align:center;cursor:pointer;color:#5c617a
 
 <!-- HOME -->
 <div id="home">
-<div class="brand">
-  <div class="brand-card">
-    <img src="hero.png" alt="Creatify AI">
+  <div class="brand">
+    <div class="brand-card">
+      <img src="hero.png" alt="Creatify AI">
+    </div>
   </div>
-</div>
 
-<h1>Creatify AI Studio</h1>
-<div class="subtitle">Private AI Visual Production</div>
+  <h1>Creatify AI Studio</h1>
+  <div class="subtitle">Private AI Visual Production</div>
 
-<div class="card">
-<h2>О студии</h2>
-<p>
-Creatify AI — закрытая студия AI-продакшена для брендов и private-клиентов.
-</p>
-</div>
+  <div class="card">
+    <h2>О студии</h2>
+    <p>
+      Creatify AI — закрытая студия AI-продакшена для брендов и private-клиентов.
+    </p>
+  </div>
 
-<div class="card">
-<h2>Как мы работаем</h2>
-<p>
-1. Формируете запрос<br>
-2. Подтверждаем стоимость<br>
-3. Оплата внутри сервиса (crypto)<br>
-4. Результат в течение 24 часов
-</p>
-</div>
+  <div class="card">
+    <h2>Как мы работаем</h2>
+    <p>
+      1. Формируете запрос<br>
+      2. Подтверждаем стоимость<br>
+      3. Оплата внутри сервиса (crypto)<br>
+      4. Результат в течение 24 часов
+    </p>
+  </div>
 </div>
 
 <!-- ORDER -->
 <div id="order" class="hidden">
-<div class="card">
-<h2>Новый заказ</h2>
+  <div class="card">
+    <h2>Новый заказ</h2>
 
-<select id="type" onchange="updatePrice()">
-<option value="">Формат</option>
-<option value="photo">Фото</option>
-<option value="video">Видео</option>
-</select>
+    <select id="type" onchange="updatePrice()">
+      <option value="">Формат</option>
+      <option value="photo">Фото</option>
+      <option value="video">Видео</option>
+    </select>
 
-<select id="level" onchange="updatePrice()">
-<option value="">Сложность</option>
-<option value="easy">Лёгкая</option>
-<option value="medium">Средняя</option>
-<option value="hard">Сложная</option>
-</select>
+    <select id="level" onchange="updatePrice()">
+      <option value="">Сложность</option>
+      <option value="easy">Лёгкая</option>
+      <option value="medium">Средняя</option>
+      <option value="hard">Сложная</option>
+    </select>
 
-<div class="price" id="price">Стоимость: —</div>
-<textarea id="desc" rows="4" placeholder="Опишите задачу"></textarea>
+    <div class="price" id="price">Стоимость: —</div>
 
-<button class="primary" onclick="goPayment()">Перейти к оплате</button>
-</div>
-</div>
+    <textarea id="desc" rows="4" placeholder="Опишите задачу"></textarea>
 
-<!-- ORDERS -->
-<div id="orders" class="hidden">
-<div class="card">
-<h2>Мои заказы</h2>
-<p>После оформления вы можете загрузить файлы.</p>
-<button class="primary" onclick="requestFiles()">Загрузить файлы</button>
-</div>
+    <button class="primary" onclick="submitOrder()">Оформить и оплатить</button>
+  </div>
 </div>
 
-<!-- PAYMENT -->
-<div id="payment" class="hidden">
-<div class="card">
-<h2>Оплата</h2>
-<p>
-Сумма: <b><span id="payAmount">—</span></b><br><br>
-USDT (TRC20)<br>
-Адрес будет выслан менеджером в чате.
-</p>
-<button class="primary" onclick="confirmPayment()">Я оплатил</button>
-</div>
+<!-- PROFILE -->
+<div id="profile" class="hidden">
+  <div class="card">
+    <h2>Профиль</h2>
+    <p><b>Баланс:</b> 0 USDT</p>
+    <button class="secondary" onclick="requestFiles()">Загрузить файлы</button>
+  </div>
+
+  <div class="card">
+    <h2>Мои заказы</h2>
+    <p>История заказов будет доступна после первого заказа.</p>
+  </div>
+
+  <div class="card">
+    <h2>Оплата</h2>
+    <p>
+      Мы принимаем оплату в криптовалюте.<br>
+      Инвойс и адрес высылаются в чате после оформления заказа.
+    </p>
+    <button class="primary" onclick="confirmPayment()">Я оплатил</button>
+  </div>
 </div>
 
 </div>
 
 <!-- NAV -->
 <div class="bottom-nav">
-<div class="bottom-inner">
-<div class="nav-btn active" onclick="nav('home',this)">Главная</div>
-<div class="nav-btn" onclick="nav('order',this)">Заказать</div>
-<div class="nav-btn" onclick="nav('orders',this)">Заказы</div>
-<div class="nav-btn" onclick="nav('payment',this)">Оплата</div>
-<div class="nav-btn" onclick="nav('home',this)">Профиль</div>
-</div>
+  <div class="bottom-inner">
+    <div class="nav-btn active" onclick="nav('home',this)">Главная</div>
+    <div class="nav-btn" onclick="nav('order',this)">Заказать</div>
+    <div class="nav-btn" onclick="nav('profile',this)">Профиль</div>
+  </div>
 </div>
 
 <script>
@@ -168,17 +169,17 @@ function nav(id,el){
 document.querySelectorAll('.app > div').forEach(d=>d.classList.add('hidden'));
 document.getElementById(id).classList.remove('hidden');
 document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-if(el) el.classList.add('active');
+el.classList.add('active');
 }
 
 function updatePrice(){
 const t=type.value,l=level.value;
-const v=t&&l?prices[t][l]+' USDT':'—';
-price.innerText='Стоимость: '+v;
-payAmount.innerText=v;
+price.innerText = t&&l
+? 'Стоимость: '+prices[t][l]+' USDT'
+: 'Стоимость: —';
 }
 
-function goPayment(){
+function submitOrder(){
 tg.sendData(JSON.stringify({
 action:'create_order',
 type:type.value,
@@ -186,7 +187,7 @@ level:level.value,
 price:prices[type.value][level.value]+' USDT',
 description:desc.value
 }));
-nav('payment');
+nav('profile');
 }
 
 function requestFiles(){
