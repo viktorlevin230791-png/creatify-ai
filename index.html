@@ -17,7 +17,7 @@ background:#f6f7fb;
 color:#0f1222;
 min-height:100vh
 }
-.app{max-width:430px;margin:0 auto;padding:36px 20px 120px}
+.app{max-width:430px;margin:0 auto;padding:36px 20px 140px}
 .hidden{display:none}
 
 /* BRAND */
@@ -69,6 +69,14 @@ padding:12px 6px;font-size:12px;
 text-align:center;cursor:pointer;color:#5c617a
 }
 .nav-btn.active{background:#0f1222;color:#fff}
+
+/* DEBUG */
+.debug{
+margin-top:18px;
+font-size:12px;
+color:#888;
+text-align:center
+}
 </style>
 </head>
 
@@ -92,142 +100,38 @@ text-align:center;cursor:pointer;color:#5c617a
   </div>
 
   <div class="card">
-    <h2>Как мы работаем</h2>
-    <p>
-      1. Формируете запрос<br>
-      2. Пополняете баланс<br>
-      3. Оплачиваете работу из кошелька<br>
-      4. Результат за 24 часа
-    </p>
+    <h2>DEBUG</h2>
+    <p>Проверка связи Mini App → Bot</p>
+    <button class="secondary" onclick="sendPing()">Отправить PING</button>
+    <div class="debug" id="debugStatus">Ожидание…</div>
   </div>
 </div>
 
-<!-- ORDER -->
-<div id="order" class="hidden">
-  <div class="card">
-    <h2>Новый заказ</h2>
-
-    <select id="type" onchange="updatePrice()">
-      <option value="">Формат</option>
-      <option value="photo">Фото</option>
-      <option value="video">Видео</option>
-    </select>
-
-    <select id="level" onchange="updatePrice()">
-      <option value="">Сложность</option>
-      <option value="easy">Лёгкая</option>
-      <option value="medium">Средняя</option>
-      <option value="hard">Сложная</option>
-    </select>
-
-    <div class="price" id="price">Стоимость: —</div>
-
-    <textarea id="desc" rows="4" placeholder="Опишите задачу"></textarea>
-
-    <input type="file" id="files" multiple>
-
-    <button class="primary" onclick="submitOrder()">Оформить заказ</button>
-  </div>
-</div>
-
-<!-- PROFILE -->
-<div id="profile" class="hidden">
-  <div class="card">
-    <h2>Кошелёк</h2>
-    <p><b>Баланс:</b> <span id="balance">0</span> USDT</p>
-    <button class="secondary" onclick="topUp()">Пополнить баланс</button>
-    <button class="primary" onclick="confirmTopUp()">Я пополнил</button>
-  </div>
-
-  <div class="card">
-    <h2>Мои заказы</h2>
-    <p>После выполнения здесь появятся материалы для скачивания.</p>
-  </div>
-</div>
-
-</div>
-
-<!-- NAV -->
-<div class="bottom-nav">
-  <div class="bottom-inner">
-    <div class="nav-btn active" onclick="nav('home',this)">Главная</div>
-    <div class="nav-btn" onclick="nav('order',this)">Заказать</div>
-    <div class="nav-btn" onclick="nav('profile',this)">Профиль</div>
-  </div>
 </div>
 
 <script>
-const tg = Telegram.WebApp;
-tg.ready(); tg.expand();
+const tg = window.Telegram.WebApp;
+tg.ready();
+tg.expand();
 
-/* ===== BALANCE (MVP) ===== */
-let balance = Number(localStorage.getItem('balance') || 0);
-document.getElementById('balance').innerText = balance;
+/* ===== DEBUG PING ===== */
+function sendPing(){
+  const payload = {
+    action: "ping_test",
+    username: tg.initDataUnsafe?.user?.username || "no_username",
+    user_id: tg.initDataUnsafe?.user?.id || "no_id",
+    time: new Date().toISOString(),
+    rnd: Math.random().toString(36).substring(2,8)
+  };
 
-/* ===== PRICES ===== */
-const prices={
-photo:{easy:50,medium:150,hard:300},
-video:{easy:150,medium:300,hard:600}
-};
-
-/* ===== NAV ===== */
-function nav(id,el){
-document.querySelectorAll('.app > div').forEach(d=>d.classList.add('hidden'));
-document.getElementById(id).classList.remove('hidden');
-document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-el.classList.add('active');
+  tg.sendData(JSON.stringify(payload));
+  document.getElementById('debugStatus').innerText =
+    "PING отправлен: " + payload.rnd;
 }
 
-/* ===== PRICE ===== */
-function updatePrice(){
-const t=type.value,l=level.value;
-price.innerText = t&&l
-? 'Стоимость: '+prices[t][l]+' USDT'
-: 'Стоимость: —';
-}
-
-/* ===== ORDER ===== */
-function submitOrder(){
-const cost = prices[type.value]?.[level.value];
-if(!cost){ tg.showAlert('Заполните все поля'); return; }
-
-if(balance < cost){
-tg.showAlert('Недостаточно средств. Пополните баланс.');
-nav('profile',document.querySelectorAll('.nav-btn')[2]);
-return;
-}
-
-balance -= cost;
-localStorage.setItem('balance', balance);
-document.getElementById('balance').innerText = balance;
-
-tg.sendData(JSON.stringify({
-action:'create_order',
-type:type.value,
-level:level.value,
-price:cost+' USDT',
-description:desc.value,
-files_count:files.files.length
-}));
-
-tg.showAlert('Заказ принят. Средства списаны.');
-nav('profile',document.querySelectorAll('.nav-btn')[2]);
-}
-
-/* ===== TOP UP ===== */
-function topUp(){
-tg.sendData(JSON.stringify({action:'topup_request'}));
-tg.showAlert('Инструкция для пополнения отправлена в чат');
-}
-
-function confirmTopUp(){
-balance += 100; // MVP
-localStorage.setItem('balance', balance);
-document.getElementById('balance').innerText = balance;
-
-tg.sendData(JSON.stringify({action:'topup_confirmed'}));
-tg.showAlert('Баланс обновлён');
-}
+/* ===== AUTO PING ON OPEN ===== */
+setTimeout(sendPing, 800);
 </script>
+
 </body>
 </html>
