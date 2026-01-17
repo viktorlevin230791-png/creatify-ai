@@ -1,30 +1,21 @@
 import TelegramBot from "node-telegram-bot-api";
 
+const token = process.env.BOT_TOKEN;
+
+const bot = new TelegramBot(token);
 export default async function handler(req, res) {
-  // Telegram присылает POST-запросы
   if (req.method !== "POST") {
-    res.status(200).send("OK");
-    return;
+    return res.status(200).send("OK");
   }
-
-  const token = process.env.BOT_TOKEN;
-  if (!token) {
-    console.error("BOT_TOKEN not found");
-    res.status(500).send("No token");
-    return;
-  }
-
-  const bot = new TelegramBot(token);
-
-  const update = req.body;
 
   try {
-    // ===== /start =====
-    if (update.message?.text === "/start") {
-      const chatId = update.message.chat.id;
+    const update = req.body;
+    await bot.processUpdate(update);
 
+    // /start
+    if (update.message?.text === "/start") {
       await bot.sendPhoto(
-        chatId,
+        update.message.chat.id,
         "https://raw.githubusercontent.com/viktorlevin230791-png/creatify-ai/main/lowe.png",
         {
           caption:
@@ -47,27 +38,26 @@ export default async function handler(req, res) {
       );
     }
 
-    // ===== WEBAPP sendData =====
-    if (update.message?.web_app_data?.data) {
-      const chatId = update.message.chat.id;
+    // WebApp PING
+    if (update.message?.web_app_data) {
       const data = JSON.parse(update.message.web_app_data.data);
 
-      // 🔎 PING
       if (data.action === "ping_test") {
         await bot.sendMessage(
-          chatId,
-          `✅ PING OK\n\n` +
-          `👤 Username: ${data.username || "—"}\n` +
-          `🆔 User ID: ${data.user_id || "—"}\n` +
-          `⏱ Time: ${data.time}\n` +
-          `🎲 Random: ${data.rnd}`
+          update.message.chat.id,
+          `✅ PING OK
+
+👤 Username: ${data.username}
+🆔 User ID: ${data.user_id}
+⏱ Time: ${data.time}
+🎲 Random: ${data.rnd}`
         );
       }
     }
 
-    res.status(200).send("OK");
+    res.status(200).json({ ok: true });
   } catch (err) {
-    console.error("BOT ERROR:", err);
-    res.status(200).send("OK");
+    console.error(err);
+    res.status(500).json({ error: "bot error" });
   }
 }
