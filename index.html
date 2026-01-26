@@ -2,51 +2,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creatify AI — Free Tool</title>  <!-- Telegram Mini App API -->  <script src="https://telegram.org/js/telegram-web-app.js"></script>  <!-- Google Font -->  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">  <style>
+  <title>Creatify AI — Free Tool</title>  <script src="https://telegram.org/js/telegram-web-app.js"></script>  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">  <style>
     :root {
-      --bg: #0b0c10;
-      --card: rgba(255,255,255,0.06);
-      --border: rgba(255,255,255,0.12);
+      --bg: #0a0a0f;
+      --card: rgba(255,255,255,0.07);
+      --border: rgba(255,255,255,0.14);
       --text: #ffffff;
       --muted: #9ca3af;
-      --accent: linear-gradient(135deg, #7c3aed, #06b6d4);
+      --accent: linear-gradient(135deg, #8b5cf6, #06b6d4);
+      --accent-soft: rgba(139,92,246,0.15);
     }
 
-    * {
-      box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
-    }
+    * { box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
     body {
       margin: 0;
-      background: radial-gradient(1200px 600px at 50% -200px, #1f2937, var(--bg));
+      min-height: 100vh;
+      background:
+        radial-gradient(900px 500px at 50% -200px, #1f2937, transparent),
+        linear-gradient(180deg, #050509, var(--bg));
       color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .container {
-      padding: 24px;
+      width: 100%;
       max-width: 420px;
-      margin: 0 auto;
+      padding: 20px;
     }
 
-    .hero {
+    .card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 24px;
+      border-radius: 28px;
       padding: 28px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-      backdrop-filter: blur(12px);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.65);
+      backdrop-filter: blur(14px);
+    }
+
+    .logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 22px;
+      margin-bottom: 18px;
     }
 
     .badge {
       display: inline-block;
-      padding: 6px 12px;
+      padding: 6px 14px;
       border-radius: 999px;
-      background: rgba(124,58,237,0.15);
-      color: #c4b5fd;
+      background: var(--accent-soft);
+      color: #ddd6fe;
       font-size: 12px;
       font-weight: 600;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     h1 {
@@ -62,52 +79,74 @@
       margin-bottom: 22px;
     }
 
-    .button {
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .btn {
       width: 100%;
       padding: 16px;
       border-radius: 16px;
       border: none;
       font-size: 16px;
       font-weight: 600;
-      color: #fff;
       cursor: pointer;
-      background: var(--accent);
-      transition: transform .15s ease, box-shadow .15s ease;
-      box-shadow: 0 10px 30px rgba(124,58,237,0.35);
+      transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
     }
 
-    .button:active {
-      transform: scale(0.98);
+    .btn-primary {
+      color: #fff;
+      background: var(--accent);
+      box-shadow: 0 12px 32px rgba(139,92,246,0.4);
     }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.06);
+      color: #e5e7eb;
+      border: 1px solid var(--border);
+    }
+
+    .btn:active { transform: scale(0.97); }
 
     .status {
       margin-top: 18px;
       font-size: 14px;
       text-align: center;
-      min-height: 20px;
+      min-height: 22px;
     }
 
     .footer {
-      margin-top: 28px;
+      margin-top: 22px;
       text-align: center;
       font-size: 12px;
       color: #6b7280;
     }
   </style></head>
 <body>  <div class="container">
-    <div class="hero">
-      <span class="badge">🎁 FREE ACCESS</span>
-      <h1>Creatify AI Tool</h1>
-      <p>
-        Получи бесплатный AI‑инструмент после подписки на наш канал.
-        Доступ открывается автоматически.
-      </p><button class="button" id="checkBtn">Проверить подписку</button>
+    <div class="card"><div class="logo">C</div>
+  <span class="badge">FREE AI TOOL</span>
+
+  <h1>Creatify AI</h1>
+  <p>
+    Подпишись на наш Telegram‑канал и получи бесплатный AI‑инструмент.
+    Проверка и доступ — автоматически.
+  </p>
+
+  <div class="actions">
+    <button class="btn btn-secondary" id="subscribeBtn">
+      🔔 Подписаться на канал
+    </button>
+
+    <button class="btn btn-primary" id="checkBtn">
+      ✅ Проверить подписку
+    </button>
+  </div>
 
   <div class="status" id="status"></div>
-</div>
 
-<div class="footer">
-  © Creatify AI
+  <div class="footer">© Creatify AI · @neyrolooms</div>
 </div>
 
   </div>  <script>
@@ -115,18 +154,23 @@
     tg.expand();
 
     const statusEl = document.getElementById('status');
-    const btn = document.getElementById('checkBtn');
+    const checkBtn = document.getElementById('checkBtn');
+    const subBtn = document.getElementById('subscribeBtn');
 
-    btn.addEventListener('click', async () => {
-      statusEl.innerText = '⏳ Проверяем подписку...';
+    subBtn.onclick = () => {
+      tg.openTelegramLink('https://t.me/neyrolooms');
+    };
+
+    checkBtn.onclick = async () => {
+      statusEl.innerText = '⏳ Проверяем подписку…';
+
+      const user = tg.initDataUnsafe?.user;
+      if (!user) {
+        statusEl.innerText = '❗ Открой через кнопку бота в Telegram';
+        return;
+      }
 
       try {
-        const user = tg.initDataUnsafe?.user;
-        if (!user) {
-          statusEl.innerText = '❌ Не удалось получить данные пользователя';
-          return;
-        }
-
         const res = await fetch('/api/check', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -134,18 +178,14 @@
         });
 
         const data = await res.json();
-
         statusEl.innerText = data.message;
 
         if (data.ok && data.link) {
-          setTimeout(() => {
-            tg.openLink(data.link);
-          }, 1200);
+          setTimeout(() => tg.openLink(data.link), 1200);
         }
-
       } catch (e) {
-        statusEl.innerText = '⚠️ Ошибка соединения';
+        statusEl.innerText = '⚠️ Ошибка сервера';
       }
-    });
+    };
   </script></body>
 </html>
