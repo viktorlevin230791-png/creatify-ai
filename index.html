@@ -1,138 +1,151 @@
-<!DOCTYPE html>
-<html lang="ru">
+<!DOCTYPE html><html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Creatify AI Studio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creatify AI — Free Tool</title>  <!-- Telegram Mini App API -->  <script src="https://telegram.org/js/telegram-web-app.js"></script>  <!-- Google Font -->  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">  <style>
+    :root {
+      --bg: #0b0c10;
+      --card: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.12);
+      --text: #ffffff;
+      --muted: #9ca3af;
+      --accent: linear-gradient(135deg, #7c3aed, #06b6d4);
+    }
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
 
-<style>
-*{box-sizing:border-box}
-body{
-margin:0;
-font-family:Inter,sans-serif;
-background:#f6f7fb;
-color:#0f1222;
-min-height:100vh
-}
-.app{max-width:430px;margin:0 auto;padding:36px 20px 140px}
-.hidden{display:none}
+    body {
+      margin: 0;
+      background: radial-gradient(1200px 600px at 50% -200px, #1f2937, var(--bg));
+      color: var(--text);
+    }
 
-/* BRAND */
-.brand{display:flex;justify-content:center;margin-bottom:36px}
-.brand-card{background:#fff;border-radius:28px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.08)}
-.brand-card img{width:120px}
+    .container {
+      padding: 24px;
+      max-width: 420px;
+      margin: 0 auto;
+    }
 
-/* TITLES */
-h1{margin:20px 0 6px;font-size:26px;font-weight:600;text-align:center}
-.subtitle{font-size:14px;color:#6c708b;text-align:center}
+    .hero {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      backdrop-filter: blur(12px);
+    }
 
-/* CARDS */
-.card{
-background:#fff;border-radius:28px;padding:26px;
-margin-top:22px;box-shadow:0 18px 50px rgba(0,0,0,.07)
-}
-.card h2{margin:0 0 12px;font-size:17px;font-weight:600}
-.card p{font-size:14px;line-height:1.6;color:#4a4f6a}
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(124,58,237,0.15);
+      color: #c4b5fd;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
 
-/* FORM */
-select,textarea,input{
-width:100%;padding:16px;border-radius:16px;
-border:1px solid #e5e7f0;margin-top:14px;
-font-family:Inter,sans-serif;font-size:14px
-}
-.price{margin-top:14px;font-size:14px;font-weight:500}
+    h1 {
+      font-size: 26px;
+      line-height: 1.2;
+      margin: 0 0 12px;
+    }
 
-button{
-width:100%;padding:16px;border-radius:18px;
-border:none;font-size:15px;font-weight:600;
-cursor:pointer;margin-top:18px
-}
-.primary{background:#0f1222;color:#fff}
-.secondary{background:#f0f2f8;color:#0f1222}
+    p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
 
-/* NAV */
-.bottom-nav{
-position:fixed;bottom:0;left:0;right:0;
-background:#ffffffee;border-top:1px solid #e6e8f0
-}
-.bottom-inner{
-max-width:430px;margin:0 auto;
-display:grid;grid-template-columns:repeat(3,1fr);
-gap:8px;padding:10px
-}
-.nav-btn{
-background:#f0f2f8;border-radius:14px;
-padding:12px 6px;font-size:12px;
-text-align:center;cursor:pointer;color:#5c617a
-}
-.nav-btn.active{background:#0f1222;color:#fff}
+    .button {
+      width: 100%;
+      padding: 16px;
+      border-radius: 16px;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      cursor: pointer;
+      background: var(--accent);
+      transition: transform .15s ease, box-shadow .15s ease;
+      box-shadow: 0 10px 30px rgba(124,58,237,0.35);
+    }
 
-/* DEBUG */
-.debug{
-margin-top:18px;
-font-size:12px;
-color:#888;
-text-align:center
-}
-</style>
-</head>
+    .button:active {
+      transform: scale(0.98);
+    }
 
-<body>
-<div class="app">
+    .status {
+      margin-top: 18px;
+      font-size: 14px;
+      text-align: center;
+      min-height: 20px;
+    }
 
-<!-- HOME -->
-<div id="home">
-  <div class="brand">
-    <div class="brand-card">
-      <img src="hero.png" alt="Creatify AI">
-    </div>
-  </div>
+    .footer {
+      margin-top: 28px;
+      text-align: center;
+      font-size: 12px;
+      color: #6b7280;
+    }
+  </style></head>
+<body>  <div class="container">
+    <div class="hero">
+      <span class="badge">🎁 FREE ACCESS</span>
+      <h1>Creatify AI Tool</h1>
+      <p>
+        Получи бесплатный AI‑инструмент после подписки на наш канал.
+        Доступ открывается автоматически.
+      </p><button class="button" id="checkBtn">Проверить подписку</button>
 
-  <h1>Creatify AI Studio</h1>
-  <div class="subtitle">Private AI Visual Production</div>
-
-  <div class="card">
-    <h2>О студии</h2>
-    <p>Закрытая студия AI-продакшена для брендов и private-клиентов.</p>
-  </div>
-
-  <div class="card">
-    <h2>DEBUG</h2>
-    <p>Проверка связи Mini App → Bot</p>
-    <button class="secondary" onclick="sendPing()">Отправить PING</button>
-    <div class="debug" id="debugStatus">Ожидание…</div>
-  </div>
+  <div class="status" id="status"></div>
 </div>
 
+<div class="footer">
+  © Creatify AI
 </div>
 
-<script>
-const tg = window.Telegram.WebApp;
-tg.ready();
-tg.expand();
+  </div>  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
 
-/* ===== DEBUG PING ===== */
-function sendPing(){
-  const payload = {
-    action: "ping_test",
-    username: tg.initDataUnsafe?.user?.username || "no_username",
-    user_id: tg.initDataUnsafe?.user?.id || "no_id",
-    time: new Date().toISOString(),
-    rnd: Math.random().toString(36).substring(2,8)
-  };
+    const statusEl = document.getElementById('status');
+    const btn = document.getElementById('checkBtn');
 
-  tg.sendData(JSON.stringify(payload));
-  document.getElementById('debugStatus').innerText =
-    "PING отправлен: " + payload.rnd;
-}
+    btn.addEventListener('click', async () => {
+      statusEl.innerText = '⏳ Проверяем подписку...';
 
-/* ===== AUTO PING ON OPEN ===== */
-setTimeout(sendPing, 800);
-</script>
+      try {
+        const user = tg.initDataUnsafe?.user;
+        if (!user) {
+          statusEl.innerText = '❌ Не удалось получить данные пользователя';
+          return;
+        }
 
-</body>
+        const res = await fetch('/api/check', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user_id: user.id })
+        });
+
+        const data = await res.json();
+
+        statusEl.innerText = data.message;
+
+        if (data.ok && data.link) {
+          setTimeout(() => {
+            tg.openLink(data.link);
+          }, 1200);
+        }
+
+      } catch (e) {
+        statusEl.innerText = '⚠️ Ошибка соединения';
+      }
+    });
+  </script></body>
 </html>
-
