@@ -1,82 +1,62 @@
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(200).send("OK");
-  }
+import TelegramBot from 'node-telegram-bot-api';
+import fs from 'fs';
 
-  const token = process.env.BOT_TOKEN;
-  if (!token) {
-    console.error("BOT_TOKEN not set");
-    return res.status(500).send("NO TOKEN");
-  }
+// ====== НАСТРОЙКИ ======
+const BOT_TOKEN = process.env.BOT_TOKEN;
+const WEBAPP_URL = 'https://creatify-ai-rust.vercel.app';
 
-  const update = req.body;
-  console.log("UPDATE:", JSON.stringify(update));
+// ======================
+const bot = new TelegramBot(BOT_TOKEN, { polling: true });
 
-  const send = async (method, payload) => {
-    await fetch(`https://api.telegram.org/bot${token}/${method}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-  };
+// /start
+bot.onText(/\/start/, async (msg) => {
+  const chatId = msg.chat.id;
 
-  // ===============================
-  // /start
-  // ===============================
-  if (update.message?.text === "/start") {
-    const chatId = update.message.chat.id;
+  const caption = `
+✨ <b>Creatify AI</b>
 
-    await send("sendPhoto", {
-      chat_id: chatId,
-      photo:
-        "https://raw.githubusercontent.com/viktorlevin230791-png/creatify-ai/main/lowe.png",
-      caption:
-        "Creatify AI Studio\n\n" +
-        "Private AI Visual Production\n\n" +
-        "Нажмите кнопку ниже, чтобы открыть приложение.",
+Получи <b>бесплатный AI-инструмент</b> для:
+• нейрофото
+• AI-промптов
+• креаторской работы
+
+🔓 Доступ открывается <b>автоматически</b> после подписки на канал.
+`;
+
+  await bot.sendPhoto(
+    chatId,
+    fs.createReadStream('./welcome.jpg'), // ← твоя картинка
+    {
+      caption,
+      parse_mode: 'HTML',
       reply_markup: {
         inline_keyboard: [
           [
             {
-              text: "Открыть Creatify AI",
+              text: '🎁 Получить бесплатный AI-инструмент',
               web_app: {
-                url: "https://creatify-ai-rust.vercel.app/"
+                url: WEBAPP_URL
               }
+            }
+          ],
+          [
+            {
+              text: '📢 Наш Telegram-канал',
+              url: 'https://t.me/neyrolooms'
             }
           ]
         ]
       }
-    });
-
-    return res.status(200).send("OK");
-  }
-
-  // ===============================
-  // WEB APP DATA (PING)
-  // ===============================
-  if (update.message?.web_app_data) {
-    const chatId = update.message.chat.id;
-
-    let data;
-    try {
-      data = JSON.parse(update.message.web_app_data.data);
-    } catch (e) {
-      console.error("JSON ERROR", e);
-      return res.status(200).send("OK");
     }
+  );
+});
 
-    console.log("WEBAPP DATA:", data);
-
-    if (data.action === "ping_test") {
-      await send("sendMessage", {
-        chat_id: chatId,
-        text:
-          `✅ PING OK\n\n` +
-          `👤 User ID: ${update.message.from.id}\n` +
-          `🎲 Random: ${data.rnd}`
-      });
-    }
+// fallback (если напишут что-то ещё)
+bot.on('message', (msg) => {
+  if (msg.text && msg.text !== '/start') {
+    bot.sendMessage(
+      msg.chat.id,
+      'Напиши /start, чтобы получить доступ к AI-инструменту 👇'
+    );
   }
-
-  return res.status(200).send("OK");
-}
+});
